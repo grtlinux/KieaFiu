@@ -1,0 +1,30 @@
+{
+	"__head_base" : {
+		"name" : "start open.REQ.head",
+		"description" : "업무개시응답(0610/0010)",
+		"reqres" : "0610",
+		"type" : "0010"
+	},
+	"__head_data" : {
+		"length"          : "L: 4,T:string,D:0000      ,C:전문길이",
+		"transactionCode" : "L: 9,T:string,D:DBOGOXFIU ,C:트랜젝션코드",
+		"systemName"      : "L: 3,T:string,D:FIU       ,C:시스템명칭",
+		"bogoCode"        : "L: 6,T:string,D:G00001    ,C:보고기관코드",
+		"userId"          : "L:20,T:string,D:Testuser01,C:사용자ID",
+		"typeCode"        : "L: 8,T:string,D:06100010  ,C:전문종별코드",
+		"reqresGubun"     : "L: 1,T:string,D:S         ,C:송수신구분",
+		"orgGubun"        : "L: 1,T:string,D:F         ,C:기관구분",
+		"sequenceYn"      : "L: 1,T:string,D:Y         ,C:계속여부",
+		"resCode"         : "L: 3,T:string,D:000       ,C:응답코드"
+	},
+	"__body_base" : {
+		"name" : "start open.REQ.body"
+	},
+	"__body_data" : {
+		"openDataTime" : "L:14,T:string,D:yyyyMMddHHmmss,C:개시요구일시",
+		"fileCheckSec" : "L: 4,T:string,D:0030          ,C:파일확인요구간격",
+		"sendMethod"   : "L: 1,T:string,D:B             ,C:전송방법",
+		"encryptYn"    : "L: 1,T:string,D:0             ,C:압축사용여부",
+		"seqTakeYn"    : "L: 1,T:string,D:N             ,C:이어받기여부"
+	}
+}
