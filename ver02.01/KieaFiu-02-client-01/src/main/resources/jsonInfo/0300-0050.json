@@ -1,0 +1,28 @@
+{
+	"__head_base" : {
+		"name" : "start open.REQ.head",
+		"description" : "파일종료요구(0300/0050)",
+		"reqres" : "0300",
+		"type" : "0050"
+	},
+	"__head_data" : {
+		"length"          : "L: 4,T:string,D:0000      ,C:전문길이",
+		"transactionCode" : "L: 9,T:string,D:DBOGOXFIU ,C:트랜젝션코드",
+		"systemName"      : "L: 3,T:string,D:FIU       ,C:시스템명칭",
+		"bogoCode"        : "L: 6,T:string,D:G00001    ,C:보고기관코드",
+		"userId"          : "L:20,T:string,D:Testuser01,C:사용자ID",
+		"typeCode"        : "L: 8,T:string,D:03000050  ,C:전문종별코드",
+		"reqresGubun"     : "L: 1,T:string,D:S         ,C:송수신구분",
+		"orgGubun"        : "L: 1,T:string,D:B         ,C:기관구분",
+		"sequenceYn"      : "L: 1,T:string,D:Y         ,C:계속여부",
+		"resCode"         : "L: 3,T:string,D:000       ,C:응답코드"
+	},
+	"__body_base" : {
+		"name" : "start open.REQ.body"
+	},
+	"__body_data" : {
+		"sequence" : "L: 7,T:string,D:0000003         ,C:시퀀스",
+		"XXXXXX" : "L:10,T:string,D:0000008152      ,C:총송신크기",
+		"XXXXXX" : "L:14,T:string,D:yyyyMMddHHmmss,C:종료일시"
+	}
+}
