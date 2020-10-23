@@ -21,8 +21,8 @@
 		"name" : "start open.REQ.body"
 	},
 	"__body_data" : {
-		"sequence" : "L: 7,T:string,D:0000003         ,C:시퀀스",
-		"XXXXXX" : "L:10,T:string,D:0000008152      ,C:총송신크기",
-		"XXXXXX" : "L:14,T:string,D:yyyyMMddHHmmss,C:종료일시"
+		"sequence"  : "L: 7,T:string,D:0000003        ,C:시퀀스",
+		"totalSize" : "L:10,T:string,D:0000008152     ,C:총송신크기",
+		"endTime"   : "L:14,T:string,D:yyyyMMddHHmmss ,C:종료일시"
 	}
 }

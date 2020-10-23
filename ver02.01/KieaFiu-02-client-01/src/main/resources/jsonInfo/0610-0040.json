@@ -21,6 +21,6 @@
 		"name" : "start open.REQ.body"
 	},
 	"__body_data" : {
-		"XXXXXX" : "L:14,T:string,D:yyyyMMddHHmmss,C:업무종료일시"
+		"closeDateTime" : "L:14,T:string,D:yyyyMMddHHmmss,C:업무종료일시"
 	}
 }
