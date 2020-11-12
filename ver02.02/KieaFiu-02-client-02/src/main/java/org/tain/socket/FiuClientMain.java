@@ -11,36 +11,35 @@ import org.tain.utils.Flag;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class FiuServerMain {
+public class FiuClientMain {
 
 	public static void process() throws Exception {
 		log.info("KANG-20201111 >>>>> {} {}", CurrentInfo.get());
 		
 		if (Flag.flag) {
-			// server
-			ServerSocket serverSocket = new ServerSocket();
-			//int port = this.projEnvJobProperties.getListenPort();
+			// client
+			//String host = this.projEnvJobProperties.getServerHost();
+			String host = "localhost";
+			//int port = this.projEnvJobProperties.getServerPort();
 			int port = 1234;
-			InetSocketAddress inetSocketAddress = new InetSocketAddress("localhost", port);
-			serverSocket.bind(inetSocketAddress);
 			
-			LnsSocketTicket lnsSocketTicket = null;
+			Socket socket = null;
 			try {
-				Socket socket = serverSocket.accept();  // connect-block
-					
+				LnsSocketTicket lnsSocketTicket = null;
+				
+				socket = new Socket();
+				InetSocketAddress inetSocketAddress = new InetSocketAddress(host, port);
+				socket.connect(inetSocketAddress);
+				
 				// set socket to ticket
 				lnsSocketTicket.set(socket);
-				
-				
-				
-				
-				
+				log.info(">>>>> {} has a socket. SET SOCKET.", lnsSocketTicket);
 				
 				//Sleep.run(1 * 1000);
 			} catch (Exception e) {
 				e.printStackTrace();
 			} finally {
-				if (serverSocket != null) try { serverSocket.close(); } catch (Exception e) {}
+				//
 			}
 		}
 	}
