@@ -42,7 +42,10 @@ public class MapperReaderJob {
 		if (Flag.flag) {
 			String home = this.projEnvParamProperties.getHome();
 			String base = this.projEnvParamProperties.getBase();
-			basePath = home + base;
+			String infoPath = this.projEnvParamProperties.getInfoPath();
+			@SuppressWarnings("unused")
+			String dataPath = this.projEnvParamProperties.getDataPath();
+			basePath = home + base + infoPath;
 			if (Flag.flag) log.info(">>>>>> BasePath name is " + basePath);
 		}
 		

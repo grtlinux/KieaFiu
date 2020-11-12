@@ -24,7 +24,7 @@
 		"openDataTime" : "L:14,T:string,D:yyyyMMddHHmmss,C:개시요구일시",
 		"fileCheckSec" : "L: 4,T:string,D:0030          ,C:파일확인요구간격",
 		"sendMethod"   : "L: 1,T:string,D:B             ,C:전송방법",
-		"encryptYn"    : "L: 1,T:string,D:0             ,C:압축사용여부",
+		"encYn"        : "L: 1,T:string,D:0             ,C:압축사용여부",
 		"seqTakeYn"    : "L: 1,T:string,D:N             ,C:이어받기여부"
 	}
 }

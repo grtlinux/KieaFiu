@@ -90,7 +90,8 @@ public class LnsMstInfo implements Cloneable {
 	
 	public String getJsonHead() throws Exception {
 		LnsJsonNode lnsJsonNode = null;
-		if (Flag.flag) {
+		if (!Flag.flag) {
+			/*
 			lnsJsonNode = new LnsJsonNode();
 			lnsJsonNode.put("length", this.headBaseInfoNode.get("length").asText());
 			lnsJsonNode.put("reqres", this.reqResType.substring(0, 4));
@@ -102,6 +103,20 @@ public class LnsMstInfo implements Cloneable {
 			lnsJsonNode.put("resCode", "");
 			lnsJsonNode.put("resMessage", "");
 			lnsJsonNode.put("reserved", "");
+			*/
+		}
+		if (Flag.flag) {
+			lnsJsonNode = new LnsJsonNode();
+			lnsJsonNode.put("length", this.headBaseInfoNode.get("length").asText());
+			lnsJsonNode.put("transactionCode", "DBOGOXFIU");
+			lnsJsonNode.put("systemName", "FIU");
+			lnsJsonNode.put("bogoCode", "G00001");
+			lnsJsonNode.put("userId", "Testuser01");
+			lnsJsonNode.put("typeCode", "03000030");
+			lnsJsonNode.put("reqresGubun", "S");
+			lnsJsonNode.put("orgGubun", "B");
+			lnsJsonNode.put("sequenceYn", "Y");
+			lnsJsonNode.put("resCode", "000");
 		}
 		return lnsJsonNode.toPrettyString();
 	}
@@ -121,7 +136,7 @@ public class LnsMstInfo implements Cloneable {
 				LnsElementInfo info = new LnsElementInfo(strInfo);
 				if (info.isUsable()) {
 					String data = node.get(fieldName).asText();
-					info.setFormat("%" + info.getLength() + "." + info.getLength() + "s");
+					info.setFormat("%-" + info.getLength() + "." + info.getLength() + "s");
 					String fieldValue = String.format(info.getFormat(), data);
 					sb.append(fieldValue);
 				}

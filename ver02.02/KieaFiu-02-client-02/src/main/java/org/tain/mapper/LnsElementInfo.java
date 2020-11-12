@@ -28,7 +28,7 @@ public class LnsElementInfo {
 			String info = split[i];
 			switch (info.charAt(0)) {
 			case 'L':
-				this.length = Integer.valueOf(info.substring(2));
+				this.length = Integer.valueOf(info.substring(2).trim());
 				this.usable = this.length > 0 ? true : false;
 				break;
 			case 'T':

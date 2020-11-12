@@ -31,10 +31,10 @@ public class KieaFiu02Client02Application implements CommandLineRunner {
 		log.info("KANG-20200923 >>>>> {} {}", CurrentInfo.get());
 		
 		if (Flag.flag) job01();  // properties
-		if (!Flag.flag) job02();  // tasks.MapperReaderJob
+		if (Flag.flag) job02();  // tasks.MapperReaderJob
 		if (!Flag.flag) job03();  // jsonTest
 		if (!Flag.flag) job04();  // infoTest
-		if (Flag.flag) job05();  // client
+		if (!Flag.flag) job05();  // client
 		if (Flag.flag) job06();
 		if (Flag.flag) job07();
 		if (Flag.flag) job08();
