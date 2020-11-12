@@ -41,7 +41,7 @@ public class KieaFiu01Server02Application implements CommandLineRunner {
 		if (Flag.flag) job09();
 		if (Flag.flag) job10();
 		
-		if (Flag.flag) System.exit(0);
+		//if (Flag.flag) System.exit(0);
 	}
 	
 	///////////////////////////////////////////////////////////////////////////
@@ -120,11 +120,14 @@ public class KieaFiu01Server02Application implements CommandLineRunner {
 	
 	///////////////////////////////////////////////////////////////////////////
 	
+	@Autowired
+	private FiuServerMain fiuServerMain;
+	
 	private void job05() throws Exception {
 		log.info("KANG-20200923 >>>>> {} {}", CurrentInfo.get());
 		
 		if (Flag.flag) {
-			FiuServerMain.process();
+			this.fiuServerMain.process();
 		}
 	}
 	

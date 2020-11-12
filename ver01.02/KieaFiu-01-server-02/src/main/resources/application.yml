@@ -127,6 +127,7 @@ proj-env:
     #online: http://localhost:17083/v0.6
     #mapper: http://localhost:17087/v0.6
     #sbs01:  http://localhost:17089/v0.6
+    listen-port: 12345
 
 ---
 # --------------------------------------------------------
@@ -156,6 +157,7 @@ proj-env:
     #online: http://localhost:17083/v0.6
     #mapper: http://localhost:17087/v0.6
     #sbs01:  http://localhost:17089/v0.6
+    listen-port: 12345
 
 ---
 # --------------------------------------------------------
@@ -200,6 +202,7 @@ proj-env:
     #online: http://172.30.222.3:17083/v0.6
     #mapper: http://172.30.222.3:17087/v0.6
     #sbs01:  http://172.30.222.3:17089/v0.6
+    listen-port: 12345
 
 ---
 # --------------------------------------------------------

@@ -109,8 +109,10 @@ proj-env:
   param:
     name: PARAM (air)
     home: /Users/kang-air
-    #base: /STS/GIT/KieaSentbe/ver12.05/KieaSentbe-12-vfep-05/src/main/resources/json
-    #base: /KANG/sentbe/20201010/jsonData
+    base: /STS/GIT/KieaFiu/ver01.02/KieaFiu-01-server-02/src/main/resources
+    #base: /KANG/sentbe/20201010
+    info-path: /jsonInfo
+    data-path: /jsonData
 
   job:
     name: JOB (air)
@@ -125,6 +127,8 @@ proj-env:
     #online: http://localhost:17083/v0.6
     #mapper: http://localhost:17087/v0.6
     #sbs01:  http://localhost:17089/v0.6
+    connect-host: 127.0.0.1
+    connect-port: 12345
 
 ---
 # --------------------------------------------------------
@@ -136,8 +140,10 @@ proj-env:
   param:
     name: PARAM (pro)
     home: /Users/kangmac
-    #base: /STS/GIT/KieaSentbe/ver12.05/KieaSentbe-12-vfep-05/src/main/resources/json
-    #base: /KANG/sentbe/20201010/jsonData
+    base: /STS_GIT/KieaFiu/ver01.02/KieaFiu-01-server-02/src/main/resources
+    #base: /KANG/sentbe/20201010
+    info-path: /jsonInfo
+    data-path: /jsonData
 
   job:
     name: JOB (pro)
@@ -152,6 +158,8 @@ proj-env:
     #online: http://localhost:17083/v0.6
     #mapper: http://localhost:17087/v0.6
     #sbs01:  http://localhost:17089/v0.6
+    connect-host: 127.0.0.1
+    connect-port: 12345
 
 ---
 # --------------------------------------------------------
@@ -178,7 +186,9 @@ proj-env:
   param:
     name: PARAM (dfep)
     home: /hw01/ibridge
-    base: /KANG/sentbe/20201010/jsonData
+    base: /KANG/sentbe/20201010
+    info-path: /jsonInfo
+    data-path: /jsonData
 
   job:
     name: JOB (dfep)
@@ -194,6 +204,8 @@ proj-env:
     #online: http://172.30.222.3:17083/v0.6
     #mapper: http://172.30.222.3:17087/v0.6
     #sbs01:  http://172.30.222.3:17089/v0.6
+    connect-host: 127.0.0.1
+    connect-port: 12345
 
 ---
 # --------------------------------------------------------

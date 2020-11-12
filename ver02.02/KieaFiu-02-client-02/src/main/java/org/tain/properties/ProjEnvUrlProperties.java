@@ -12,6 +12,8 @@ public class ProjEnvUrlProperties {
 
 	private String name;  // default
 	
+	private String connectHost;
+	private int connectPort;
 	
 	private String dummy;  // null
 }
