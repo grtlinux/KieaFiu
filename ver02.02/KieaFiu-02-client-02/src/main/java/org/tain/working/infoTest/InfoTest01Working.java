@@ -29,7 +29,7 @@ public class InfoTest01Working {
 			}
 			if (Flag.flag) {
 				
-				LnsMstInfo lnsMstInfo = this.mapperReaderJob.get(lnsJsonNode.getValue("reqResType"));
+				LnsMstInfo lnsMstInfo = this.mapperReaderJob.get(lnsJsonNode.getText("reqResType"));
 				log.info("MAPPER.get = {}", JsonPrint.getInstance().toPrettyJson(lnsMstInfo));
 			}
 		}

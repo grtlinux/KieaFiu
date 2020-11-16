@@ -29,7 +29,7 @@ public class LnsJsonNode {
 	}
 	
 	public LnsJsonNode() throws Exception {
-		this("{}");
+		this("{}");  // JsonNode
 	}
 	
 	///////////////////////////////////////////////////////////////
@@ -158,6 +158,9 @@ public class LnsJsonNode {
 		return this.jsonNode;
 	}
 	
+	///////////////////////////////////////////////////////////////
+	
+	@Deprecated
 	@SuppressWarnings("unused")
 	public String getValue(String fieldPath) {
 		LnsSpliter spliter = new LnsSpliter(fieldPath);
@@ -188,6 +191,32 @@ public class LnsJsonNode {
 	
 	public ArrayNode getArrayNode(String branch, String fieldName) {
 		return (ArrayNode) this.jsonNode.at(branch).get(fieldName);
+	}
+	
+	///////////////////////////////////////////////////////////////
+	
+	public String getText(String fieldName) {
+		return this.jsonNode.get(fieldName).textValue();
+	}
+	
+	public Number getNumber(String fieldName) {
+		return this.jsonNode.get(fieldName).numberValue();
+	}
+	
+	public Boolean getBoolean(String fieldName) {
+		return this.jsonNode.get(fieldName).booleanValue();
+	}
+	
+	public JsonNode getJsonNode(String fieldName) {
+		return (JsonNode) this.jsonNode.get(fieldName);
+	}
+	
+	public ObjectNode getObjectNode(String fieldName) {
+		return (ObjectNode) this.jsonNode.get(fieldName);
+	}
+	
+	public ArrayNode getArrayNode(String fieldName) {
+		return (ArrayNode) this.jsonNode.get(fieldName);
 	}
 	
 	///////////////////////////////////////////////////////////////

@@ -34,14 +34,14 @@ public class KieaFiu01Server02Application implements CommandLineRunner {
 		if (Flag.flag) job02();  // tasks.MapperReaderJob
 		if (!Flag.flag) job03();  // jsonTest
 		if (!Flag.flag) job04();  // infoTest
-		if (!Flag.flag) job05();  // server
+		if (Flag.flag) job05();  // server
 		if (Flag.flag) job06();
 		if (Flag.flag) job07();
 		if (Flag.flag) job08();
 		if (Flag.flag) job09();
 		if (Flag.flag) job10();
 		
-		//if (Flag.flag) System.exit(0);
+		if (Flag.flag) System.exit(0);
 	}
 	
 	///////////////////////////////////////////////////////////////////////////
@@ -69,7 +69,7 @@ public class KieaFiu01Server02Application implements CommandLineRunner {
 			if (Flag.flag) this.mapperReaderTask.runMapperReaderJob();
 		}
 		
-		if (Flag.flag) Sleep.run(3 * 1000);
+		if (Flag.flag) Sleep.run(1 * 1000);
 	}
 	
 	///////////////////////////////////////////////////////////////////////////
