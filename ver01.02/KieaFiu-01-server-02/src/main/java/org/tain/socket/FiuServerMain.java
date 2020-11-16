@@ -6,10 +6,12 @@ import java.net.Socket;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.tain.object.lns.LnsStream;
 import org.tain.object.ticket.LnsSocketTicket;
 import org.tain.properties.ProjEnvUrlProperties;
 import org.tain.utils.CurrentInfo;
 import org.tain.utils.Flag;
+import org.tain.utils.JsonPrint;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -29,6 +31,7 @@ public class FiuServerMain {
 			int port = this.projEnvUrlProperties.getListenPort();
 			InetSocketAddress inetSocketAddress = new InetSocketAddress("localhost", port);
 			serverSocket.bind(inetSocketAddress);
+			log.info(">>>>> SERVER.inetSocketAddress = {}.", inetSocketAddress);
 			
 			LnsSocketTicket lnsSocketTicket = new LnsSocketTicket();
 			try {
@@ -36,9 +39,11 @@ public class FiuServerMain {
 					
 				// set socket to ticket
 				lnsSocketTicket.set(socket);
+				log.info(">>>>> {} has a socket. SET SOCKET.", lnsSocketTicket);
 				
-				
-				
+				// recv
+				LnsStream lnsStream = lnsSocketTicket.recvStream();
+				log.info(">>>>> RECV.lnsStream = {}", JsonPrint.getInstance().toPrettyJson(lnsStream));
 				
 				
 				

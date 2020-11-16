@@ -33,10 +33,10 @@ public class KieaFiu02Client02Application implements CommandLineRunner {
 		
 		if (Flag.flag) job01();  // properties
 		if (Flag.flag) job02();  // tasks.MapperReaderJob
-		if (!Flag.flag) job03();  // jsonTest
-		if (!Flag.flag) job04();  // infoTest
-		if (Flag.flag) job05();  // client
-		if (Flag.flag) job06();  // LnsJsonNode on testing
+		if (!Flag.flag) job03();  // jsonTest for test
+		if (!Flag.flag) job04();  // infoTest for test
+		if (!Flag.flag) job05();  // LnsJsonNode on testing
+		if (Flag.flag) job06();  // client
 		if (Flag.flag) job07();
 		if (Flag.flag) job08();
 		if (Flag.flag) job09();
@@ -122,27 +122,27 @@ public class KieaFiu02Client02Application implements CommandLineRunner {
 	///////////////////////////////////////////////////////////////////////////
 	
 	@Autowired
-	private FiuClientMain fiuClientMain;
+	private LnsJsonNodeWorking lnsJsonNodeWorking;
 	
 	private void job05() throws Exception {
 		log.info("KANG-20200923 >>>>> {} {}", CurrentInfo.get());
 		
 		if (Flag.flag) {
-			this.fiuClientMain.process();
+			if (Flag.flag) this.lnsJsonNodeWorking.test01();
+			if (Flag.flag) this.lnsJsonNodeWorking.test02();
 		}
 	}
 	
 	///////////////////////////////////////////////////////////////////////////
 	
 	@Autowired
-	private LnsJsonNodeWorking lnsJsonNodeWorking;
+	private FiuClientMain fiuClientMain;
 	
 	private void job06() throws Exception {
 		log.info("KANG-20200923 >>>>> {} {}", CurrentInfo.get());
 		
 		if (Flag.flag) {
-			if (Flag.flag) this.lnsJsonNodeWorking.test01();
-			if (Flag.flag) this.lnsJsonNodeWorking.test02();
+			this.fiuClientMain.process();
 		}
 	}
 	

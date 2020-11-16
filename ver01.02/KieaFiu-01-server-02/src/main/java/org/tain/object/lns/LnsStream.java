@@ -19,7 +19,7 @@ public class LnsStream implements Cloneable {
 	private int length;           // data_length
 	
 	private String strLength;     // 4 = (length - 4) = (7 + content)
-	private String typeCode;      // 7 0200300/0210300 <- validate-REQ/RES
+	//private String typeCode;      // 7 0200300/0210300 <- validate-REQ/RES
 	private String content;
 	
 	public LnsStream(String data) {
@@ -27,8 +27,9 @@ public class LnsStream implements Cloneable {
 		this.length = data.length();  // data_length
 		
 		this.strLength    = data.substring(0, 4);   // info_length = data_length - 4
-		this.typeCode     = data.substring(4, 11);  // 7 0200300/0210300 <- validate-REQ/RES
-		this.content      = data.substring(11);     // to transfer stream to json
+		//this.typeCode     = data.substring(4, 11);  // 7 0200300/0210300 <- validate-REQ/RES
+		//this.content      = data.substring(11);     // to transfer stream to json
+		this.content      = data.substring(4);     // to transfer stream to json
 	}
 	
 	@JsonFormat(shape = Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
@@ -47,7 +48,7 @@ public class LnsStream implements Cloneable {
 	public String combind() {
 		StringBuffer sb = new StringBuffer();
 		
-		sb.append(String.format("%-7s", this.typeCode));
+		//sb.append(String.format("%-7s", this.typeCode));
 		sb.append(this.content);
 		
 		this.length = sb.length() + 4;  // the value included the length size
