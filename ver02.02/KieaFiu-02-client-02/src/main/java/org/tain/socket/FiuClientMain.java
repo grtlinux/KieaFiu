@@ -5,12 +5,10 @@ import java.net.Socket;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.tain.object.lns.LnsStream;
 import org.tain.object.ticket.LnsSocketTicket;
 import org.tain.properties.ProjEnvUrlProperties;
 import org.tain.utils.CurrentInfo;
 import org.tain.utils.Flag;
-import org.tain.utils.JsonPrint;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -20,6 +18,12 @@ public class FiuClientMain {
 
 	@Autowired
 	private ProjEnvUrlProperties projEnvUrlProperties;
+	
+	@Autowired
+	private FiuBiz fiuBiz;
+	
+	@Autowired
+	private FiuFile fiuFile;
 	
 	public void process() throws Exception {
 		log.info("KANG-20201111 >>>>> {} {}", CurrentInfo.get());
@@ -41,12 +45,55 @@ public class FiuClientMain {
 				lnsSocketTicket.set(socket);
 				log.info(">>>>> {} has a socket. SET SOCKET.", lnsSocketTicket);
 				
-				// send
-				LnsStream lnsStream = new LnsStream("0030Hello, world !! server........");
-				lnsSocketTicket.sendStream(lnsStream);
-				log.info(">>>>> SEND.lnsStream = {}", JsonPrint.getInstance().toPrettyJson(lnsStream));
+				if (!Flag.flag) {
+					/*
+					// send
+					LnsStream lnsStream = new LnsStream("0030Hello, world !! server........");
+					lnsSocketTicket.sendStream(lnsStream);
+					log.info(">>>>> SEND.lnsStream = {}", JsonPrint.getInstance().toPrettyJson(lnsStream));
+					*/
+				}
 				
+				if (Flag.flag) {
+					// bizOpen
+					this.fiuBiz.sendBizOpenReq(lnsSocketTicket);
+					this.fiuBiz.recvBizOpenRes(lnsSocketTicket);
+				}
 				
+				if (Flag.flag) {
+					if (Flag.flag) {
+						// fileStart
+						this.fiuFile.sendFileStartReq(lnsSocketTicket);
+						this.fiuFile.recvFileStartRes(lnsSocketTicket);
+					}
+					
+					if (Flag.flag) {
+						for (int i=0; i < 1; i++) {
+							if (Flag.flag) {
+								// fileData
+								this.fiuFile.sendFileData(lnsSocketTicket);
+							}
+							
+							if (Flag.flag) {
+								// fileCheck
+								this.fiuFile.sendFileCheckReq(lnsSocketTicket);
+								this.fiuFile.recvFileCheckRes(lnsSocketTicket);
+							}
+						}
+					}
+					
+					if (Flag.flag) {
+						// fileFinish
+						this.fiuFile.sendFileFinishReq(lnsSocketTicket);
+						this.fiuFile.recvFileFinishRes(lnsSocketTicket);
+					}
+				}
+				
+				if (Flag.flag) {
+					// bizClose
+					this.fiuBiz.sendBizCloseReq(lnsSocketTicket);
+					this.fiuBiz.recvBizCloseRes(lnsSocketTicket);
+				}
 				//Sleep.run(1 * 1000);
 			} catch (Exception e) {
 				e.printStackTrace();
