@@ -12,7 +12,7 @@ spring:
   profiles.active:
   - proj-default
   - proj-air
-  #- proj-pro
+  - proj-pro
   #- proj-aws
   #- proj-dfep
   #- proj-real
@@ -139,7 +139,7 @@ proj-env:
   param:
     name: PARAM (pro)
     home: /Users/kangmac
-    base: /STS_GIT/KieaFiu/ver01.02/KieaFiu-01-server-02/src/main/resources
+    base: /STS/GIT/KieaFiu/ver01.02/KieaFiu-01-server-02/src/main/resources
     #base: /KANG/sentbe/20201010
     info-path: /jsonInfo
     data-path: /jsonData
