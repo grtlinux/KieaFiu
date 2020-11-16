@@ -12,6 +12,7 @@ import org.tain.utils.Flag;
 import org.tain.utils.Sleep;
 import org.tain.working.infoTest.InfoTest01Working;
 import org.tain.working.jsonTest.Json01Working;
+import org.tain.working.lnsJsonNode.LnsJsonNodeWorking;
 import org.tain.working.properties.PropertiesWorking;
 import org.tain.working.tasks.MapperReaderTask;
 
@@ -35,7 +36,7 @@ public class KieaFiu02Client02Application implements CommandLineRunner {
 		if (!Flag.flag) job03();  // jsonTest
 		if (!Flag.flag) job04();  // infoTest
 		if (!Flag.flag) job05();  // client
-		if (Flag.flag) job06();
+		if (Flag.flag) job06();  // LnsJsonNode on testing
 		if (Flag.flag) job07();
 		if (Flag.flag) job08();
 		if (Flag.flag) job09();
@@ -133,10 +134,14 @@ public class KieaFiu02Client02Application implements CommandLineRunner {
 	
 	///////////////////////////////////////////////////////////////////////////
 	
-	private void job06() {
+	@Autowired
+	private LnsJsonNodeWorking lnsJsonNodeWorking;
+	
+	private void job06() throws Exception {
 		log.info("KANG-20200923 >>>>> {} {}", CurrentInfo.get());
 		
 		if (Flag.flag) {
+			this.lnsJsonNodeWorking.test01();
 		}
 	}
 	

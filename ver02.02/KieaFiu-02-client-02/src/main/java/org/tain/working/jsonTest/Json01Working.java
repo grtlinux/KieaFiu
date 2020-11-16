@@ -45,10 +45,10 @@ public class Json01Working {
 			lnsJsonNode.put("arrayNode-2", new LnsJsonNode("[\"hello\", \"world\", \"kiea\"]").get());
 			if (Flag.flag) System.out.println(">>>>> toPrettyString: " + lnsJsonNode.toPrettyString());
 			
-			LnsJsonNode lnsArrNode = new LnsJsonNode("[]");
-			lnsArrNode.put("12345");
-			lnsArrNode.put(12345);
-			lnsArrNode.put(true);
+			LnsJsonNode lnsArrNode = new LnsJsonNode("[]");  // ArrayNode
+			lnsArrNode.add("12345");
+			lnsArrNode.add(12345);
+			lnsArrNode.add(true);
 			lnsJsonNode.put("arrayNode-3", lnsArrNode.get());
 			if (Flag.flag) System.out.println(">>>>> toPrettyString: " + lnsJsonNode.toPrettyString());
 			
