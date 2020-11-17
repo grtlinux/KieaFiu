@@ -29,7 +29,7 @@ public class LnsElementInfo {
 			switch (info.charAt(0)) {
 			case 'L':
 				this.length = Integer.valueOf(info.substring(2).trim());
-				this.usable = this.length > 0 ? true : false;
+				this.usable = this.length >= 0 ? true : false;
 				break;
 			case 'T':
 				if (info.charAt(2) == '0') {
@@ -52,18 +52,28 @@ public class LnsElementInfo {
 		switch (this.type) {
 		case "INT":
 			this.format = "%" + this.leading + this.length + "d";
+			if (this.length == 0)
+				this.format = "%d";
 			break;
 		case "LONG":
 			this.format = "%" + this.leading + this.length + "d";
+			if (this.length == 0)
+				this.format = "%ld";
 			break;
 		case "STRING":
 			this.format = "%-" + this.length + '.' + this.length + "s";
+			if (this.length == 0)
+				this.format = "%s";
 			break;
 		case "BOOLEAN":
 			this.format = "%-" + this.length + '.' + this.length + "s";
+			if (this.length == 0)
+				this.format = "%s";
 			break;
 		default:
 			this.format = "%-" + this.length + '.' + this.length + "s";
+			if (this.length == 0)
+				this.format = "%s";
 			break;
 		}
 	}

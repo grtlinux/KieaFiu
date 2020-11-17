@@ -17,5 +17,9 @@ public class ProjEnvParamProperties {
 	private String infoPath;
 	private String dataPath;
 	
+	private String sendPath;
+	private String sentPath;
+	private String recvPath;
+	
 	private String dummy;  // null
 }

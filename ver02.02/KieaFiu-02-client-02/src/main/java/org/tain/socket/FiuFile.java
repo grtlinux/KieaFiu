@@ -30,6 +30,7 @@ public class FiuFile {
 	///////////////////////////////////////////////////////////////////////////
 	
 	public void sendFileStartReq(LnsSocketTicket lnsSocketTicket) throws Exception {
+		log.info("KANG-20201111 =========================================================");
 		log.info("KANG-20201111 >>>>> {} {}", CurrentInfo.get());
 		
 		if (Flag.flag) {
@@ -73,6 +74,7 @@ public class FiuFile {
 	}
 	
 	public void recvFileStartReq(LnsSocketTicket lnsSocketTicket) throws Exception {
+		log.info("KANG-20201111 =========================================================");
 		log.info("KANG-20201111 >>>>> {} {}", CurrentInfo.get());
 		
 		if (Flag.flag) {
@@ -97,6 +99,7 @@ public class FiuFile {
 	///////////////////////////////////////////////////////////////////////////
 	
 	public void sendFileStartRes(LnsSocketTicket lnsSocketTicket) throws Exception {
+		log.info("KANG-20201111 =========================================================");
 		log.info("KANG-20201111 >>>>> {} {}", CurrentInfo.get());
 		
 		if (Flag.flag) {
@@ -141,6 +144,7 @@ public class FiuFile {
 	}
 	
 	public void recvFileStartRes(LnsSocketTicket lnsSocketTicket) throws Exception {
+		log.info("KANG-20201111 =========================================================");
 		log.info("KANG-20201111 >>>>> {} {}", CurrentInfo.get());
 		
 		if (Flag.flag) {
@@ -165,6 +169,7 @@ public class FiuFile {
 	///////////////////////////////////////////////////////////////////////////
 	
 	public void sendFileData(LnsSocketTicket lnsSocketTicket) throws Exception {
+		log.info("KANG-20201111 =========================================================");
 		log.info("KANG-20201111 >>>>> {} {}", CurrentInfo.get());
 		
 		if (Flag.flag) {
@@ -198,6 +203,7 @@ public class FiuFile {
 	}
 	
 	public void recvFileData(LnsSocketTicket lnsSocketTicket) throws Exception {
+		log.info("KANG-20201111 =========================================================");
 		log.info("KANG-20201111 >>>>> {} {}", CurrentInfo.get());
 		
 		if (Flag.flag) {
@@ -222,6 +228,7 @@ public class FiuFile {
 	///////////////////////////////////////////////////////////////////////////
 	
 	public void sendFileCheckReq(LnsSocketTicket lnsSocketTicket) throws Exception {
+		log.info("KANG-20201111 =========================================================");
 		log.info("KANG-20201111 >>>>> {} {}", CurrentInfo.get());
 		
 		if (Flag.flag) {
@@ -253,6 +260,7 @@ public class FiuFile {
 	}
 	
 	public void recvFileCheckReq(LnsSocketTicket lnsSocketTicket) throws Exception {
+		log.info("KANG-20201111 =========================================================");
 		log.info("KANG-20201111 >>>>> {} {}", CurrentInfo.get());
 		
 		if (Flag.flag) {
@@ -277,6 +285,7 @@ public class FiuFile {
 	///////////////////////////////////////////////////////////////////////////
 	
 	public void sendFileCheckRes(LnsSocketTicket lnsSocketTicket) throws Exception {
+		log.info("KANG-20201111 =========================================================");
 		log.info("KANG-20201111 >>>>> {} {}", CurrentInfo.get());
 		
 		if (Flag.flag) {
@@ -309,6 +318,7 @@ public class FiuFile {
 	}
 	
 	public void recvFileCheckRes(LnsSocketTicket lnsSocketTicket) throws Exception {
+		log.info("KANG-20201111 =========================================================");
 		log.info("KANG-20201111 >>>>> {} {}", CurrentInfo.get());
 		
 		if (Flag.flag) {
@@ -333,6 +343,7 @@ public class FiuFile {
 	///////////////////////////////////////////////////////////////////////////
 	
 	public void sendFileFinishReq(LnsSocketTicket lnsSocketTicket) throws Exception {
+		log.info("KANG-20201111 =========================================================");
 		log.info("KANG-20201111 >>>>> {} {}", CurrentInfo.get());
 		
 		if (Flag.flag) {
@@ -365,6 +376,7 @@ public class FiuFile {
 	}
 	
 	public void recvFileFinishReq(LnsSocketTicket lnsSocketTicket) throws Exception {
+		log.info("KANG-20201111 =========================================================");
 		log.info("KANG-20201111 >>>>> {} {}", CurrentInfo.get());
 		
 		if (Flag.flag) {
@@ -389,6 +401,7 @@ public class FiuFile {
 	///////////////////////////////////////////////////////////////////////////
 	
 	public void sendFileFinishRes(LnsSocketTicket lnsSocketTicket) throws Exception {
+		log.info("KANG-20201111 =========================================================");
 		log.info("KANG-20201111 >>>>> {} {}", CurrentInfo.get());
 		
 		if (Flag.flag) {
@@ -422,6 +435,7 @@ public class FiuFile {
 	}
 	
 	public void recvFileFinishRes(LnsSocketTicket lnsSocketTicket) throws Exception {
+		log.info("KANG-20201111 =========================================================");
 		log.info("KANG-20201111 >>>>> {} {}", CurrentInfo.get());
 		
 		if (Flag.flag) {

@@ -30,6 +30,7 @@ public class FiuBiz {
 	///////////////////////////////////////////////////////////////////////////
 	
 	public void sendBizOpenReq(LnsSocketTicket lnsSocketTicket) throws Exception {
+		log.info("KANG-20201111 =========================================================");
 		log.info("KANG-20201111 >>>>> {} {}", CurrentInfo.get());
 		
 		if (Flag.flag) {
@@ -64,6 +65,7 @@ public class FiuBiz {
 	}
 	
 	public void recvBizOpenReq(LnsSocketTicket lnsSocketTicket) throws Exception {
+		log.info("KANG-20201111 =========================================================");
 		log.info("KANG-20201111 >>>>> {} {}", CurrentInfo.get());
 		
 		if (Flag.flag) {
@@ -88,6 +90,7 @@ public class FiuBiz {
 	///////////////////////////////////////////////////////////////////////////
 	
 	public void sendBizOpenRes(LnsSocketTicket lnsSocketTicket) throws Exception {
+		log.info("KANG-20201111 =========================================================");
 		log.info("KANG-20201111 >>>>> {} {}", CurrentInfo.get());
 		
 		if (Flag.flag) {
@@ -122,6 +125,7 @@ public class FiuBiz {
 	}
 	
 	public void recvBizOpenRes(LnsSocketTicket lnsSocketTicket) throws Exception {
+		log.info("KANG-20201111 =========================================================");
 		log.info("KANG-20201111 >>>>> {} {}", CurrentInfo.get());
 		
 		if (Flag.flag) {
@@ -146,6 +150,7 @@ public class FiuBiz {
 	///////////////////////////////////////////////////////////////////////////
 	
 	public void sendBizCloseReq(LnsSocketTicket lnsSocketTicket) throws Exception {
+		log.info("KANG-20201111 =========================================================");
 		log.info("KANG-20201111 >>>>> {} {}", CurrentInfo.get());
 		
 		if (Flag.flag) {
@@ -176,6 +181,7 @@ public class FiuBiz {
 	}
 	
 	public void recvBizCloseReq(LnsSocketTicket lnsSocketTicket) throws Exception {
+		log.info("KANG-20201111 =========================================================");
 		log.info("KANG-20201111 >>>>> {} {}", CurrentInfo.get());
 		
 		if (Flag.flag) {
@@ -200,6 +206,7 @@ public class FiuBiz {
 	///////////////////////////////////////////////////////////////////////////
 	
 	public void sendBizCloseRes(LnsSocketTicket lnsSocketTicket) throws Exception {
+		log.info("KANG-20201111 =========================================================");
 		log.info("KANG-20201111 >>>>> {} {}", CurrentInfo.get());
 		
 		if (Flag.flag) {
@@ -230,6 +237,7 @@ public class FiuBiz {
 	}
 	
 	public void recvBizCloseRes(LnsSocketTicket lnsSocketTicket) throws Exception {
+		log.info("KANG-20201111 =========================================================");
 		log.info("KANG-20201111 >>>>> {} {}", CurrentInfo.get());
 		
 		if (Flag.flag) {
