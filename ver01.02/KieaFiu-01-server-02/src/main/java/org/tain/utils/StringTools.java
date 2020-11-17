@@ -149,6 +149,10 @@ public class StringTools {
 		return new SimpleDateFormat(strFormat).format(new Date());
 	}
 	
+	public static String getYYYY() throws Exception {
+		return getDateTime("yyyy");
+	}
+	
 	public static String getYYMMDD() throws Exception {
 		return getDateTime("yyMMdd");
 	}

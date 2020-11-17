@@ -30,7 +30,7 @@
 		"fileName"   : "L:40,T:string,D:CRT-G00001-yyyyMMdd-00000001.env ,C:보고파일명",
 		"transNo"    : "L:15,T:string,D:0000001/0000001                  ,C:거래순번",
 		"baseDocNo"  : "L:17,T:string,D:yyyyMMdd-00000001                ,C:기본보고문서번호",
-		"orgCode"    : "L: 6,T:string,D:G00001                           ,C:중계기관코드",
+		"midOrgCode" : "L: 6,T:string,D:GA0002                           ,C:중계기관코드",
 		"recLength"  : "L: 4,T:string,D:0001                             ,C:레코드길이",
 		"zipYn"      : "L: 1,T:string,D:0                                ,C:압축사용여부",
 		"totLength"  : "L:10,T:string,D:0000008152                       ,C:파일전체크기",
