@@ -29,77 +29,56 @@ public class FiuBiz {
 	///////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////
 	
-	public void sendBizOpenReq(LnsSocketTicket lnsSocketTicket) {
+	public void sendBizOpenReq(LnsSocketTicket lnsSocketTicket) throws Exception {
 		log.info("KANG-20201111 >>>>> {} {}", CurrentInfo.get());
 		
 		if (Flag.flag) {
-			try {
-				LnsJsonNode lnsJsonNode = null;
-				if (Flag.flag) {
-					lnsJsonNode = new LnsJsonNode("{\"__head_data\": {}, \"__body_data\": {}}");
-					lnsJsonNode.put("/__head_data", "length", "0000");
-					lnsJsonNode.put("/__head_data", "transactionCode", "DBOGOXFIU");
-					lnsJsonNode.put("/__head_data", "systemName", "FIU");
-					lnsJsonNode.put("/__head_data", "bogoCode", "G00001");
-					lnsJsonNode.put("/__head_data", "userId", "Testuser01");
-					lnsJsonNode.put("/__head_data", "typeCode", "06000010");
-					lnsJsonNode.put("/__head_data", "reqresGubun", "S");
-					lnsJsonNode.put("/__head_data", "orgGubun", "B");
-					lnsJsonNode.put("/__head_data", "sequenceYn", "Y");
-					lnsJsonNode.put("/__head_data", "resCode", "000");
-					
-					lnsJsonNode.put("/__body_data", "openDataTime", StringTools.getYYYYMMDDHHMMSS());
-					lnsJsonNode.put("/__body_data", "fileCheckSec", "0030");
-					lnsJsonNode.put("/__body_data", "sendMethod", "B");
-					lnsJsonNode.put("/__body_data", "encYn", "0");
-					lnsJsonNode.put("/__body_data", "seqTakeYn", "N");
-					
-					log.info(">>>>> SEND.lnsJsonNode: {}", lnsJsonNode.toPrettyString());
-				}
+			LnsJsonNode lnsJsonNode = null;
+			if (Flag.flag) {
+				lnsJsonNode = FiuTools.getDefault();
+				lnsJsonNode.put("/__head_data", "typeCode", "06000010");
 				
-				String strStream = null;
-				if (Flag.flag) {
-					LnsMstInfo lnsMstInfo = this.mapperReaderJob.get(lnsJsonNode.getText("/__head_data", "typeCode"));
-					strStream = new LnsJsonToStream(lnsMstInfo, lnsJsonNode.get()).get();
-					
-					log.info(">>>>> SEND.strStream: [{}]", strStream);
-				}
+				lnsJsonNode.put("/__body_data", "openDataTime", StringTools.getYYYYMMDDHHMMSS());
+				lnsJsonNode.put("/__body_data", "fileCheckSec", "0030");
+				lnsJsonNode.put("/__body_data", "sendMethod", "B");
+				lnsJsonNode.put("/__body_data", "encYn", "0");
+				lnsJsonNode.put("/__body_data", "seqTakeYn", "N");
 				
-				if (Flag.flag) {
-					LnsStream lnsStream = new LnsStream(strStream);
-					lnsSocketTicket.sendStream(lnsStream);
-					log.info(">>>>> SEND.lnsStream = {}", JsonPrint.getInstance().toPrettyJson(lnsStream));
-				}
-			} catch (Exception e) {
-				// TODO: handle exception
-			} finally {
-				//
+				log.info(">>>>> SEND.lnsJsonNode: {}", lnsJsonNode.toPrettyString());
+			}
+			
+			String strStream = null;
+			if (Flag.flag) {
+				LnsMstInfo lnsMstInfo = this.mapperReaderJob.get(lnsJsonNode.getText("/__head_data", "typeCode"));
+				strStream = new LnsJsonToStream(lnsMstInfo, lnsJsonNode.get()).get();
+				
+				log.info(">>>>> SEND.strStream: [{}]", strStream);
+			}
+			
+			if (Flag.flag) {
+				LnsStream lnsStream = new LnsStream(strStream);
+				lnsSocketTicket.sendStream(lnsStream);
+				log.info(">>>>> SEND.lnsStream = {}", JsonPrint.getInstance().toPrettyJson(lnsStream));
 			}
 		}
 	}
 	
-	public void recvBizOpenReq(LnsSocketTicket lnsSocketTicket) {
+	public void recvBizOpenReq(LnsSocketTicket lnsSocketTicket) throws Exception {
 		log.info("KANG-20201111 >>>>> {} {}", CurrentInfo.get());
 		
 		if (Flag.flag) {
-			try {
-				String strStream = null;
-				if (Flag.flag) {
-					LnsStream lnsStream = lnsSocketTicket.recvStream();
-					log.info(">>>>> RECV.lnsStream = {}", JsonPrint.getInstance().toPrettyJson(lnsStream));
-					strStream = lnsStream.getData();
-					log.info(">>>>> RECV.strStream = {}", strStream);
-				}
-				
-				if (Flag.flag) {
-					LnsMstInfo lnsMstInfo = this.mapperReaderJob.get(strStream.substring(42, 50));
-					JsonNode jsonNode = new LnsStreamToJson(lnsMstInfo, strStream).get();
-					log.info(">>>>> RECV.jsonNode = {}", jsonNode.toPrettyString());
-				}
-			} catch (Exception e) {
-				// TODO: handle exception
-			} finally {
-				//
+			String strStream = null;
+			if (Flag.flag) {
+				LnsStream lnsStream = lnsSocketTicket.recvStream();
+				log.info(">>>>> RECV.lnsStream = {}", JsonPrint.getInstance().toPrettyJson(lnsStream));
+				strStream = lnsStream.getData();
+				log.info(">>>>> RECV.strStream = {}", strStream);
+			}
+			
+			if (Flag.flag) {
+				LnsMstInfo lnsMstInfo = this.mapperReaderJob.get(strStream.substring(42, 50));
+				JsonNode jsonNode = new LnsStreamToJson(lnsMstInfo, strStream).get();
+				log.info(">>>>> RECV.jsonNode = {}", jsonNode.toPrettyString());
 			}
 		}
 	}
@@ -108,77 +87,56 @@ public class FiuBiz {
 	///////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////
 	
-	public void sendBizOpenRes(LnsSocketTicket lnsSocketTicket) {
+	public void sendBizOpenRes(LnsSocketTicket lnsSocketTicket) throws Exception {
 		log.info("KANG-20201111 >>>>> {} {}", CurrentInfo.get());
 		
 		if (Flag.flag) {
-			try {
-				LnsJsonNode lnsJsonNode = null;
-				if (Flag.flag) {
-					lnsJsonNode = new LnsJsonNode("{\"__head_data\": {}, \"__body_data\": {}}");
-					lnsJsonNode.put("/__head_data", "length", "0000");
-					lnsJsonNode.put("/__head_data", "transactionCode", "DBOGOXFIU");
-					lnsJsonNode.put("/__head_data", "systemName", "FIU");
-					lnsJsonNode.put("/__head_data", "bogoCode", "G00001");
-					lnsJsonNode.put("/__head_data", "userId", "Testuser01");
-					lnsJsonNode.put("/__head_data", "typeCode", "06100010");
-					lnsJsonNode.put("/__head_data", "reqresGubun", "S");
-					lnsJsonNode.put("/__head_data", "orgGubun", "B");
-					lnsJsonNode.put("/__head_data", "sequenceYn", "Y");
-					lnsJsonNode.put("/__head_data", "resCode", "000");
-					
-					lnsJsonNode.put("/__body_data", "openDataTime", StringTools.getYYYYMMDDHHMMSS());
-					lnsJsonNode.put("/__body_data", "fileCheckSec", "0030");
-					lnsJsonNode.put("/__body_data", "sendMethod", "B");
-					lnsJsonNode.put("/__body_data", "encYn", "0");
-					lnsJsonNode.put("/__body_data", "seqTakeYn", "N");
-					
-					log.info(">>>>> SEND.lnsJsonNode: {}", lnsJsonNode.toPrettyString());
-				}
+			LnsJsonNode lnsJsonNode = null;
+			if (Flag.flag) {
+				lnsJsonNode = FiuTools.getDefault();
+				lnsJsonNode.put("/__head_data", "typeCode", "06100010");
 				
-				String strStream = null;
-				if (Flag.flag) {
-					LnsMstInfo lnsMstInfo = this.mapperReaderJob.get(lnsJsonNode.getText("/__head_data", "typeCode"));
-					strStream = new LnsJsonToStream(lnsMstInfo, lnsJsonNode.get()).get();
-					
-					log.info(">>>>> SEND.strStream: [{}]", strStream);
-				}
+				lnsJsonNode.put("/__body_data", "openDataTime", StringTools.getYYYYMMDDHHMMSS());
+				lnsJsonNode.put("/__body_data", "fileCheckSec", "0030");
+				lnsJsonNode.put("/__body_data", "sendMethod", "B");
+				lnsJsonNode.put("/__body_data", "encYn", "0");
+				lnsJsonNode.put("/__body_data", "seqTakeYn", "N");
 				
-				if (Flag.flag) {
-					LnsStream lnsStream = new LnsStream(strStream);
-					lnsSocketTicket.sendStream(lnsStream);
-					log.info(">>>>> SEND.lnsStream = {}", JsonPrint.getInstance().toPrettyJson(lnsStream));
-				}
-			} catch (Exception e) {
-				// TODO: handle exception
-			} finally {
-				//
+				log.info(">>>>> SEND.lnsJsonNode: {}", lnsJsonNode.toPrettyString());
+			}
+			
+			String strStream = null;
+			if (Flag.flag) {
+				LnsMstInfo lnsMstInfo = this.mapperReaderJob.get(lnsJsonNode.getText("/__head_data", "typeCode"));
+				strStream = new LnsJsonToStream(lnsMstInfo, lnsJsonNode.get()).get();
+				
+				log.info(">>>>> SEND.strStream: [{}]", strStream);
+			}
+			
+			if (Flag.flag) {
+				LnsStream lnsStream = new LnsStream(strStream);
+				lnsSocketTicket.sendStream(lnsStream);
+				log.info(">>>>> SEND.lnsStream = {}", JsonPrint.getInstance().toPrettyJson(lnsStream));
 			}
 		}
 	}
 	
-	public void recvBizOpenRes(LnsSocketTicket lnsSocketTicket) {
+	public void recvBizOpenRes(LnsSocketTicket lnsSocketTicket) throws Exception {
 		log.info("KANG-20201111 >>>>> {} {}", CurrentInfo.get());
 		
 		if (Flag.flag) {
-			try {
-				String strStream = null;
-				if (Flag.flag) {
-					LnsStream lnsStream = lnsSocketTicket.recvStream();
-					log.info(">>>>> RECV.lnsStream = {}", JsonPrint.getInstance().toPrettyJson(lnsStream));
-					strStream = lnsStream.getData();
-					log.info(">>>>> RECV.strStream = {}", strStream);
-				}
-				
-				if (Flag.flag) {
-					LnsMstInfo lnsMstInfo = this.mapperReaderJob.get(strStream.substring(42, 50));
-					JsonNode jsonNode = new LnsStreamToJson(lnsMstInfo, strStream).get();
-					log.info(">>>>> RECV.jsonNode = {}", jsonNode.toPrettyString());
-				}
-			} catch (Exception e) {
-				// TODO: handle exception
-			} finally {
-				//
+			String strStream = null;
+			if (Flag.flag) {
+				LnsStream lnsStream = lnsSocketTicket.recvStream();
+				log.info(">>>>> RECV.lnsStream = {}", JsonPrint.getInstance().toPrettyJson(lnsStream));
+				strStream = lnsStream.getData();
+				log.info(">>>>> RECV.strStream = {}", strStream);
+			}
+			
+			if (Flag.flag) {
+				LnsMstInfo lnsMstInfo = this.mapperReaderJob.get(strStream.substring(42, 50));
+				JsonNode jsonNode = new LnsStreamToJson(lnsMstInfo, strStream).get();
+				log.info(">>>>> RECV.jsonNode = {}", jsonNode.toPrettyString());
 			}
 		}
 	}
@@ -187,73 +145,52 @@ public class FiuBiz {
 	///////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////
 	
-	public void sendBizCloseReq(LnsSocketTicket lnsSocketTicket) {
+	public void sendBizCloseReq(LnsSocketTicket lnsSocketTicket) throws Exception {
 		log.info("KANG-20201111 >>>>> {} {}", CurrentInfo.get());
 		
 		if (Flag.flag) {
-			try {
-				LnsJsonNode lnsJsonNode = null;
-				if (Flag.flag) {
-					lnsJsonNode = new LnsJsonNode("{\"__head_data\": {}, \"__body_data\": {}}");
-					lnsJsonNode.put("/__head_data", "length", "0000");
-					lnsJsonNode.put("/__head_data", "transactionCode", "DBOGOXFIU");
-					lnsJsonNode.put("/__head_data", "systemName", "FIU");
-					lnsJsonNode.put("/__head_data", "bogoCode", "G00001");
-					lnsJsonNode.put("/__head_data", "userId", "Testuser01");
-					lnsJsonNode.put("/__head_data", "typeCode", "06000040");
-					lnsJsonNode.put("/__head_data", "reqresGubun", "S");
-					lnsJsonNode.put("/__head_data", "orgGubun", "B");
-					lnsJsonNode.put("/__head_data", "sequenceYn", "Y");
-					lnsJsonNode.put("/__head_data", "resCode", "000");
-					
-					lnsJsonNode.put("/__body_data", "closeDateTime", StringTools.getYYYYMMDDHHMMSS());
-					
-					log.info(">>>>> SEND.lnsJsonNode: {}", lnsJsonNode.toPrettyString());
-				}
+			LnsJsonNode lnsJsonNode = null;
+			if (Flag.flag) {
+				lnsJsonNode = FiuTools.getDefault();
+				lnsJsonNode.put("/__head_data", "typeCode", "06000040");
 				
-				String strStream = null;
-				if (Flag.flag) {
-					LnsMstInfo lnsMstInfo = this.mapperReaderJob.get(lnsJsonNode.getText("/__head_data", "typeCode"));
-					strStream = new LnsJsonToStream(lnsMstInfo, lnsJsonNode.get()).get();
-					
-					log.info(">>>>> SEND.strStream: [{}]", strStream);
-				}
+				lnsJsonNode.put("/__body_data", "closeDateTime", StringTools.getYYYYMMDDHHMMSS());
 				
-				if (Flag.flag) {
-					LnsStream lnsStream = new LnsStream(strStream);
-					lnsSocketTicket.sendStream(lnsStream);
-					log.info(">>>>> SEND.lnsStream = {}", JsonPrint.getInstance().toPrettyJson(lnsStream));
-				}
-			} catch (Exception e) {
-				// TODO: handle exception
-			} finally {
-				//
+				log.info(">>>>> SEND.lnsJsonNode: {}", lnsJsonNode.toPrettyString());
+			}
+			
+			String strStream = null;
+			if (Flag.flag) {
+				LnsMstInfo lnsMstInfo = this.mapperReaderJob.get(lnsJsonNode.getText("/__head_data", "typeCode"));
+				strStream = new LnsJsonToStream(lnsMstInfo, lnsJsonNode.get()).get();
+				
+				log.info(">>>>> SEND.strStream: [{}]", strStream);
+			}
+			
+			if (Flag.flag) {
+				LnsStream lnsStream = new LnsStream(strStream);
+				lnsSocketTicket.sendStream(lnsStream);
+				log.info(">>>>> SEND.lnsStream = {}", JsonPrint.getInstance().toPrettyJson(lnsStream));
 			}
 		}
 	}
 	
-	public void recvBizCloseReq(LnsSocketTicket lnsSocketTicket) {
+	public void recvBizCloseReq(LnsSocketTicket lnsSocketTicket) throws Exception {
 		log.info("KANG-20201111 >>>>> {} {}", CurrentInfo.get());
 		
 		if (Flag.flag) {
-			try {
-				String strStream = null;
-				if (Flag.flag) {
-					LnsStream lnsStream = lnsSocketTicket.recvStream();
-					log.info(">>>>> RECV.lnsStream = {}", JsonPrint.getInstance().toPrettyJson(lnsStream));
-					strStream = lnsStream.getData();
-					log.info(">>>>> RECV.strStream = {}", strStream);
-				}
-				
-				if (Flag.flag) {
-					LnsMstInfo lnsMstInfo = this.mapperReaderJob.get(strStream.substring(42, 50));
-					JsonNode jsonNode = new LnsStreamToJson(lnsMstInfo, strStream).get();
-					log.info(">>>>> RECV.jsonNode = {}", jsonNode.toPrettyString());
-				}
-			} catch (Exception e) {
-				// TODO: handle exception
-			} finally {
-				//
+			String strStream = null;
+			if (Flag.flag) {
+				LnsStream lnsStream = lnsSocketTicket.recvStream();
+				log.info(">>>>> RECV.lnsStream = {}", JsonPrint.getInstance().toPrettyJson(lnsStream));
+				strStream = lnsStream.getData();
+				log.info(">>>>> RECV.strStream = {}", strStream);
+			}
+			
+			if (Flag.flag) {
+				LnsMstInfo lnsMstInfo = this.mapperReaderJob.get(strStream.substring(42, 50));
+				JsonNode jsonNode = new LnsStreamToJson(lnsMstInfo, strStream).get();
+				log.info(">>>>> RECV.jsonNode = {}", jsonNode.toPrettyString());
 			}
 		}
 	}
@@ -262,73 +199,52 @@ public class FiuBiz {
 	///////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////
 	
-	public void sendBizCloseRes(LnsSocketTicket lnsSocketTicket) {
+	public void sendBizCloseRes(LnsSocketTicket lnsSocketTicket) throws Exception {
 		log.info("KANG-20201111 >>>>> {} {}", CurrentInfo.get());
 		
 		if (Flag.flag) {
-			try {
-				LnsJsonNode lnsJsonNode = null;
-				if (Flag.flag) {
-					lnsJsonNode = new LnsJsonNode("{\"__head_data\": {}, \"__body_data\": {}}");
-					lnsJsonNode.put("/__head_data", "length", "0000");
-					lnsJsonNode.put("/__head_data", "transactionCode", "DBOGOXFIU");
-					lnsJsonNode.put("/__head_data", "systemName", "FIU");
-					lnsJsonNode.put("/__head_data", "bogoCode", "G00001");
-					lnsJsonNode.put("/__head_data", "userId", "Testuser01");
-					lnsJsonNode.put("/__head_data", "typeCode", "06100040");
-					lnsJsonNode.put("/__head_data", "reqresGubun", "S");
-					lnsJsonNode.put("/__head_data", "orgGubun", "B");
-					lnsJsonNode.put("/__head_data", "sequenceYn", "Y");
-					lnsJsonNode.put("/__head_data", "resCode", "000");
-					
-					lnsJsonNode.put("/__body_data", "closeDateTime", StringTools.getYYYYMMDDHHMMSS());
-					
-					log.info(">>>>> SEND.lnsJsonNode: {}", lnsJsonNode.toPrettyString());
-				}
+			LnsJsonNode lnsJsonNode = null;
+			if (Flag.flag) {
+				lnsJsonNode = FiuTools.getDefault();
+				lnsJsonNode.put("/__head_data", "typeCode", "06100040");
 				
-				String strStream = null;
-				if (Flag.flag) {
-					LnsMstInfo lnsMstInfo = this.mapperReaderJob.get(lnsJsonNode.getText("/__head_data", "typeCode"));
-					strStream = new LnsJsonToStream(lnsMstInfo, lnsJsonNode.get()).get();
-					
-					log.info(">>>>> SEND.strStream: [{}]", strStream);
-				}
+				lnsJsonNode.put("/__body_data", "closeDateTime", StringTools.getYYYYMMDDHHMMSS());
 				
-				if (Flag.flag) {
-					LnsStream lnsStream = new LnsStream(strStream);
-					lnsSocketTicket.sendStream(lnsStream);
-					log.info(">>>>> SEND.lnsStream = {}", JsonPrint.getInstance().toPrettyJson(lnsStream));
-				}
-			} catch (Exception e) {
-				// TODO: handle exception
-			} finally {
-				//
+				log.info(">>>>> SEND.lnsJsonNode: {}", lnsJsonNode.toPrettyString());
+			}
+			
+			String strStream = null;
+			if (Flag.flag) {
+				LnsMstInfo lnsMstInfo = this.mapperReaderJob.get(lnsJsonNode.getText("/__head_data", "typeCode"));
+				strStream = new LnsJsonToStream(lnsMstInfo, lnsJsonNode.get()).get();
+				
+				log.info(">>>>> SEND.strStream: [{}]", strStream);
+			}
+			
+			if (Flag.flag) {
+				LnsStream lnsStream = new LnsStream(strStream);
+				lnsSocketTicket.sendStream(lnsStream);
+				log.info(">>>>> SEND.lnsStream = {}", JsonPrint.getInstance().toPrettyJson(lnsStream));
 			}
 		}
 	}
 	
-	public void recvBizCloseRes(LnsSocketTicket lnsSocketTicket) {
+	public void recvBizCloseRes(LnsSocketTicket lnsSocketTicket) throws Exception {
 		log.info("KANG-20201111 >>>>> {} {}", CurrentInfo.get());
 		
 		if (Flag.flag) {
-			try {
-				String strStream = null;
-				if (Flag.flag) {
-					LnsStream lnsStream = lnsSocketTicket.recvStream();
-					log.info(">>>>> RECV.lnsStream = {}", JsonPrint.getInstance().toPrettyJson(lnsStream));
-					strStream = lnsStream.getData();
-					log.info(">>>>> RECV.strStream = {}", strStream);
-				}
-				
-				if (Flag.flag) {
-					LnsMstInfo lnsMstInfo = this.mapperReaderJob.get(strStream.substring(42, 50));
-					JsonNode jsonNode = new LnsStreamToJson(lnsMstInfo, strStream).get();
-					log.info(">>>>> RECV.jsonNode = {}", jsonNode.toPrettyString());
-				}
-			} catch (Exception e) {
-				// TODO: handle exception
-			} finally {
-				//
+			String strStream = null;
+			if (Flag.flag) {
+				LnsStream lnsStream = lnsSocketTicket.recvStream();
+				log.info(">>>>> RECV.lnsStream = {}", JsonPrint.getInstance().toPrettyJson(lnsStream));
+				strStream = lnsStream.getData();
+				log.info(">>>>> RECV.strStream = {}", strStream);
+			}
+			
+			if (Flag.flag) {
+				LnsMstInfo lnsMstInfo = this.mapperReaderJob.get(strStream.substring(42, 50));
+				JsonNode jsonNode = new LnsStreamToJson(lnsMstInfo, strStream).get();
+				log.info(">>>>> RECV.jsonNode = {}", jsonNode.toPrettyString());
 			}
 		}
 	}

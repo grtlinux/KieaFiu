@@ -12,7 +12,7 @@ spring:
   profiles.active:
   - proj-default
   - proj-air
-  #- proj-pro
+  - proj-pro
   #- proj-aws
   #- proj-dfep
   #- proj-real
@@ -109,8 +109,7 @@ proj-env:
   param:
     name: PARAM (air)
     home: /Users/kang-air
-    base: /STS/GIT/KieaFiu/ver01.02/KieaFiu-01-server-02/src/main/resources
-    #base: /KANG/sentbe/20201010
+    base: /KANG/fiu/20201111
     info-path: /jsonInfo
     data-path: /jsonData
 
@@ -123,12 +122,8 @@ proj-env:
 
   url:
     name: URL (air)
-    #sentbe: https://hanwha.dev.sentbe.com:10443
-    #online: http://localhost:17083/v0.6
-    #mapper: http://localhost:17087/v0.6
-    #sbs01:  http://localhost:17089/v0.6
     connect-host: 127.0.0.1
-    connect-port: 12345
+    connect-port: 22010
 
 ---
 # --------------------------------------------------------
@@ -140,8 +135,7 @@ proj-env:
   param:
     name: PARAM (pro)
     home: /Users/kangmac
-    base: /STS/GIT/KieaFiu/ver01.02/KieaFiu-01-server-02/src/main/resources
-    #base: /KANG/sentbe/20201010
+    base: /KANG/fiu/20201111
     info-path: /jsonInfo
     data-path: /jsonData
 
@@ -154,12 +148,8 @@ proj-env:
 
   url:
     name: URL (pro)
-    #sentbe: https://hanwha.dev.sentbe.com:10443
-    #online: http://localhost:17083/v0.6
-    #mapper: http://localhost:17087/v0.6
-    #sbs01:  http://localhost:17089/v0.6
     connect-host: 127.0.0.1
-    connect-port: 12345
+    connect-port: 22010
 
 ---
 # --------------------------------------------------------
@@ -186,7 +176,7 @@ proj-env:
   param:
     name: PARAM (dfep)
     home: /hw01/ibridge
-    base: /KANG/sentbe/20201010
+    base: /KANG/fiu/20201111
     info-path: /jsonInfo
     data-path: /jsonData
 
@@ -199,13 +189,8 @@ proj-env:
 
   url:
     name: URL (dfep)
-    #sentbe: https://hanwha.dev.sentbe.com:10443
-    #sentbe: https://10.200.50.4:10443
-    #online: http://172.30.222.3:17083/v0.6
-    #mapper: http://172.30.222.3:17087/v0.6
-    #sbs01:  http://172.30.222.3:17089/v0.6
-    connect-host: 127.0.0.1
-    connect-port: 12345
+    connect-host: 125.60.18.30
+    connect-port: 22010
 
 ---
 # --------------------------------------------------------
@@ -221,5 +206,7 @@ proj-env:
     name: JSON (real)
   url:
     name: URL (real)
+    connect-host: 125.60.18.30
+    connect-port: 22010
 
 

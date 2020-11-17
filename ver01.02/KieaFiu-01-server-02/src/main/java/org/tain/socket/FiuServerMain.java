@@ -63,7 +63,7 @@ public class FiuServerMain {
 					this.fiuBiz.sendBizOpenRes(lnsSocketTicket);
 				}
 				
-				if (Flag.flag) {
+				if (!Flag.flag) {
 					if (Flag.flag) {
 						// fileStart
 						this.fiuFile.recvFileStartReq(lnsSocketTicket);
