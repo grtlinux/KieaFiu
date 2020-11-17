@@ -28,6 +28,8 @@ public class FiuClientMain {
 	public void process() throws Exception {
 		log.info("KANG-20201111 >>>>> {} {}", CurrentInfo.get());
 		
+		log.info(">>>>> Start InfoObject.name = {}.", InfoObject.name);
+		
 		if (Flag.flag) {
 			// client
 			String host = this.projEnvUrlProperties.getConnectHost();
@@ -47,11 +49,15 @@ public class FiuClientMain {
 				
 				if (!Flag.flag) {
 					/*
-					// send
+					// send for test
 					LnsStream lnsStream = new LnsStream("0030Hello, world !! server........");
 					lnsSocketTicket.sendStream(lnsStream);
 					log.info(">>>>> SEND.lnsStream = {}", JsonPrint.getInstance().toPrettyJson(lnsStream));
 					*/
+				}
+				
+				if (Flag.flag) {
+					// file
 				}
 				
 				if (Flag.flag) {
@@ -69,6 +75,9 @@ public class FiuClientMain {
 					
 					if (Flag.flag) {
 						for (int i=0; i < 1; i++) {
+							InfoObject.name += "0";
+							log.info(">>>>> Loop InfoObject.name = {}.", InfoObject.name);
+							
 							if (Flag.flag) {
 								// fileData
 								this.fiuFile.sendFileData(lnsSocketTicket);
@@ -101,6 +110,8 @@ public class FiuClientMain {
 				//
 			}
 		}
+		
+		log.info(">>>>> Finish InfoObject.name = {}.", InfoObject.name);
 		
 		//if (Flag.flag) System.exit(0);
 	}

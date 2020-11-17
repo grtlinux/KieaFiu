@@ -160,4 +160,8 @@ public class StringTools {
 	public static String getYYMMDDHHMMSS() throws Exception {
 		return getDateTime("yyMMddHHmmss");
 	}
+	
+	public static String getYYYYMMDDHHMMSS() throws Exception {
+		return getDateTime("yyyyMMddHHmmss");
+	}
 }

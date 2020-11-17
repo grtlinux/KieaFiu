@@ -24,7 +24,7 @@
 		"docCode"    : "L: 6,T:string,D:REP002                           ,C:문서종류코드",
 		"msgCode"    : "L: 2,T:string,D:01                               ,C:메시지유형코드",
 		"sendSeq"    : "L: 8,T:string,D:00000001                         ,C:보고문서발송순번",
-		"docNo"      : "L:17,T:string,D:yyyy-00000001                    ,C:문서번호",
+		"docNo"      : "L:17,T:string,D:yyyyMMdd-00000001                ,C:문서번호",
 		"annDate"    : "L: 8,T:string,D:yyyyMMdd                         ,C:보고일자",
 		"befDocNo"   : "L:17,T:string,D:                                 ,C:종전문서번호",
 		"fileName"   : "L:40,T:string,D:CRT-G00001-yyyyMMdd-00000001.env ,C:보고파일명",
@@ -34,6 +34,6 @@
 		"recLength"  : "L: 4,T:string,D:0001                             ,C:레코드길이",
 		"zipYn"      : "L: 1,T:string,D:0                                ,C:압축사용여부",
 		"totLength"  : "L:10,T:string,D:0000008152                       ,C:파일전체크기",
-		"data"       : "L:4921,T:string,D:                             ,C:전자서명데이터(가변)"
+		"data"       : "L:4921,T:string,D:                               ,C:전자서명데이터(가변)"
 	}
 }

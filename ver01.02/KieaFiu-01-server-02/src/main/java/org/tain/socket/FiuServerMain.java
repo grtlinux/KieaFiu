@@ -47,10 +47,14 @@ public class FiuServerMain {
 				
 				if (!Flag.flag) {
 					/*
-					// recv
+					// recv for test
 					LnsStream lnsStream = lnsSocketTicket.recvStream();
 					log.info(">>>>> RECV.lnsStream = {}", JsonPrint.getInstance().toPrettyJson(lnsStream));
 					*/
+				}
+				
+				if (Flag.flag) {
+					// file
 				}
 				
 				if (Flag.flag) {

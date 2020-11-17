@@ -202,11 +202,7 @@ public class FiuBiz {
 					lnsJsonNode.put("/__head_data", "orgGubun", "B");
 					lnsJsonNode.put("/__head_data", "sequenceYn", "Y");
 					lnsJsonNode.put("/__head_data", "resCode", "000");
-					lnsJsonNode.put("/__body_data", "openDataTime", "yyyyMMddHHmmss");
-					lnsJsonNode.put("/__body_data", "fileCheckSec", "0030");
-					lnsJsonNode.put("/__body_data", "sendMethod", "B");
-					lnsJsonNode.put("/__body_data", "encYn", "0");
-					lnsJsonNode.put("/__body_data", "seqTakeYn", "N");
+					lnsJsonNode.put("/__body_data", "closeDateTime", "yyyyMMddHHmmss");
 					
 					log.info(">>>>> SEND.lnsJsonNode: {}", lnsJsonNode.toPrettyString());
 				}
@@ -280,11 +276,7 @@ public class FiuBiz {
 					lnsJsonNode.put("/__head_data", "orgGubun", "B");
 					lnsJsonNode.put("/__head_data", "sequenceYn", "Y");
 					lnsJsonNode.put("/__head_data", "resCode", "000");
-					lnsJsonNode.put("/__body_data", "openDataTime", "yyyyMMddHHmmss");
-					lnsJsonNode.put("/__body_data", "fileCheckSec", "0030");
-					lnsJsonNode.put("/__body_data", "sendMethod", "B");
-					lnsJsonNode.put("/__body_data", "encYn", "0");
-					lnsJsonNode.put("/__body_data", "seqTakeYn", "N");
+					lnsJsonNode.put("/__body_data", "closeDateTime", "yyyyMMddHHmmss");
 					
 					log.info(">>>>> SEND.lnsJsonNode: {}", lnsJsonNode.toPrettyString());
 				}

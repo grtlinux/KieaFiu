@@ -12,6 +12,7 @@ import org.tain.task.MapperReaderJob;
 import org.tain.utils.CurrentInfo;
 import org.tain.utils.Flag;
 import org.tain.utils.JsonPrint;
+import org.tain.utils.StringTools;
 
 import com.fasterxml.jackson.databind.JsonNode;
 
@@ -46,7 +47,8 @@ public class FiuBiz {
 					lnsJsonNode.put("/__head_data", "orgGubun", "B");
 					lnsJsonNode.put("/__head_data", "sequenceYn", "Y");
 					lnsJsonNode.put("/__head_data", "resCode", "000");
-					lnsJsonNode.put("/__body_data", "openDataTime", "yyyyMMddHHmmss");
+					
+					lnsJsonNode.put("/__body_data", "openDataTime", StringTools.getYYYYMMDDHHMMSS());
 					lnsJsonNode.put("/__body_data", "fileCheckSec", "0030");
 					lnsJsonNode.put("/__body_data", "sendMethod", "B");
 					lnsJsonNode.put("/__body_data", "encYn", "0");
@@ -124,7 +126,8 @@ public class FiuBiz {
 					lnsJsonNode.put("/__head_data", "orgGubun", "B");
 					lnsJsonNode.put("/__head_data", "sequenceYn", "Y");
 					lnsJsonNode.put("/__head_data", "resCode", "000");
-					lnsJsonNode.put("/__body_data", "openDataTime", "yyyyMMddHHmmss");
+					
+					lnsJsonNode.put("/__body_data", "openDataTime", StringTools.getYYYYMMDDHHMMSS());
 					lnsJsonNode.put("/__body_data", "fileCheckSec", "0030");
 					lnsJsonNode.put("/__body_data", "sendMethod", "B");
 					lnsJsonNode.put("/__body_data", "encYn", "0");
@@ -202,11 +205,8 @@ public class FiuBiz {
 					lnsJsonNode.put("/__head_data", "orgGubun", "B");
 					lnsJsonNode.put("/__head_data", "sequenceYn", "Y");
 					lnsJsonNode.put("/__head_data", "resCode", "000");
-					lnsJsonNode.put("/__body_data", "openDataTime", "yyyyMMddHHmmss");
-					lnsJsonNode.put("/__body_data", "fileCheckSec", "0030");
-					lnsJsonNode.put("/__body_data", "sendMethod", "B");
-					lnsJsonNode.put("/__body_data", "encYn", "0");
-					lnsJsonNode.put("/__body_data", "seqTakeYn", "N");
+					
+					lnsJsonNode.put("/__body_data", "closeDateTime", StringTools.getYYYYMMDDHHMMSS());
 					
 					log.info(">>>>> SEND.lnsJsonNode: {}", lnsJsonNode.toPrettyString());
 				}
@@ -280,11 +280,8 @@ public class FiuBiz {
 					lnsJsonNode.put("/__head_data", "orgGubun", "B");
 					lnsJsonNode.put("/__head_data", "sequenceYn", "Y");
 					lnsJsonNode.put("/__head_data", "resCode", "000");
-					lnsJsonNode.put("/__body_data", "openDataTime", "yyyyMMddHHmmss");
-					lnsJsonNode.put("/__body_data", "fileCheckSec", "0030");
-					lnsJsonNode.put("/__body_data", "sendMethod", "B");
-					lnsJsonNode.put("/__body_data", "encYn", "0");
-					lnsJsonNode.put("/__body_data", "seqTakeYn", "N");
+					
+					lnsJsonNode.put("/__body_data", "closeDateTime", StringTools.getYYYYMMDDHHMMSS());
 					
 					log.info(">>>>> SEND.lnsJsonNode: {}", lnsJsonNode.toPrettyString());
 				}
