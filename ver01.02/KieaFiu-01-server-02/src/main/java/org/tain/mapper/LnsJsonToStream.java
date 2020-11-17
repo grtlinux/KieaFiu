@@ -57,7 +57,10 @@ public class LnsJsonToStream {
 		
 		if (Flag.flag) {
 			// AFTER: stream length process
-			String strLength = String.format("%04d", this.length - 4);
+			// 전문길이(4) 제외
+			//String strLength = String.format("%04d", this.length - 4);
+			// 전문길이(4) 포함
+			String strLength = String.format("%04d", this.length);
 			sb.delete(0, 4);
 			sb.insert(0, strLength);
 		}

@@ -124,7 +124,10 @@ public class LnsSocketTicket {
 		LnsStream lnsStream = null;
 		try {
 			String strLength = this.recvLength(DEFAULT_LENGTH_SIZE);
-			int length = Integer.parseInt(strLength);
+			// length는 전문길이(4) 미포함
+			//int length = Integer.parseInt(strLength);
+			// length는 전문길이(4) 포함
+			int length = Integer.parseInt(strLength) - 4;
 			String strData = this.recvData(length);
 			lnsStream = new LnsStream(strLength + strData);
 		} catch (Exception e) {
