@@ -25,6 +25,8 @@ public class FiuFile {
 	@Autowired
 	private MapperReaderJob mapperReaderJob;
 	
+	private int totalLength = -1;
+	
 	///////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////
@@ -34,6 +36,27 @@ public class FiuFile {
 		log.info("KANG-20201111 >>>>> {} {}", CurrentInfo.get());
 		
 		if (Flag.flag) {
+			String strHashData = null;
+			int nHashSize = -1;
+			if (Flag.flag) {
+				StringBuffer sb = new StringBuffer();
+				sb.append("____GPKI_Hash_DATA______");
+				sb.append("____GPKI_Hash_DATA______");
+				sb.append("____GPKI_Hash_DATA______");
+				sb.append("____GPKI_Hash_DATA______");
+				sb.append("____GPKI_Hash_DATA______");
+				sb.append("____GPKI_Hash_DATA______");
+				sb.append("____GPKI_Hash_DATA______");
+				sb.append("____GPKI_Hash_DATA______");
+				sb.append("____GPKI_Hash_DATA______");
+				sb.append("____GPKI_Hash_DATA______");
+				
+				strHashData = sb.toString();
+				nHashSize = strHashData.length();
+				
+				this.totalLength = 0;
+			}
+			
 			LnsJsonNode lnsJsonNode = null;
 			if (Flag.flag) {
 				lnsJsonNode = FiuTools.getDefault();
@@ -51,8 +74,8 @@ public class FiuFile {
 				lnsJsonNode.put("/__body_data", "midOrgCode", "GA0002");
 				lnsJsonNode.put("/__body_data", "recLength", "0001");
 				lnsJsonNode.put("/__body_data", "zipYn", "0");
-				lnsJsonNode.put("/__body_data", "totLength", "0000000100");
-				lnsJsonNode.put("/__body_data", "data", "____GPKI_Hash_DATA______");
+				lnsJsonNode.put("/__body_data", "totLength", String.format("%010d", nHashSize));
+				lnsJsonNode.put("/__body_data", "data", strHashData);
 				
 				log.info(">>>>> SEND.lnsJsonNode: {}", lnsJsonNode.toPrettyString());
 			}
@@ -173,15 +196,45 @@ public class FiuFile {
 		log.info("KANG-20201111 >>>>> {} {}", CurrentInfo.get());
 		
 		if (Flag.flag) {
+			String strData = null;
+			int nSize = -1;
+			if (Flag.flag) {
+				StringBuffer sb = new StringBuffer();
+				sb.append("____GPKI_DATA______");
+				sb.append("____GPKI_DATA______");
+				sb.append("____GPKI_DATA______");
+				sb.append("____GPKI_DATA______");
+				sb.append("____GPKI_DATA______");
+				sb.append("____GPKI_DATA______");
+				sb.append("____GPKI_DATA______");
+				sb.append("____GPKI_DATA______");
+				sb.append("____GPKI_DATA______");
+				sb.append("____GPKI_DATA______");
+				sb.append("____GPKI_DATA______");
+				sb.append("____GPKI_DATA______");
+				sb.append("____GPKI_DATA______");
+				sb.append("____GPKI_DATA______");
+				sb.append("____GPKI_DATA______");
+				sb.append("____GPKI_DATA______");
+				sb.append("____GPKI_DATA______");
+				sb.append("____GPKI_DATA______");
+				sb.append("____GPKI_DATA______");
+				
+				strData = sb.toString();
+				nSize = strData.length();
+				
+				this.totalLength += nSize;
+			}
+			
 			LnsJsonNode lnsJsonNode = null;
 			if (Flag.flag) {
 				lnsJsonNode = FiuTools.getDefault();
 				lnsJsonNode.put("/__head_data", "typeCode", "03000030");
 				
 				lnsJsonNode.put("/__body_data", "sequence", "0000001");
-				lnsJsonNode.put("/__body_data", "sendLength", "0000000100");
-				lnsJsonNode.put("/__body_data", "dataLength", "0100");
-				lnsJsonNode.put("/__body_data", "data", "_____100_DATA_______");
+				lnsJsonNode.put("/__body_data", "sendLength", "0000000000");
+				lnsJsonNode.put("/__body_data", "dataLength", String.format("%04d", nSize));
+				lnsJsonNode.put("/__body_data", "data", strData);
 				
 				log.info(">>>>> SEND.lnsJsonNode: {}", lnsJsonNode.toPrettyString());
 			}
@@ -238,7 +291,7 @@ public class FiuFile {
 				lnsJsonNode.put("/__head_data", "typeCode", "03000040");
 				
 				lnsJsonNode.put("/__body_data", "sequence", "0000001");
-				lnsJsonNode.put("/__body_data", "totLength", "0000000100");
+				lnsJsonNode.put("/__body_data", "totLength", String.format("%010d", this.totalLength));
 				
 				log.info(">>>>> SEND.lnsJsonNode: {}", lnsJsonNode.toPrettyString());
 			}
