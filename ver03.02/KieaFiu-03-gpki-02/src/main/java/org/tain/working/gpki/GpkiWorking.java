@@ -20,7 +20,8 @@ import signgate.crypto.util.Base64Util;
 @Slf4j
 public class GpkiWorking {
 
-	final String basePath = "/Users/kangmac/KANG/fiu/20201111";
+	//final String basePath = "/Users/kangmac/KANG/fiu/20201111";
+	final String basePath = "/Users/kang-air/KANG/fiu/20201111";
 	//final String basePath = "/Users/kangmac/STS/GIT/KieaFiu/ver03.02/KieaFiu-03-gpki-02/src/main/resources";
 
 	/* GPKI 정보설정 */
@@ -100,7 +101,7 @@ public class GpkiWorking {
 		log.info("KANG-20200721 >>>>> {} {}", CurrentInfo.get());
 		
 		if (Flag.flag) {
-			String path = this.basePath + "/info/conf/gpkiapi.lic";
+			String path = this.basePath + "/info/conf/";
 			System.out.println("### Initiate GpkiApi with the license: " + path);
 			GpkiApi.init(path);
 		}
