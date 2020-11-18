@@ -6,6 +6,7 @@ import java.net.Socket;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.tain.object.ticket.LnsSocketTicket;
+import org.tain.properties.ProjEnvParamProperties;
 import org.tain.properties.ProjEnvUrlProperties;
 import org.tain.utils.CurrentInfo;
 import org.tain.utils.Flag;
@@ -20,6 +21,9 @@ public class FiuClientMain {
 	private ProjEnvUrlProperties projEnvUrlProperties;
 	
 	@Autowired
+	private ProjEnvParamProperties projEnvParamProperties;
+	
+	@Autowired
 	private FiuBiz fiuBiz;
 	
 	@Autowired
@@ -28,7 +32,7 @@ public class FiuClientMain {
 	public void process() throws Exception {
 		log.info("KANG-20201111 >>>>> {} {}", CurrentInfo.get());
 		
-		log.info(">>>>> Start InfoObject.name = {}.", InfoObject.name);
+		log.info(">>>>> Start InfoObject.name = {}.", InfoOfFile.name);
 		
 		if (Flag.flag) {
 			// client
@@ -57,7 +61,13 @@ public class FiuClientMain {
 				}
 				
 				if (Flag.flag) {
-					// file
+					// get file
+					String sendPath = this.projEnvParamProperties.getSendPath();
+					String sentPath = this.projEnvParamProperties.getSentPath();
+					String strExtention = this.projEnvParamProperties.getFileExt();
+					if (!InfoOfFile.get(sendPath, sentPath, strExtention)) {
+						return;
+					}
 				}
 				
 				if (Flag.flag) {
@@ -75,8 +85,8 @@ public class FiuClientMain {
 					
 					if (Flag.flag) {
 						for (int i=0; i < 1; i++) {
-							InfoObject.name += "0";
-							log.info(">>>>> Loop InfoObject.name = {}.", InfoObject.name);
+							InfoOfFile.name += "0";
+							log.info(">>>>> Loop InfoObject.name = {}.", InfoOfFile.name);
 							
 							if (Flag.flag) {
 								// fileData
@@ -103,6 +113,12 @@ public class FiuClientMain {
 					this.fiuBiz.sendBizCloseReq(lnsSocketTicket);
 					this.fiuBiz.recvBizCloseRes(lnsSocketTicket);
 				}
+				
+				if (Flag.flag) {
+					// move file
+					InfoOfFile.move();
+				}
+				
 				//Sleep.run(1 * 1000);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -111,7 +127,7 @@ public class FiuClientMain {
 			}
 		}
 		
-		log.info(">>>>> Finish InfoObject.name = {}.", InfoObject.name);
+		log.info(">>>>> Finish InfoObject.name = {}.", InfoOfFile.name);
 		
 		//if (Flag.flag) System.exit(0);
 	}

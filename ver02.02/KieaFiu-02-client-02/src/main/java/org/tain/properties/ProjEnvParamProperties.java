@@ -20,6 +20,7 @@ public class ProjEnvParamProperties {
 	private String sendPath;
 	private String sentPath;
 	private String recvPath;
+	private String fileExt;
 	
 	private String dummy;  // null
 }

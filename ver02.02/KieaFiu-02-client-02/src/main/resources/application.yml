@@ -115,6 +115,7 @@ proj-env:
     send-path: /Users/kang-air/KANG/fiu/20201111/SEND
     sent-path: /Users/kang-air/KANG/fiu/20201111/SENT
     recv-path: /Users/kang-air/KANG/fiu/20201111/RECV
+    file-ext: env
 
   job:
     name: JOB (air)
