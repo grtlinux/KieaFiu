@@ -12,7 +12,7 @@ spring:
   profiles.active:
   - proj-default
   - proj-air
-  #- proj-pro
+  - proj-pro
   #- proj-aws
   #- proj-dfep
   #- proj-real
@@ -145,6 +145,7 @@ proj-env:
     send-path: /Users/kangmac/KANG/fiu/20201111/SEND
     sent-path: /Users/kangmac/KANG/fiu/20201111/SENT
     recv-path: /Users/kangmac/KANG/fiu/20201111/RECV
+    file-ext: env
 
   job:
     name: JOB (pro)
@@ -189,6 +190,7 @@ proj-env:
     send-path: /hw01/ibridge/KANG/fiu/20201111/SEND
     sent-path: /hw01/ibridge/KANG/fiu/20201111/SENT
     recv-path: /hw01/ibridge/KANG/fiu/20201111/RECV
+    file-ext: env
 
   job:
     name: JOB (dfep)
@@ -217,6 +219,7 @@ proj-env:
     send-path: /hw01/ibridge/KANG/fiu/20201111/SEND
     sent-path: /hw01/ibridge/KANG/fiu/20201111/SENT
     recv-path: /hw01/ibridge/KANG/fiu/20201111/RECV
+    file-ext: env
 
   job:
     name: JOB (real)

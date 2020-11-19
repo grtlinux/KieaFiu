@@ -40,6 +40,7 @@ public class FiuFile {
 			int nHashSize = -1;
 			if (Flag.flag) {
 				StringBuffer sb = new StringBuffer();
+				/*
 				sb.append("____GPKI_Hash_DATA______");
 				sb.append("____GPKI_Hash_DATA______");
 				sb.append("____GPKI_Hash_DATA______");
@@ -48,6 +49,7 @@ public class FiuFile {
 				sb.append("____GPKI_Hash_DATA______");
 				sb.append("____GPKI_Hash_DATA______");
 				sb.append("____GPKI_Hash_DATA______");
+				 */
 				sb.append("____GPKI_Hash_DATA______");
 				sb.append("____GPKI_Hash_DATA______");
 				
@@ -63,12 +65,13 @@ public class FiuFile {
 				lnsJsonNode.put("/__head_data", "typeCode", "03000020");
 				
 				lnsJsonNode.put("/__body_data", "docCode", "REP002");
-				lnsJsonNode.put("/__body_data", "msgCode", "01");
-				lnsJsonNode.put("/__body_data", "sendSeq", "00000001");
-				lnsJsonNode.put("/__body_data", "docNo", StringTools.getYYYY() + "-00000001");
+				lnsJsonNode.put("/__body_data", "annMsgCode", "01");
+				//lnsJsonNode.put("/__body_data", "sendSeq", "00000001");
+				lnsJsonNode.put("/__body_data", "annDocNo", StringTools.getYYYY() + "-00000001");
 				lnsJsonNode.put("/__body_data", "annDate", StringTools.getYYYYMMDD());
 				lnsJsonNode.put("/__body_data", "befDocNo", "");
-				lnsJsonNode.put("/__body_data", "fileName", "CRT-GC0017-" + StringTools.getYYYYMMDD() + "-00000001.env");
+				//lnsJsonNode.put("/__body_data", "fileName", "CRT-GC0017-" + StringTools.getYYYYMMDD() + "-00000001.env");
+				lnsJsonNode.put("/__body_data", "fileName", InfoOfFile.fileName);
 				lnsJsonNode.put("/__body_data", "transNo", "0000001/0000001");
 				lnsJsonNode.put("/__body_data", "baseDocNo", StringTools.getYYYYMMDD() + "-00000001");
 				lnsJsonNode.put("/__body_data", "midOrgCode", "GA0002");
@@ -132,12 +135,13 @@ public class FiuFile {
 				lnsJsonNode.put("/__head_data", "typeCode", "03100020");
 				
 				lnsJsonNode.put("/__body_data", "docCode", "REP002");
-				lnsJsonNode.put("/__body_data", "msgCode", "01");
-				lnsJsonNode.put("/__body_data", "sendSeq", "00000001");
-				lnsJsonNode.put("/__body_data", "docNo", StringTools.getYYYY() + "-00000001");
+				lnsJsonNode.put("/__body_data", "annMsgCode", "01");
+				//lnsJsonNode.put("/__body_data", "sendSeq", "00000001");
+				lnsJsonNode.put("/__body_data", "annDocNo", StringTools.getYYYY() + "-00000001");
 				lnsJsonNode.put("/__body_data", "annDate", StringTools.getYYYYMMDD());
 				lnsJsonNode.put("/__body_data", "befDocNo", "");
-				lnsJsonNode.put("/__body_data", "fileName", "CRT-GC0017-" + StringTools.getYYYYMMDD() + "-00000001.env");
+				//lnsJsonNode.put("/__body_data", "fileName", "CRT-GC0017-" + StringTools.getYYYYMMDD() + "-00000001.env");
+				lnsJsonNode.put("/__body_data", "fileName", InfoOfFile.fileName);
 				lnsJsonNode.put("/__body_data", "transNo", "0000001/0000001");
 				lnsJsonNode.put("/__body_data", "baseDocNo", StringTools.getYYYYMMDD() + "-00000001");
 				lnsJsonNode.put("/__body_data", "midOrgCode", "GA0002");
@@ -200,6 +204,7 @@ public class FiuFile {
 			int nSize = -1;
 			if (Flag.flag) {
 				StringBuffer sb = new StringBuffer();
+				/*
 				sb.append("____GPKI_DATA______");
 				sb.append("____GPKI_DATA______");
 				sb.append("____GPKI_DATA______");
@@ -219,6 +224,8 @@ public class FiuFile {
 				sb.append("____GPKI_DATA______");
 				sb.append("____GPKI_DATA______");
 				sb.append("____GPKI_DATA______");
+				*/
+				sb.append(InfoOfFile.data);
 				
 				strData = sb.toString();
 				nSize = strData.length();
@@ -232,7 +239,7 @@ public class FiuFile {
 				lnsJsonNode.put("/__head_data", "typeCode", "03000030");
 				
 				lnsJsonNode.put("/__body_data", "sequence", "0000001");
-				lnsJsonNode.put("/__body_data", "sendLength", "0000000000");
+				lnsJsonNode.put("/__body_data", "sentLength", "0000000000");
 				lnsJsonNode.put("/__body_data", "dataLength", String.format("%04d", nSize));
 				lnsJsonNode.put("/__body_data", "data", strData);
 				
@@ -291,6 +298,7 @@ public class FiuFile {
 				lnsJsonNode.put("/__head_data", "typeCode", "03000040");
 				
 				lnsJsonNode.put("/__body_data", "sequence", "0000001");
+				//lnsJsonNode.put("/__body_data", "totLength", "0000000100");
 				lnsJsonNode.put("/__body_data", "totLength", String.format("%010d", this.totalLength));
 				
 				log.info(">>>>> SEND.lnsJsonNode: {}", lnsJsonNode.toPrettyString());
@@ -349,7 +357,8 @@ public class FiuFile {
 				
 				lnsJsonNode.put("/__body_data", "result", "00");
 				lnsJsonNode.put("/__body_data", "sequence", "0000001");
-				lnsJsonNode.put("/__body_data", "totLength", "0000000100");
+				//lnsJsonNode.put("/__body_data", "totLength", "0000000100");
+				lnsJsonNode.put("/__body_data", "totLength", String.format("%010d", this.totalLength));
 				
 				log.info(">>>>> SEND.lnsJsonNode: {}", lnsJsonNode.toPrettyString());
 			}
@@ -406,7 +415,8 @@ public class FiuFile {
 				lnsJsonNode.put("/__head_data", "typeCode", "03000050");
 				
 				lnsJsonNode.put("/__body_data", "sequence", "0000001");
-				lnsJsonNode.put("/__body_data", "sendLength", "0000000100");
+				//lnsJsonNode.put("/__body_data", "sendLength", "0000000100");
+				lnsJsonNode.put("/__body_data", "totLength", String.format("%010d", this.totalLength));
 				lnsJsonNode.put("/__body_data", "finDateTime", StringTools.getYYYYMMDDHHMMSS());
 				
 				log.info(">>>>> SEND.lnsJsonNode: {}", lnsJsonNode.toPrettyString());
@@ -465,7 +475,8 @@ public class FiuFile {
 				
 				lnsJsonNode.put("/__body_data", "result", "00");
 				lnsJsonNode.put("/__body_data", "sequence", "0000001");
-				lnsJsonNode.put("/__body_data", "sendLength", "0000000100");
+				//lnsJsonNode.put("/__body_data", "sendLength", "0000000100");
+				lnsJsonNode.put("/__body_data", "totLength", String.format("%010d", this.totalLength));
 				lnsJsonNode.put("/__body_data", "finDateTime", StringTools.getYYYYMMDDHHMMSS());
 				
 				log.info(">>>>> SEND.lnsJsonNode: {}", lnsJsonNode.toPrettyString());

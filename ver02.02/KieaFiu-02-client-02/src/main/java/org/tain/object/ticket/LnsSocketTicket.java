@@ -110,13 +110,15 @@ public class LnsSocketTicket {
 	
 	private String recvLength(int length) throws Exception {
 		byte[] bytLength = this.recv(length);
-		String strLength = new String(bytLength, "UTF-8");
+		//String strLength = new String(bytLength, "UTF-8");
+		String strLength = new String(bytLength, "euc-kr");
 		return strLength;
 	}
 	
 	private String recvData(int length) throws Exception {
 		byte[] bytData = this.recv(length);
-		String strData = new String(bytData, "UTF-8");
+		//String strData = new String(bytData, "UTF-8");
+		String strData = new String(bytData, "euc-kr");
 		return strData;
 	}
 	
@@ -141,7 +143,7 @@ public class LnsSocketTicket {
 	
 	public LnsStream sendStream(LnsStream lsnStream) throws Exception {
 		try {
-			byte[] bytPacket = lsnStream.getData().getBytes();
+			byte[] bytPacket = lsnStream.getData().getBytes("euc-kr");
 			int nsend = this.send(bytPacket);
 			if (nsend != lsnStream.getLength()) {
 				throw new IOException("ERROR: wrong send");
