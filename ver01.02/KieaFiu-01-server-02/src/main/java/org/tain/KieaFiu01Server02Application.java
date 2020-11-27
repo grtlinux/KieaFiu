@@ -24,6 +24,9 @@ public class KieaFiu01Server02Application implements CommandLineRunner {
 	public static void main(String[] args) {
 		log.info("KANG-20200923 >>>>> {} {}", CurrentInfo.get(), LocalDateTime.now());
 		SpringApplication.run(KieaFiu01Server02Application.class, args);
+		//new SpringApplicationBuilder(KieaFiu01Server02Application.class)
+		//	.web(WebApplicationType.NONE) // .REACTIVE, .SERVLET
+		//	.run(args);
 	}
 
 	@Override

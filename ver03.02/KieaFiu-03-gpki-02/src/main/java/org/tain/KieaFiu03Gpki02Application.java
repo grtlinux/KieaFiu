@@ -1,5 +1,7 @@
 package org.tain;
 
+import java.time.LocalDateTime;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -16,7 +18,11 @@ import lombok.extern.slf4j.Slf4j;
 public class KieaFiu03Gpki02Application implements CommandLineRunner {
 
 	public static void main(String[] args) {
+		log.info("KANG-20200923 >>>>> {} {}", CurrentInfo.get(), LocalDateTime.now());
 		SpringApplication.run(KieaFiu03Gpki02Application.class, args);
+		//new SpringApplicationBuilder(KieaFiu03Gpki02Application.class)
+		//	.web(WebApplicationType.NONE) // .REACTIVE, .SERVLET
+		//	.run(args);
 	}
 
 	@Override
