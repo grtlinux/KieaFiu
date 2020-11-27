@@ -98,70 +98,36 @@ public class FiuFile {
 	///////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////
 	
-	public void sendFileStartRes(LnsSocketTicket lnsSocketTicket) throws Exception {
-		log.info("KANG-20201111 =========================================================");
+	public LnsJsonNode getFileStartRes(LnsJsonNode reqLnsJsonNode) throws Exception {
 		log.info("KANG-20201111 >>>>> {} {}", CurrentInfo.get());
 		
+		LnsJsonNode resLnsJsonNode = null;
 		if (Flag.flag) {
-			LnsJsonNode lnsJsonNode = null;
 			if (Flag.flag) {
-				lnsJsonNode = FiuTools.getDefault();
-				lnsJsonNode.put("/__head_data", "typeCode", "03100020");
+				resLnsJsonNode = FiuTools.getDefault();
+				resLnsJsonNode.put("/__head_data", "typeCode", "03100020");
 				
-				lnsJsonNode.put("/__body_data", "docCode", "REP002");
-				lnsJsonNode.put("/__body_data", "msgCode", "01");
-				lnsJsonNode.put("/__body_data", "sendSeq", "00000001");
-				lnsJsonNode.put("/__body_data", "docNo", StringTools.getYYYY() + "-00000001");
-				lnsJsonNode.put("/__body_data", "annDate", StringTools.getYYYYMMDD());
-				lnsJsonNode.put("/__body_data", "befDocNo", "");
-				lnsJsonNode.put("/__body_data", "fileName", "CRT-GC0017-" + StringTools.getYYYYMMDD() + "-00000001.env");
-				lnsJsonNode.put("/__body_data", "transNo", "0000001/0000001");
-				lnsJsonNode.put("/__body_data", "baseDocNo", StringTools.getYYYYMMDD() + "-00000001");
-				lnsJsonNode.put("/__body_data", "midOrgCode", "GA0002");
-				lnsJsonNode.put("/__body_data", "recLength", "0001");
-				lnsJsonNode.put("/__body_data", "zipYn", "0");
-				lnsJsonNode.put("/__body_data", "totLength", "0000000100");
-				lnsJsonNode.put("/__body_data", "linkYn", "N");
-				lnsJsonNode.put("/__body_data", "recvLength", "0000000000");
+				resLnsJsonNode.put("/__body_data", "docCode", "REP002");
+				resLnsJsonNode.put("/__body_data", "msgCode", "01");
+				resLnsJsonNode.put("/__body_data", "sendSeq", "00000001");
+				resLnsJsonNode.put("/__body_data", "docNo", StringTools.getYYYY() + "-00000001");
+				resLnsJsonNode.put("/__body_data", "annDate", StringTools.getYYYYMMDD());
+				resLnsJsonNode.put("/__body_data", "befDocNo", "");
+				resLnsJsonNode.put("/__body_data", "fileName", "CRT-GC0017-" + StringTools.getYYYYMMDD() + "-00000001.env");
+				resLnsJsonNode.put("/__body_data", "transNo", "0000001/0000001");
+				resLnsJsonNode.put("/__body_data", "baseDocNo", StringTools.getYYYYMMDD() + "-00000001");
+				resLnsJsonNode.put("/__body_data", "midOrgCode", "GA0002");
+				resLnsJsonNode.put("/__body_data", "recLength", "0001");
+				resLnsJsonNode.put("/__body_data", "zipYn", "0");
+				resLnsJsonNode.put("/__body_data", "totLength", "0000000100");
+				resLnsJsonNode.put("/__body_data", "linkYn", "N");
+				resLnsJsonNode.put("/__body_data", "recvLength", "0000000000");
 				
-				log.info(">>>>> SEND.lnsJsonNode: {}", lnsJsonNode.toPrettyString());
-			}
-			
-			String strStream = null;
-			if (Flag.flag) {
-				LnsMstInfo lnsMstInfo = this.mapperReaderJob.get(lnsJsonNode.getText("/__head_data", "typeCode"));
-				strStream = new LnsJsonToStream(lnsMstInfo, lnsJsonNode.get()).get();
-				
-				log.info(">>>>> SEND.strStream: [{}]", strStream);
-			}
-			
-			if (Flag.flag) {
-				LnsStream lnsStream = new LnsStream(strStream);
-				lnsSocketTicket.sendStream(lnsStream);
-				log.info(">>>>> SEND.lnsStream = {}", JsonPrint.getInstance().toPrettyJson(lnsStream));
+				log.info(">>>>> reslnsJsonNode: {}", resLnsJsonNode.toPrettyString());
 			}
 		}
-	}
-	
-	public void recvFileStartRes(LnsSocketTicket lnsSocketTicket) throws Exception {
-		log.info("KANG-20201111 =========================================================");
-		log.info("KANG-20201111 >>>>> {} {}", CurrentInfo.get());
 		
-		if (Flag.flag) {
-			String strStream = null;
-			if (Flag.flag) {
-				LnsStream lnsStream = lnsSocketTicket.recvStream();
-				log.info(">>>>> RECV.lnsStream = {}", JsonPrint.getInstance().toPrettyJson(lnsStream));
-				strStream = lnsStream.getData();
-				log.info(">>>>> RECV.strStream = {}", strStream);
-			}
-			
-			if (Flag.flag) {
-				LnsMstInfo lnsMstInfo = this.mapperReaderJob.get(strStream.substring(42, 50));
-				JsonNode jsonNode = new LnsStreamToJson(lnsMstInfo, strStream).get();
-				log.info(">>>>> RECV.jsonNode = {}", jsonNode.toPrettyString());
-			}
-		}
+		return resLnsJsonNode;
 	}
 	
 	///////////////////////////////////////////////////////////////////////////

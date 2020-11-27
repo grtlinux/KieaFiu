@@ -6,14 +6,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import org.tain.mapper.LnsMstInfo;
 import org.tain.mapper.LnsStreamLength;
 import org.tain.properties.ProjEnvParamProperties;
 import org.tain.utils.CurrentInfo;
 import org.tain.utils.Flag;
-import org.tain.utils.Sleep;
 import org.tain.utils.StringTools;
 
 import lombok.extern.slf4j.Slf4j;
@@ -33,7 +31,7 @@ public class MapperReaderJob {
 		return this.mapInfo.get(key);
 	}
 	
-	@Async(value = "async_mapperReaderJob")
+	//@Async(value = "async_mapperReaderJob")
 	public void mapperReaderJob(String param) throws Exception {
 		this.param = param;
 		log.info("KANG-20200721 >>>>> {} {} {}", this.param, CurrentInfo.get());
@@ -91,7 +89,8 @@ public class MapperReaderJob {
 			}
 		}
 		
-		if (Flag.flag) {
+		if (!Flag.flag) {
+			/*
 			// check and update every 10 seconds
 			File fileBasePath = new File(basePath);
 			while (true) {
@@ -140,6 +139,7 @@ public class MapperReaderJob {
 				
 				Sleep.run(10 * 1000);
 			}
+			*/
 		}
 	}
 }

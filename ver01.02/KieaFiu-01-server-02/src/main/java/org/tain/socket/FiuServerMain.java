@@ -6,6 +6,7 @@ import java.net.Socket;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.tain.mapper.LnsJsonNode;
 import org.tain.object.ticket.LnsSocketTicket;
 import org.tain.properties.ProjEnvUrlProperties;
 import org.tain.utils.CurrentInfo;
@@ -19,6 +20,9 @@ public class FiuServerMain {
 
 	@Autowired
 	private ProjEnvUrlProperties projEnvUrlProperties;
+	
+	@Autowired
+	private FiuSocket fiuSocket;
 	
 	@Autowired
 	private FiuBiz fiuBiz;
@@ -45,67 +49,58 @@ public class FiuServerMain {
 				lnsSocketTicket.set(socket);
 				log.info(">>>>> {} has a socket. SET SOCKET.", lnsSocketTicket);
 				
-				if (!Flag.flag) {
-					/*
-					// recv for test
-					LnsStream lnsStream = lnsSocketTicket.recvStream();
-					log.info(">>>>> RECV.lnsStream = {}", JsonPrint.getInstance().toPrettyJson(lnsStream));
-					*/
-				}
-				
-				if (Flag.flag) {
-					// file
-				}
-				
-				if (Flag.flag) {
-					// bizOpen
-					this.fiuBiz.recvBizOpenReq(lnsSocketTicket);
-					this.fiuBiz.sendBizOpenRes(lnsSocketTicket);
-				}
-				
-				if (Flag.flag) {
-					if (Flag.flag) {
-						// fileStart
-						this.fiuFile.recvFileStartReq(lnsSocketTicket);
-						this.fiuFile.sendFileStartRes(lnsSocketTicket);
-					}
+				boolean flgClose = false;
+				LnsJsonNode reqLnsJsonNode = null;
+				LnsJsonNode resLnsJsonNode = null;
+				String typeCode = null;
+				while (!flgClose) {
+					reqLnsJsonNode = this.fiuSocket.recv(lnsSocketTicket);
+					typeCode = reqLnsJsonNode.getText("/__head_data", "typeCode");
+					log.info(">>>>> typeCode = {}", typeCode);
 					
-					if (Flag.flag) {
-						for (int i=0; i < 1; i++) {
-							if (Flag.flag) {
-								// fileData
-								this.fiuFile.recvFileData(lnsSocketTicket);
-							}
-							
-							if (Flag.flag) {
-								// fileCheck
-								this.fiuFile.recvFileCheckReq(lnsSocketTicket);
-								this.fiuFile.sendFileCheckRes(lnsSocketTicket);
-							}
-						}
-					}
-					
-					if (Flag.flag) {
-						// fileFinish
-						this.fiuFile.recvFileFinishReq(lnsSocketTicket);
+					switch (typeCode) {
+					// BIZ
+					case "06000010": // recvBizOpenReq
+						resLnsJsonNode = this.fiuBiz.getBizOpenRes(reqLnsJsonNode);
+						this.fiuSocket.send(lnsSocketTicket, resLnsJsonNode);
+						break;
+					case "06000040": // recvBizCloseReq
+						resLnsJsonNode = this.fiuBiz.getBizCloseRes(reqLnsJsonNode);
+						this.fiuSocket.send(lnsSocketTicket, resLnsJsonNode);
+						flgClose = true;
+						break;
+					// FILE
+					case "03000020": // recvFileStartReq
+						resLnsJsonNode = this.fiuFile.getFileStartRes(reqLnsJsonNode);
+						this.fiuSocket.send(lnsSocketTicket, resLnsJsonNode);
+						// create file
+						break;
+					case "03000030": // recvFileData
+						//this.fiuFile.sendFileStartRes(lnsSocketTicket);
+						// write file
+						break;
+					case "03000040": // recvFileCheckReq
+						this.fiuFile.sendFileCheckRes(lnsSocketTicket);
+						// check file
+						break;
+					case "03000050": // recvFileFinishReq
 						this.fiuFile.sendFileFinishRes(lnsSocketTicket);
+						// close file
+						break;
+					// ERROR
+					default:
+						//throw new Exception("ERROR: WRONG TYPE-CODE...");
+						flgClose = true;
+						break;
 					}
 				}
-				
-				if (Flag.flag) {
-					// bizClose
-					this.fiuBiz.recvBizCloseReq(lnsSocketTicket);
-					this.fiuBiz.sendBizCloseRes(lnsSocketTicket);
-				}
-				
-				//Sleep.run(1 * 1000);
 			} catch (Exception e) {
 				e.printStackTrace();
 			} finally {
 				if (serverSocket != null) try { serverSocket.close(); } catch (Exception e) {}
+				// send ERROR of 06000040
+				
 			}
 		}
-		
-		//if (Flag.flag) System.exit(0);
 	}
 }

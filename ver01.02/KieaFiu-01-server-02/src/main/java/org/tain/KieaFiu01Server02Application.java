@@ -9,7 +9,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.tain.socket.FiuServerMain;
 import org.tain.utils.CurrentInfo;
 import org.tain.utils.Flag;
-import org.tain.utils.Sleep;
 import org.tain.working.infoTest.InfoTest01Working;
 import org.tain.working.jsonTest.Json01Working;
 import org.tain.working.properties.PropertiesWorking;
@@ -72,7 +71,7 @@ public class KieaFiu01Server02Application implements CommandLineRunner {
 			if (Flag.flag) this.mapperReaderTask.runMapperReaderJob();
 		}
 		
-		if (Flag.flag) Sleep.run(1 * 1000);
+		//if (Flag.flag) Sleep.run(1 * 1000);
 	}
 	
 	///////////////////////////////////////////////////////////////////////////
