@@ -7,6 +7,7 @@ public enum FiuType {
 			FILE_CHECK("File Check"),
 		FILE_FINISH("File Finish"),
 	BIZ_CLOSE("Biz Close"),
+	FIU_END("FIU End"),
 	ERROR_EXCEPTION("Error Exception");
 
 	private String value;

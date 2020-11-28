@@ -5,11 +5,13 @@ import java.net.Socket;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.tain.mapper.LnsJsonNode;
 import org.tain.object.ticket.LnsSocketTicket;
-import org.tain.properties.ProjEnvParamProperties;
 import org.tain.properties.ProjEnvUrlProperties;
 import org.tain.utils.CurrentInfo;
 import org.tain.utils.Flag;
+import org.tain.utils.Sleep;
+import org.tain.utils.enums.FiuType;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -20,8 +22,11 @@ public class FiuClientMain {
 	@Autowired
 	private ProjEnvUrlProperties projEnvUrlProperties;
 	
+	//@Autowired
+	//private ProjEnvParamProperties projEnvParamProperties;
+	
 	@Autowired
-	private ProjEnvParamProperties projEnvParamProperties;
+	private FiuSocket fiuSocket;
 	
 	@Autowired
 	private FiuBiz fiuBiz;
@@ -29,106 +34,105 @@ public class FiuClientMain {
 	@Autowired
 	private FiuFile fiuFile;
 	
+	@Autowired
+	private FiuInfo fiuInfo;
+	
 	public void process() throws Exception {
 		log.info("KANG-20201111 >>>>> {} {}", CurrentInfo.get());
 		
-		log.info(">>>>> Start InfoObject.name = {}.", InfoOfFile.name);
-		
+		LnsSocketTicket lnsSocketTicket = null;
 		if (Flag.flag) {
-			// client
+			// connection socket
 			String host = this.projEnvUrlProperties.getConnectHost();
 			int port = this.projEnvUrlProperties.getConnectPort();
 			
-			Socket socket = null;
-			LnsSocketTicket lnsSocketTicket = new LnsSocketTicket();
-			try {
-				socket = new Socket();
-				InetSocketAddress inetSocketAddress = new InetSocketAddress(host, port);
-				log.info(">>>>> CLIENT.inetSocketAddress = {}.", inetSocketAddress);
-				socket.connect(inetSocketAddress);
-				
-				// set socket to ticket
-				lnsSocketTicket.set(socket);
-				log.info(">>>>> {} has a socket. SET SOCKET.", lnsSocketTicket);
-				
-				if (!Flag.flag) {
-					/*
-					// send for test
-					LnsStream lnsStream = new LnsStream("0030Hello, world !! server........");
-					lnsSocketTicket.sendStream(lnsStream);
-					log.info(">>>>> SEND.lnsStream = {}", JsonPrint.getInstance().toPrettyJson(lnsStream));
-					*/
-				}
-				
+			lnsSocketTicket = new LnsSocketTicket();
+			Socket socket = new Socket();
+			InetSocketAddress inetSocketAddress = new InetSocketAddress(host, port);
+			log.info(">>>>> CLIENT.inetSocketAddress = {}.", inetSocketAddress);
+			socket.connect(inetSocketAddress);
+			
+			// set socket to ticket
+			lnsSocketTicket.set(socket);
+			log.info(">>>>> {} has a socket. SET SOCKET.", lnsSocketTicket);
+		}
+		
+		if (Flag.flag) {
+			// file to send
+			log.info(">>>>> {}", this.fiuInfo.getName());
+		}
+		
+		if (Flag.flag) {
+			// transfer file with connection socket
+			
+			LnsJsonNode reqLnsJsonNode = null;
+			LnsJsonNode resLnsJsonNode = null;
+			
+			FiuType fiuType = FiuType.BIZ_OPEN;
+			String typeCode = null;
+			
+			while (fiuType != FiuType.FIU_END) {
 				if (Flag.flag) {
-					// get file
-					String sendPath = this.projEnvParamProperties.getSendPath();
-					String sentPath = this.projEnvParamProperties.getSentPath();
-					String strExtention = this.projEnvParamProperties.getFileExt();
-					if (!InfoOfFile.get(sendPath, sentPath, strExtention)) {
-						return;
+					// reqLnsJsonNode
+					if (fiuType == FiuType.BIZ_OPEN) {
+						reqLnsJsonNode = this.fiuBiz.getBizOpenReq();
+					} else if (fiuType == FiuType.FILE_START) {
+						reqLnsJsonNode = this.fiuFile.getFileStartReq();
+					} else if (fiuType == FiuType.FILE_SEND_DATA) {
+						reqLnsJsonNode = this.fiuFile.getFileSendData();
+					} else if (fiuType == FiuType.FILE_CHECK) {
+						reqLnsJsonNode = this.fiuFile.getFileCheckReq();
+					} else if (fiuType == FiuType.FILE_FINISH) {
+						reqLnsJsonNode = this.fiuFile.getFileFinishReq();
+					} else if (fiuType == FiuType.BIZ_CLOSE) {
+						reqLnsJsonNode = this.fiuBiz.getBizCloseReq();
+					} else {
+						throw new Exception("WRONG FiuType...");
 					}
 				}
 				
 				if (Flag.flag) {
-					// bizOpen
-					this.fiuBiz.sendBizOpenReq(lnsSocketTicket);
-					this.fiuBiz.recvBizOpenRes(lnsSocketTicket);
+					// send
+					this.fiuSocket.send(lnsSocketTicket, reqLnsJsonNode);
 				}
 				
 				if (Flag.flag) {
-					if (Flag.flag) {
-						// fileStart
-						this.fiuFile.sendFileStartReq(lnsSocketTicket);
-						this.fiuFile.recvFileStartRes(lnsSocketTicket);
-					}
-					
-					if (Flag.flag) {
-						for (int i=0; i < 1; i++) {
-							InfoOfFile.name += "0";
-							log.info(">>>>> Loop InfoObject.name = {}.", InfoOfFile.name);
-							
-							if (Flag.flag) {
-								// fileData
-								this.fiuFile.sendFileData(lnsSocketTicket);
-							}
-							
-							if (Flag.flag) {
-								// fileCheck
-								this.fiuFile.sendFileCheckReq(lnsSocketTicket);
-								this.fiuFile.recvFileCheckRes(lnsSocketTicket);
-							}
-						}
-					}
-					
-					if (Flag.flag) {
-						// fileFinish
-						this.fiuFile.sendFileFinishReq(lnsSocketTicket);
-						this.fiuFile.recvFileFinishRes(lnsSocketTicket);
-					}
+					// recv
+					resLnsJsonNode = this.fiuSocket.recv(lnsSocketTicket);
 				}
 				
 				if (Flag.flag) {
-					// bizClose
-					this.fiuBiz.sendBizCloseReq(lnsSocketTicket);
-					this.fiuBiz.recvBizCloseRes(lnsSocketTicket);
+					// typeCode
+					typeCode = resLnsJsonNode.getText("/__head_data", "typeCode");
+					log.info(">>>>> typeCode = {}", typeCode);
 				}
 				
 				if (Flag.flag) {
-					// move file
-					InfoOfFile.move();
+					// resLnsJsonNode
+					if ("06100010".equals(typeCode)) {          // BIZ_OPEN_RES
+						fiuType = FiuType.FILE_START;
+					} else if ("03100020".equals(typeCode)) {   // FILE_START_RES
+						fiuType = FiuType.FILE_SEND_DATA;
+					} else if ("03100030".equals(typeCode)) {   // FILE_SEND_DATA
+						// send file content
+						fiuType = FiuType.FILE_CHECK;
+						Sleep.run(1 * 1000);
+					} else if ("03100040".equals(typeCode)) {   // FILE_CHECK_RES
+						if (Flag.flag)
+							fiuType = FiuType.FILE_SEND_DATA;
+						else
+							fiuType = FiuType.FILE_FINISH;
+					} else if ("03100050".equals(typeCode)) {   // FILE_FINISH_RES
+						fiuType = FiuType.BIZ_CLOSE;
+					} else if ("06100040".equals(typeCode)) {   // BIZ_CLOSE_RES
+						fiuType = FiuType.FIU_END;
+					}
 				}
-				
-				//Sleep.run(1 * 1000);
-			} catch (Exception e) {
-				e.printStackTrace();
-			} finally {
-				//
 			}
 		}
 		
-		log.info(">>>>> Finish InfoObject.name = {}.", InfoOfFile.name);
-		
-		//if (Flag.flag) System.exit(0);
+		if (Flag.flag) {
+			// move send_file to sent_file
+		}
 	}
 }

@@ -36,75 +36,69 @@ public class FiuServerMain {
 	public void process() throws Exception {
 		log.info("KANG-20201111 >>>>> {} {}", CurrentInfo.get());
 		
+		LnsSocketTicket lnsSocketTicket = null;
+		ServerSocket serverSocket = new ServerSocket();
 		if (Flag.flag) {
-			// server
-			ServerSocket serverSocket = new ServerSocket();
 			int port = this.projEnvUrlProperties.getListenPort();
 			InetSocketAddress inetSocketAddress = new InetSocketAddress("localhost", port);
 			serverSocket.bind(inetSocketAddress);
 			log.info(">>>>> SERVER.inetSocketAddress = {}.", inetSocketAddress);
 			
-			LnsSocketTicket lnsSocketTicket = new LnsSocketTicket();
+			lnsSocketTicket = new LnsSocketTicket();
+			
+			Socket socket = serverSocket.accept();  // connect-block
+			
+			// set socket to ticket
+			lnsSocketTicket.set(socket);
+			log.info(">>>>> {} has a socket. SET SOCKET.", lnsSocketTicket);
+			log.info(">>>>> {}", this.fiuInfo.getName());
+		}
+		
+		if (Flag.flag) {
+			// server
+			LnsJsonNode reqLnsJsonNode = null;
+			LnsJsonNode resLnsJsonNode = null;
+			
+			boolean flgClose = false;
+			String typeCode = null;
+			
 			try {
-				Socket socket = serverSocket.accept();  // connect-block
-				
-				// set socket to ticket
-				lnsSocketTicket.set(socket);
-				log.info(">>>>> {} has a socket. SET SOCKET.", lnsSocketTicket);
-				log.info(">>>>> {}", this.fiuInfo.getName());
-				
-				boolean flgClose = false;
-				LnsJsonNode reqLnsJsonNode = null;
-				LnsJsonNode resLnsJsonNode = null;
-				String typeCode = null;
-				
 				while (!flgClose) {
-					reqLnsJsonNode = this.fiuSocket.recv(lnsSocketTicket);
-					typeCode = reqLnsJsonNode.getText("/__head_data", "typeCode");
-					log.info(">>>>> typeCode = {}", typeCode);
+					if (Flag.flag) {
+						// recv
+						reqLnsJsonNode = this.fiuSocket.recv(lnsSocketTicket);
+						typeCode = reqLnsJsonNode.getText("/__head_data", "typeCode");
+						log.info(">>>>> typeCode = {}", typeCode);
+					}
 					
-					switch (typeCode) {
-					// BIZ
-					case "06000010": // recvBizOpenReq
+					if ("06000010".equals(typeCode)) {
 						resLnsJsonNode = this.fiuBiz.getBizOpenRes(reqLnsJsonNode);
-						this.fiuSocket.send(lnsSocketTicket, resLnsJsonNode);
-						break;
-					case "06000040": // recvBizCloseReq
-						resLnsJsonNode = this.fiuBiz.getBizCloseRes(reqLnsJsonNode);
-						this.fiuSocket.send(lnsSocketTicket, resLnsJsonNode);
-						flgClose = true;
-						break;
-					// FILE
-					case "03000020": // recvFileStartReq
+					} else if ("03000020".equals(typeCode)) {
 						resLnsJsonNode = this.fiuFile.getFileStartRes(reqLnsJsonNode);
-						this.fiuSocket.send(lnsSocketTicket, resLnsJsonNode);
-						// create file
-						break;
-					case "03000030": // recvFileData
-						//this.fiuFile.sendFileStartRes(lnsSocketTicket);
-						// write file
-						break;
-					case "03000040": // recvFileCheckReq
-						this.fiuFile.sendFileCheckRes(lnsSocketTicket);
-						// check file
-						break;
-					case "03000050": // recvFileFinishReq
-						this.fiuFile.sendFileFinishRes(lnsSocketTicket);
-						// close file
-						break;
-					// ERROR
-					default:
-						//throw new Exception("ERROR: WRONG TYPE-CODE...");
+					} else if ("03000030".equals(typeCode)) {
+						// recv file content
+						//resLnsJsonNode = this.fiuFile.getFileStartRes(reqLnsJsonNode);
+					} else if ("03000040".equals(typeCode)) {
+						resLnsJsonNode = this.fiuFile.getFileCheckRes(reqLnsJsonNode);
+					} else if ("03000050".equals(typeCode)) {
+						resLnsJsonNode = this.fiuFile.getFileFinishRes(reqLnsJsonNode);
+					} else if ("06000040".equals(typeCode)) {
+						resLnsJsonNode = this.fiuBiz.getBizCloseRes(reqLnsJsonNode);
 						flgClose = true;
-						break;
+					}
+					
+					if (Flag.flag) {
+						// send
+						this.fiuSocket.send(lnsSocketTicket, resLnsJsonNode);
 					}
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
+				// send ERROR of 06000040
+				resLnsJsonNode = this.fiuBiz.getBizCloseRes(reqLnsJsonNode);
+				this.fiuSocket.send(lnsSocketTicket, resLnsJsonNode);
 			} finally {
 				if (serverSocket != null) try { serverSocket.close(); } catch (Exception e) {}
-				// send ERROR of 06000040
-				
 			}
 		}
 	}
