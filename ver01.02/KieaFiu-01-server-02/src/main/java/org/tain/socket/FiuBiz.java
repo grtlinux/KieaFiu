@@ -100,4 +100,22 @@ public class FiuBiz {
 		
 		return resLnsJsonNode;
 	}
+	
+	///////////////////////////////////////////////////////////////////////////
+	
+	public LnsJsonNode getBizCloseResError(LnsJsonNode reqLnsJsonNode) throws Exception {
+		log.info("KANG-20201111 >>>>> {} {}", CurrentInfo.get());
+		
+		LnsJsonNode resLnsJsonNode = null;
+		if (Flag.flag) {
+			resLnsJsonNode = FiuTools.getDefault();
+			resLnsJsonNode.put("/__head_data", "typeCode", "06100040");
+			
+			resLnsJsonNode.put("/__body_data", "closeDateTime", StringTools.getYYYYMMDDHHMMSS());
+			
+			log.info(">>>>> reslnsJsonNode = {}", resLnsJsonNode.toPrettyString());
+		}
+		
+		return resLnsJsonNode;
+	}
 }

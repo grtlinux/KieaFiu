@@ -76,8 +76,8 @@ public class FiuServerMain {
 					} else if ("03000020".equals(typeCode)) {
 						resLnsJsonNode = this.fiuFile.getFileStartRes(reqLnsJsonNode);
 					} else if ("03000030".equals(typeCode)) {
-						// recv file content
-						//resLnsJsonNode = this.fiuFile.getFileStartRes(reqLnsJsonNode);
+						this.fiuFile.writeFileData(reqLnsJsonNode);
+						continue;
 					} else if ("03000040".equals(typeCode)) {
 						resLnsJsonNode = this.fiuFile.getFileCheckRes(reqLnsJsonNode);
 					} else if ("03000050".equals(typeCode)) {
@@ -94,8 +94,7 @@ public class FiuServerMain {
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
-				// send ERROR of 06000040
-				resLnsJsonNode = this.fiuBiz.getBizCloseRes(reqLnsJsonNode);
+				resLnsJsonNode = this.fiuBiz.getBizCloseResError(reqLnsJsonNode);  // 06100040 of ERROR
 				this.fiuSocket.send(lnsSocketTicket, resLnsJsonNode);
 			} finally {
 				if (serverSocket != null) try { serverSocket.close(); } catch (Exception e) {}

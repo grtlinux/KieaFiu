@@ -13,7 +13,6 @@ import org.tain.mapper.LnsStreamLength;
 import org.tain.properties.ProjEnvParamProperties;
 import org.tain.utils.CurrentInfo;
 import org.tain.utils.Flag;
-import org.tain.utils.Sleep;
 import org.tain.utils.StringTools;
 
 import lombok.extern.slf4j.Slf4j;
@@ -91,7 +90,8 @@ public class MapperReaderJob {
 			}
 		}
 		
-		if (Flag.flag) {
+		if (!Flag.flag) {
+			/*
 			// check and update every 10 seconds
 			File fileBasePath = new File(basePath);
 			while (true) {
@@ -140,6 +140,7 @@ public class MapperReaderJob {
 				
 				Sleep.run(10 * 1000);
 			}
+			*/
 		}
 	}
 }

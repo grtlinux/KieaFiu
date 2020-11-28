@@ -47,7 +47,7 @@ public class FiuSocket {
 			
 			if (Flag.flag) {
 				this.strStream = this.lnsStream.getData();
-				log.info(">>>>> 2-RECV.strStream = {}", this.strStream);
+				log.info(">>>>> 2-RECV.strStream = [{}]", this.strStream);
 			}
 			
 			if (Flag.flag) {
@@ -57,11 +57,11 @@ public class FiuSocket {
 			
 			if (Flag.flag) {
 				this.lnsMstInfo = this.mapperReaderJob.get(this.typeCode);
-				log.info(">>>>> 4-RECV.lnsMstInfo = {}", this.lnsMstInfo);
+				log.info(">>>>> 4-RECV.lnsMstInfo = {}", JsonPrint.getInstance().toPrettyJson(this.lnsMstInfo));
 			}
 			
 			if (Flag.flag) {
-				this.jsonNode = new LnsStreamToJson(lnsMstInfo, this.strStream).get();
+				this.jsonNode = new LnsStreamToJson(this.lnsMstInfo, this.strStream).get();
 				log.info(">>>>> 5-RECV.jsonNode = {}", this.jsonNode.toPrettyString());
 			}
 		}

@@ -10,7 +10,6 @@ import org.tain.object.ticket.LnsSocketTicket;
 import org.tain.properties.ProjEnvUrlProperties;
 import org.tain.utils.CurrentInfo;
 import org.tain.utils.Flag;
-import org.tain.utils.Sleep;
 import org.tain.utils.enums.FiuType;
 
 import lombok.extern.slf4j.Slf4j;
@@ -97,6 +96,13 @@ public class FiuClientMain {
 				}
 				
 				if (Flag.flag) {
+					if (fiuType == FiuType.FILE_SEND_DATA) {
+						fiuType = FiuType.FILE_CHECK;
+						continue;
+					}
+				}
+				
+				if (Flag.flag) {
 					// recv
 					resLnsJsonNode = this.fiuSocket.recv(lnsSocketTicket);
 				}
@@ -113,12 +119,8 @@ public class FiuClientMain {
 						fiuType = FiuType.FILE_START;
 					} else if ("03100020".equals(typeCode)) {   // FILE_START_RES
 						fiuType = FiuType.FILE_SEND_DATA;
-					} else if ("03100030".equals(typeCode)) {   // FILE_SEND_DATA
-						// send file content
-						fiuType = FiuType.FILE_CHECK;
-						Sleep.run(1 * 1000);
 					} else if ("03100040".equals(typeCode)) {   // FILE_CHECK_RES
-						if (Flag.flag)
+						if (!Flag.flag)
 							fiuType = FiuType.FILE_SEND_DATA;
 						else
 							fiuType = FiuType.FILE_FINISH;

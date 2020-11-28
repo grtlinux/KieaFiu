@@ -1,10 +1,14 @@
 package org.tain.socket;
 
+import java.io.File;
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.tain.properties.ProjEnvParamProperties;
 import org.tain.utils.CurrentInfo;
 import org.tain.utils.Flag;
+import org.tain.utils.StringTools;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -30,8 +34,16 @@ public class FiuInfo {
 	private String sentPath;
 	private String recvPath;
 	
+	private String fromPath;
+	private String toPath;
+	
 	private String filePath;
 	private String fileName;  // ~.env
+	
+	private final int unitLength = 2000;
+	private String fileData;
+	private int fileLength;  // total length
+	private int sentLength;  // sent length
 	
 	//////////////////////////////////////////////////////////////////
 	
@@ -46,6 +58,8 @@ public class FiuInfo {
 			this.sendPath = this.home + this.base + this.projEnvParamProperties.getSendPath();
 			this.sentPath = this.home + this.base + this.projEnvParamProperties.getSentPath();
 			this.recvPath = this.home + this.base + this.projEnvParamProperties.getRecvPath();
+			this.fromPath = this.sendPath;
+			this.toPath = this.sentPath;
 			
 			log.info(">>>>> home     = {}", this.home);
 			log.info(">>>>> base     = {}", this.base);
@@ -54,6 +68,52 @@ public class FiuInfo {
 			log.info(">>>>> sendPath = {}", this.sendPath);
 			log.info(">>>>> sentPath = {}", this.sentPath);
 			log.info(">>>>> recvPath = {}", this.recvPath);
+			log.info(">>>>> fromPath = {}", this.fromPath);
+			log.info(">>>>> toPath   = {}", this.toPath);
 		}
+	}
+	
+	public boolean getFile() {
+		log.info("KANG-20201111 >>>>> {} {}", CurrentInfo.get());
+		
+		if (Flag.flag) {
+			File path = new File(this.fromPath);
+			File[] files = path.listFiles();
+			Arrays.sort(files);
+			for (final File fileEntry : files) {
+				if (fileEntry.isFile()) {
+					if (Flag.flag) log.info(">>>>> [{}] [{}]", fileEntry.getParent(), fileEntry.getName());
+					
+					if (!StringTools.isExtension(fileEntry.getName(), "env"))
+						continue;
+					
+					this.filePath = fileEntry.getParent();
+					this.fileName = fileEntry.getName();
+					
+					log.info("======================= FiuInfo: {} ==========================", fileEntry.getName());
+					log.info(">>>>> filePath = {}", this.filePath);
+					log.info(">>>>> fileName = {}", this.fileName);
+					log.info("--------------------------------------------------------------");
+					
+					this.fileData = StringTools.stringFromFile(this.filePath + "/" + this.fileName);
+					this.fileLength = this.fileData.length();
+					this.sentLength = 0;
+					
+					return true;
+				}
+			}
+		}
+		
+		return false;
+	}
+	
+	public boolean writeFile(String strData) {
+		log.info("KANG-20201111 >>>>> {} {}", CurrentInfo.get());
+		
+		if (Flag.flag) {
+			
+		}
+		
+		return true;
 	}
 }

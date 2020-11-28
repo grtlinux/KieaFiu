@@ -58,10 +58,17 @@ public class LnsStreamToJson {
 			} else {
 				LnsElementInfo info = new LnsElementInfo(childNode.textValue());
 				if (info.isUsable()) {
-					int idxStart = this.offset;
-					int idxEnd = this.offset + info.getLength();
-					String data = this.streamData.substring(idxStart, idxEnd).trim();
-					this.offset = idxEnd;
+					String data = null;
+					if (info.getLength() > 0) {
+						int idxStart = this.offset;
+						int idxEnd = this.offset + info.getLength();
+						data = this.streamData.substring(idxStart, idxEnd).trim();
+						this.offset = idxEnd;
+					} else if (info.getLength() == 0) {
+						int idxStart = this.offset;
+						data = this.streamData.substring(idxStart).trim();
+						this.offset = this.streamData.length();
+					}
 					
 					if (!"".equals(data)) {
 						switch (info.getType()) {
