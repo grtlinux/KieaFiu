@@ -35,7 +35,7 @@ public class FiuInfo {
 	
 	//////////////////////////////////////////////////////////////////
 	
-	public FiuInfo() {
+	public void set() {
 		log.info("KANG-20201111 >>>>> {} {}", CurrentInfo.get());
 		
 		if (Flag.flag) {

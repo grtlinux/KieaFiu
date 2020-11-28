@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.tain.socket.FiuInfo;
 import org.tain.socket.FiuServerMain;
 import org.tain.utils.CurrentInfo;
 import org.tain.utils.Flag;
@@ -36,8 +37,8 @@ public class KieaFiu01Server02Application implements CommandLineRunner {
 		if (Flag.flag) job02();  // tasks.MapperReaderJob
 		if (!Flag.flag) job03();  // jsonTest for test
 		if (!Flag.flag) job04();  // infoTest for test
-		if (Flag.flag) job05();  // server
-		if (Flag.flag) job06();
+		if (Flag.flag) job05();  // fiuInfo.set
+		if (Flag.flag) job06();  // server
 		if (Flag.flag) job07();
 		if (Flag.flag) job08();
 		if (Flag.flag) job09();
@@ -123,22 +124,26 @@ public class KieaFiu01Server02Application implements CommandLineRunner {
 	///////////////////////////////////////////////////////////////////////////
 	
 	@Autowired
-	private FiuServerMain fiuServerMain;
+	private FiuInfo fiuInfo;
 	
 	private void job05() throws Exception {
 		log.info("KANG-20200923 >>>>> {} {}", CurrentInfo.get());
 		
 		if (Flag.flag) {
-			this.fiuServerMain.process();
+			this.fiuInfo.set();
 		}
 	}
 	
 	///////////////////////////////////////////////////////////////////////////
 	
-	private void job06() {
+	@Autowired
+	private FiuServerMain fiuServerMain;
+	
+	private void job06() throws Exception {
 		log.info("KANG-20200923 >>>>> {} {}", CurrentInfo.get());
 		
 		if (Flag.flag) {
+			this.fiuServerMain.process();
 		}
 	}
 	
