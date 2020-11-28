@@ -30,6 +30,9 @@ public class FiuServerMain {
 	@Autowired
 	private FiuFile fiuFile;
 	
+	@Autowired
+	private FiuInfo fiuInfo;
+	
 	public void process() throws Exception {
 		log.info("KANG-20201111 >>>>> {} {}", CurrentInfo.get());
 		
@@ -44,15 +47,17 @@ public class FiuServerMain {
 			LnsSocketTicket lnsSocketTicket = new LnsSocketTicket();
 			try {
 				Socket socket = serverSocket.accept();  // connect-block
-					
+				
 				// set socket to ticket
 				lnsSocketTicket.set(socket);
 				log.info(">>>>> {} has a socket. SET SOCKET.", lnsSocketTicket);
+				log.info(">>>>> {}", this.fiuInfo.getName());
 				
 				boolean flgClose = false;
 				LnsJsonNode reqLnsJsonNode = null;
 				LnsJsonNode resLnsJsonNode = null;
 				String typeCode = null;
+				
 				while (!flgClose) {
 					reqLnsJsonNode = this.fiuSocket.recv(lnsSocketTicket);
 					typeCode = reqLnsJsonNode.getText("/__head_data", "typeCode");
