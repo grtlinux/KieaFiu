@@ -1,6 +1,5 @@
 package org.tain.socket;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.tain.mapper.LnsJsonNode;
 import org.tain.utils.CurrentInfo;
@@ -13,16 +12,12 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class FiuBiz {
 
-	@SuppressWarnings("unused")
-	@Autowired
-	private FiuInfo fiuInfo;
-	
 	///////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////
 	
 	public LnsJsonNode getBizOpenReq() throws Exception {
-		log.info("KANG-20201111 >>>>> {} {}", CurrentInfo.get());
+		log.info("KANG-20201111 >>>>> {} {}", StringTools.getDashLine('='), CurrentInfo.get());
 		
 		LnsJsonNode reqLnsJsonNode = null;
 		if (Flag.flag) {
@@ -44,7 +39,7 @@ public class FiuBiz {
 	///////////////////////////////////////////////////////////////////////////
 	
 	public LnsJsonNode getBizOpenRes(LnsJsonNode reqLnsJsonNode) throws Exception {
-		log.info("KANG-20201111 >>>>> {} {}", CurrentInfo.get());
+		log.info("KANG-20201111 >>>>> {} {}", StringTools.getDashLine('='), CurrentInfo.get());
 		
 		LnsJsonNode resLnsJsonNode = null;
 		if (Flag.flag) {
@@ -68,7 +63,7 @@ public class FiuBiz {
 	///////////////////////////////////////////////////////////////////////////
 	
 	public LnsJsonNode getBizCloseReq() throws Exception {
-		log.info("KANG-20201111 >>>>> {} {}", CurrentInfo.get());
+		log.info("KANG-20201111 >>>>> {} {}", StringTools.getDashLine('='), CurrentInfo.get());
 		
 		LnsJsonNode resLnsJsonNode = null;
 		if (Flag.flag) {
@@ -86,12 +81,31 @@ public class FiuBiz {
 	///////////////////////////////////////////////////////////////////////////
 	
 	public LnsJsonNode getBizCloseRes(LnsJsonNode reqLnsJsonNode) throws Exception {
-		log.info("KANG-20201111 >>>>> {} {}", CurrentInfo.get());
+		log.info("KANG-20201111 >>>>> {} {}", StringTools.getDashLine('='), CurrentInfo.get());
 		
 		LnsJsonNode resLnsJsonNode = null;
 		if (Flag.flag) {
 			resLnsJsonNode = FiuTools.getDefault();
 			resLnsJsonNode.put("/__head_data", "typeCode", "06100040");
+			
+			resLnsJsonNode.put("/__body_data", "closeDateTime", StringTools.getYYYYMMDDHHMMSS());
+			
+			log.info(">>>>> reslnsJsonNode = {}", resLnsJsonNode.toPrettyString());
+		}
+		
+		return resLnsJsonNode;
+	}
+	
+	///////////////////////////////////////////////////////////////////////////
+	
+	public LnsJsonNode getBizCloseResError(LnsJsonNode reqLnsJsonNode) throws Exception {
+		log.info("KANG-20201111 >>>>> {} {}", StringTools.getDashLine('='), CurrentInfo.get());
+		
+		LnsJsonNode resLnsJsonNode = null;
+		if (Flag.flag) {
+			resLnsJsonNode = FiuTools.getDefault();
+			resLnsJsonNode.put("/__head_data", "typeCode", "06100040");
+			resLnsJsonNode.put("/__head_data", "resCode", "999");
 			
 			resLnsJsonNode.put("/__body_data", "closeDateTime", StringTools.getYYYYMMDDHHMMSS());
 			

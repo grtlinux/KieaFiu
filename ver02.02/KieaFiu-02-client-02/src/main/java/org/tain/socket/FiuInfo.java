@@ -40,10 +40,13 @@ public class FiuInfo {
 	private String filePath;
 	private String fileName;  // ~.env
 	
-	private final int unitLength = 2000;
+	private final int unitLength = 4000;
 	private String fileData;
 	private int fileLength;  // total length
 	private int sentLength;  // sent length
+	private int totPage;     // 총 패이지 갯수
+	private int idxPage;     // 현재 페이지 인덱스
+	private int lenPage;     // 현재 갯수
 	
 	//////////////////////////////////////////////////////////////////
 	
@@ -89,22 +92,51 @@ public class FiuInfo {
 					
 					this.filePath = fileEntry.getParent();
 					this.fileName = fileEntry.getName();
-					
-					log.info("======================= FiuInfo: {} ==========================", fileEntry.getName());
-					log.info(">>>>> filePath = {}", this.filePath);
-					log.info(">>>>> fileName = {}", this.fileName);
-					log.info("--------------------------------------------------------------");
-					
 					this.fileData = StringTools.stringFromFile(this.filePath + "/" + this.fileName);
 					this.fileLength = this.fileData.length();
 					this.sentLength = 0;
+					this.totPage = (this.fileLength + this.unitLength - 1) / this.unitLength;
+					this.idxPage = 0;
+					
+					log.info("======================= FiuInfo: {} ==========================", fileEntry.getName());
+					log.info(">>>>> filePath   = {}", this.filePath);
+					log.info(">>>>> fileName   = {}", this.fileName);
+					//log.info(">>>>> fileData = {}", this.fileData); unitLength
+					log.info(">>>>> fileLength = {}", this.fileLength);
+					log.info(">>>>> unitLength = {}", this.unitLength);
+					log.info(">>>>> totPage    = {}", this.totPage);
+					log.info(">>>>> sentLength = {}", this.sentLength);
+					log.info(">>>>> idxPage    = {}", this.idxPage);
+					log.info("--------------------------------------------------------------");
 					
 					return true;
 				}
 			}
 		}
 		
+		if (Flag.flag) {
+			log.info(">>>>> FIU INFO.getFile() = There's no file to transfer on FIU.");
+		}
+		
 		return false;
+	}
+	
+	public String getCurrentPage() {
+		log.info("KANG-20201111 >>>>> {} {}", CurrentInfo.get());
+		
+		if (this.idxPage >= this.totPage)
+			return null;
+		
+		String strReturn = null;
+		if (Flag.flag) {
+			int beg = this.idxPage * this.unitLength;
+			this.idxPage ++;
+			int end = Math.min(this.idxPage * this.unitLength, this.fileLength);
+			strReturn = this.fileData.substring(beg, end);
+			this.lenPage = end - beg;
+		}
+		
+		return strReturn;
 	}
 	
 	public boolean writeFile(String strData) {
@@ -115,5 +147,18 @@ public class FiuInfo {
 		}
 		
 		return true;
+	}
+	
+	public boolean moveFile() {
+		log.info("KANG-20201111 >>>>> {} {}", CurrentInfo.get());
+		
+		boolean isSuccess = false;
+		if (Flag.flag) {
+			File fromFile = new File(this.fromPath + "/" + this.fileName);
+			File toFile = new File(this.toPath + "/" + this.fileName);
+			isSuccess = fromFile.renameTo(toFile);
+		}
+		
+		return isSuccess;
 	}
 }

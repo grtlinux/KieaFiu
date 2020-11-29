@@ -40,8 +40,8 @@ public class KieaFiu02Client02Application implements CommandLineRunner {
 		if (!Flag.flag) job03();  // jsonTest for test
 		if (!Flag.flag) job04();  // infoTest for test
 		if (!Flag.flag) job05();  // LnsJsonNode on testing
-		if (Flag.flag) job06();  // fiuInfo.set
-		if (!Flag.flag) job07();  // client
+		if (Flag.flag) job06();  // fiuInfo.set and getFile
+		if (Flag.flag) job07();  // client
 		if (Flag.flag) job08();
 		if (Flag.flag) job09();
 		if (Flag.flag) job10();

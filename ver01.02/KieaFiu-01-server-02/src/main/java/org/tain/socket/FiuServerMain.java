@@ -33,6 +33,8 @@ public class FiuServerMain {
 	@Autowired
 	private FiuInfo fiuInfo;
 	
+	//////////////////////////////////////////////////////////////////////////
+	
 	public void process() throws Exception {
 		log.info("KANG-20201111 >>>>> {} {}", CurrentInfo.get());
 		
@@ -76,7 +78,7 @@ public class FiuServerMain {
 					} else if ("03000020".equals(typeCode)) {
 						resLnsJsonNode = this.fiuFile.getFileStartRes(reqLnsJsonNode);
 					} else if ("03000030".equals(typeCode)) {
-						this.fiuFile.writeFileData(reqLnsJsonNode);
+						this.fiuFile.getFileRecvData(reqLnsJsonNode);
 						continue;
 					} else if ("03000040".equals(typeCode)) {
 						resLnsJsonNode = this.fiuFile.getFileCheckRes(reqLnsJsonNode);

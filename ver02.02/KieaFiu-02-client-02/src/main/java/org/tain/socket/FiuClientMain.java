@@ -21,9 +21,6 @@ public class FiuClientMain {
 	@Autowired
 	private ProjEnvUrlProperties projEnvUrlProperties;
 	
-	//@Autowired
-	//private ProjEnvParamProperties projEnvParamProperties;
-	
 	@Autowired
 	private FiuSocket fiuSocket;
 	
@@ -35,6 +32,8 @@ public class FiuClientMain {
 	
 	@Autowired
 	private FiuInfo fiuInfo;
+	
+	///////////////////////////////////////////////////////////////////////////
 	
 	public void process() throws Exception {
 		log.info("KANG-20201111 >>>>> {} {}", CurrentInfo.get());
@@ -58,7 +57,10 @@ public class FiuClientMain {
 		
 		if (Flag.flag) {
 			// file to send
-			log.info(">>>>> {}", this.fiuInfo.getName());
+			boolean isSuccessOfGetFile = this.fiuInfo.getFile();
+			if (!isSuccessOfGetFile) {
+				return;
+			}
 		}
 		
 		if (Flag.flag) {
@@ -135,6 +137,7 @@ public class FiuClientMain {
 		
 		if (Flag.flag) {
 			// move send_file to sent_file
+			this.fiuInfo.moveFile();
 		}
 	}
 }
