@@ -100,7 +100,7 @@ public class FiuFile {
 			reqLnsJsonNode.put("/__head_data", "typeCode", "03000030");
 			
 			reqLnsJsonNode.put("/__body_data", "sequence"  , String.format("%07d", this.fiuInfo.getIdxPage() + 1));
-			reqLnsJsonNode.put("/__body_data", "sendLength", String.format("%010d", this.fiuInfo.getSentLength()));
+			reqLnsJsonNode.put("/__body_data", "sentLength", String.format("%010d", this.fiuInfo.getSentLength()));
 			reqLnsJsonNode.put("/__body_data", "dataLength", String.format("%04d", this.fiuInfo.getLenPage()));
 			reqLnsJsonNode.put("/__body_data", "data"      , data);
 			

@@ -38,6 +38,14 @@ public class FiuClientMain {
 	public void process() throws Exception {
 		log.info("KANG-20201111 >>>>> {} {}", CurrentInfo.get());
 		
+		if (Flag.flag) {
+			// file to send
+			boolean isSuccessOfGetFile = this.fiuInfo.getFile();
+			if (!isSuccessOfGetFile) {
+				return;
+			}
+		}
+		
 		LnsSocketTicket lnsSocketTicket = null;
 		if (Flag.flag) {
 			// connection socket
@@ -53,14 +61,6 @@ public class FiuClientMain {
 			// set socket to ticket
 			lnsSocketTicket.set(socket);
 			log.info(">>>>> {} has a socket. SET SOCKET.", lnsSocketTicket);
-		}
-		
-		if (Flag.flag) {
-			// file to send
-			boolean isSuccessOfGetFile = this.fiuInfo.getFile();
-			if (!isSuccessOfGetFile) {
-				return;
-			}
 		}
 		
 		if (Flag.flag) {
