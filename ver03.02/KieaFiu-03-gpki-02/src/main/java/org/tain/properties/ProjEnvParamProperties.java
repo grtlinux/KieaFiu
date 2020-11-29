@@ -14,6 +14,8 @@ public class ProjEnvParamProperties {
 	
 	private String home;
 	private String base;
+	
+	private String gpkiPath;
 	private String infoPath;
 	private String dataPath;
 	

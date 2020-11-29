@@ -115,6 +115,7 @@ proj-env:
     name: PARAM (air)
     home: /Users/kang-air
     base: /KANG/fiu/20201111
+    gpki-path: /info
     info-path: /jsonInfo
     data-path: /jsonData
     send-path: /SEND
@@ -144,6 +145,7 @@ proj-env:
     name: PARAM (pro)
     home: /Users/kangmac
     base: /KANG/fiu/20201111
+    gpki-path: /info
     info-path: /jsonInfo
     data-path: /jsonData
     send-path: /SEND
@@ -172,6 +174,7 @@ proj-env:
     name: PARAM (aws)
     home: /home/ubuntu
     base: /KANG/fiu/20201111
+    gpki-path: /info
     info-path: /jsonInfo
     data-path: /jsonData
     send-path: /SEND
@@ -197,6 +200,7 @@ proj-env:
     name: PARAM (dfep)
     home: /hw01/ibridge
     base: /KANG/fiu/20201111
+    gpki-path: /info
     info-path: /jsonInfo
     data-path: /jsonData
     send-path: /SEND
@@ -225,6 +229,7 @@ proj-env:
     name: PARAM (real)
     home: /hw01/ibridge
     base: /KANG/fiu/20201111
+    gpki-path: /info
     info-path: /jsonInfo
     data-path: /jsonData
     send-path: /SEND

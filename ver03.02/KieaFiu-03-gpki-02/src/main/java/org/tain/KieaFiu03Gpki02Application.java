@@ -66,7 +66,8 @@ public class KieaFiu03Gpki02Application implements CommandLineRunner {
 		
 		if (Flag.flag) {
 			if (!Flag.flag) this.gpkiWorking.test01();
-			if (Flag.flag) this.gpkiWorking.test02();
+			if (!Flag.flag) this.gpkiWorking.test02();
+			if (Flag.flag) this.gpkiWorking.test03();
 		}
 	}
 	
