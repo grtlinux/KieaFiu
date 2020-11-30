@@ -138,6 +138,7 @@ public class GpkiWorking {
 			String base = this.projEnvParamProperties.getBase();
 			pathInfo = home + base + this.projEnvParamProperties.getGpkiPath();
 			gpkiCertPath = pathInfo + "/SVR1160131005_env.cer";
+			//gpkiCertPath = pathInfo + "/npki/kmCert.der";
 			licensePath = pathInfo + "/license.kica";
 			certPath = pathInfo + "/npki/signCert.der";
 			certKeyPath = pathInfo + "/npki/signPri.key";
