@@ -127,7 +127,7 @@ public class GpkiWorking {
 		String licensePath = null;
 		String certPath = null;
 		String certKeyPath = null;
-		String certPassword = "signgate1!";
+		String certPassword = null;
 		
 		String orgPath = null;
 		String orgFile = null;
@@ -137,11 +137,13 @@ public class GpkiWorking {
 			String home = this.projEnvParamProperties.getHome();
 			String base = this.projEnvParamProperties.getBase();
 			pathInfo = home + base + this.projEnvParamProperties.getGpkiPath();
-			gpkiCertPath = pathInfo + "/SVR1160131005_env.cer";
-			//gpkiCertPath = pathInfo + "/npki/kmCert.der";
-			licensePath = pathInfo + "/license.kica";
-			certPath = pathInfo + "/npki/signCert.der";
-			certKeyPath = pathInfo + "/npki/signPri.key";
+			
+			gpkiCertPath   = pathInfo + this.projEnvParamProperties.getGpkiCertPath();
+			gpkiAlgorithm  = this.projEnvParamProperties.getGpkiAlgorithm();
+			licensePath    = pathInfo + this.projEnvParamProperties.getLicensePath();
+			certPath       = pathInfo + this.projEnvParamProperties.getCertPath();
+			certKeyPath    = pathInfo + this.projEnvParamProperties.getCertKeyPath();
+			certPassword   = this.projEnvParamProperties.getCertPassword();
 			
 			orgPath =  home + base + this.projEnvParamProperties.getSendPath();
 			orgFile = "S_FIU_GC001700000_20201118_01";
@@ -154,6 +156,7 @@ public class GpkiWorking {
 			log.info("KANG-20201128 >>>>> certPath      = {}", certPath);
 			log.info("KANG-20201128 >>>>> certKeyPath   = {}", certKeyPath);
 			log.info("KANG-20201128 >>>>> certPassword  = {}", certPassword);
+			
 			log.info("KANG-20201128 >>>>> orgPath       = {}", orgPath);
 			log.info("KANG-20201128 >>>>> orgFile       = {}", orgFile);
 			log.info("KANG-20201128 >>>>> encFile       = {}", encFile);

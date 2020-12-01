@@ -23,5 +23,12 @@ public class ProjEnvParamProperties {
 	private String sentPath;
 	private String recvPath;
 	
+	private String gpkiCertPath;
+	private String gpkiAlgorithm;
+	private String licensePath;
+	private String certPath;
+	private String certKeyPath;
+	private String certPassword;
+	
 	private String dummy;  // null
 }

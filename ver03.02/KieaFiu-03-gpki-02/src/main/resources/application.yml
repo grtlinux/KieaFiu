@@ -121,6 +121,12 @@ proj-env:
     send-path: /SEND
     sent-path: /SENT
     recv-path: /RECV
+    gpki-cert-path:  /SVR1160131005_env.cer
+    gpki-algorithm:  ARIA
+    license-path:    /license.kica
+    cert-path:       /npki/signCert.der
+    cert-key-path:   /npki/signPri.key
+    cert-password:   signgate1!
 
   job:
     name: JOB (air)
@@ -151,6 +157,12 @@ proj-env:
     send-path: /SEND
     sent-path: /SENT
     recv-path: /RECV
+    gpki-cert-path:  /SVR1160131005_env.cer
+    gpki-algorithm:  ARIA
+    license-path:    /license.kica
+    cert-path:       /npki/signCert.der
+    cert-key-path:   /npki/signPri.key
+    cert-password:   signgate1!
 
   job:
     name: JOB (pro)
@@ -206,6 +218,12 @@ proj-env:
     send-path: /SEND
     sent-path: /SENT
     recv-path: /RECV
+    gpki-cert-path:  /SVR1160131005_env.cer
+    gpki-algorithm:  ARIA
+    license-path:    /license.kica
+    cert-path:       /npki/signCert.der
+    cert-key-path:   /npki/signPri.key
+    cert-password:   signgate1!
 
   job:
     name: JOB (dfep)
@@ -235,6 +253,12 @@ proj-env:
     send-path: /SEND
     sent-path: /SENT
     recv-path: /RECV
+    gpki-cert-path:  /SVR1160131005_env.cer
+    gpki-algorithm:  ARIA
+    license-path:    /license.kica
+    cert-path:       /npki/signCert.der
+    cert-key-path:   /npki/signPri.key
+    cert-password:   signgate1!
 
   job:
     name: JOB (real)
