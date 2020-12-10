@@ -43,7 +43,8 @@ public class ServerMainJob {
 			// server
 			ServerSocket serverSocket = new ServerSocket();
 			int port = this.projEnvJobProperties.getListenPort();
-			InetSocketAddress inetSocketAddress = new InetSocketAddress("localhost", port);
+			//InetSocketAddress inetSocketAddress = new InetSocketAddress("localhost", port);
+			InetSocketAddress inetSocketAddress = new InetSocketAddress(port);
 			serverSocket.bind(inetSocketAddress);
 			
 			try {
