@@ -37,9 +37,11 @@ public class KieaFiu02Client02Application implements CommandLineRunner {
 		
 		if (Flag.flag) job01();  // properties
 		if (Flag.flag) job02();  // tasks.MapperReaderJob
+		
 		if (!Flag.flag) job03();  // jsonTest for test
 		if (!Flag.flag) job04();  // infoTest for test
 		if (!Flag.flag) job05();  // LnsJsonNode on testing
+		
 		if (Flag.flag) job06();  // fiuInfo.set and getFile
 		if (Flag.flag) job07();  // client
 		if (Flag.flag) job08();
@@ -119,7 +121,8 @@ public class KieaFiu02Client02Application implements CommandLineRunner {
 		log.info("KANG-20200923 >>>>> {} {}", CurrentInfo.get());
 		
 		if (Flag.flag) {
-			if (Flag.flag) this.infoTest01Working.test01();
+			if (!Flag.flag) this.infoTest01Working.test01();
+			if (Flag.flag) this.infoTest01Working.test02();
 		}
 	}
 	
@@ -148,7 +151,7 @@ public class KieaFiu02Client02Application implements CommandLineRunner {
 		
 		if (Flag.flag) {
 			if (Flag.flag) this.fiuInfo.set();
-			if (Flag.flag) this.fiuInfo.getFile();
+			if (!Flag.flag) this.fiuInfo.getFile();
 		}
 	}
 	

@@ -93,14 +93,13 @@ public class FiuClientMain {
 				}
 				
 				if (Flag.flag) {
-					// send
-					this.fiuSocket.send(lnsSocketTicket, reqLnsJsonNode);
-				}
-				
-				if (Flag.flag) {
+					// TODO
 					if (fiuType == FiuType.FILE_SEND_DATA) {
+						//this.fiuSocket.sendData(lnsSocketTicket);
 						fiuType = FiuType.FILE_CHECK;
 						continue;
+					} else {
+						this.fiuSocket.send(lnsSocketTicket, reqLnsJsonNode);
 					}
 				}
 				

@@ -144,6 +144,7 @@ public class LnsSocketTicket {
 	public LnsStream sendStream(LnsStream lsnStream) throws Exception {
 		try {
 			byte[] bytPacket = lsnStream.getData().getBytes("euc-kr");
+			//byte[] bytPacket = lsnStream.getBData();
 			int nsend = this.send(bytPacket);
 			if (nsend != lsnStream.getLength()) {
 				throw new IOException("ERROR: wrong send");
@@ -155,6 +156,14 @@ public class LnsSocketTicket {
 		}
 		
 		return lsnStream;
+	}
+	
+	public void sendBytes(byte[] bytes) throws Exception {
+		try {
+			this.send(bytes);
+		} catch (Exception e) {
+			throw e;
+		}
 	}
 	
 	///////////////////////////////////////////////////////////

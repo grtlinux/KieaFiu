@@ -5,8 +5,12 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import javax.xml.bind.DatatypeConverter;
 
 public class StringTools {
 
@@ -123,6 +127,84 @@ public class StringTools {
 				if (pw != null) try { pw.close(); } catch (Exception e) {}
 			}
 		}
+	}
+	
+	///////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////
+
+	// KANG-20200918
+	public static byte[] byteFromFile(String filePath) {
+		byte[] bRet = null;
+		if (Flag.flag) {
+			try {
+				//bRet = Files.readAllBytes(new File(filePath).toPath());
+				bRet = Files.readAllBytes(Paths.get(filePath));
+			} catch (IOException e) {
+				e.printStackTrace();
+			} finally {
+			}
+		}
+		return bRet;
+	}
+	
+	// KANG-20200918
+	public static void byteToFile(byte[] bSource, String filePath) {
+		if (Flag.flag) {
+			try {
+				Files.write(Paths.get(filePath), bSource);
+			} catch (IOException e) {
+				e.printStackTrace();
+			} finally {
+			}
+		}
+	}
+	
+	///////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////
+	
+	public static byte[] getBytesFromString(String hexString) {
+		if (Flag.flag) {
+			return DatatypeConverter.parseHexBinary(hexString);
+		}
+		int len = hexString.length();
+		byte[] bRet = new byte[len / 2];
+		for (int i=0; i < len; i += 2) {
+			bRet[i/2] = (byte)((Character.digit(hexString.charAt(i), 16) << 4) + Character.digit(hexString.charAt(i+1), 16));
+		}
+		return bRet;
+	}
+	
+	public static String getStringFromBytes(byte[] bytes) {
+		if (!Flag.flag) {
+			return DatatypeConverter.printHexBinary(bytes);
+		}
+		
+		StringBuilder sb = new StringBuilder();
+		for (byte byt : bytes) {
+			sb.append(String.format("%02X", byt & 0xff));
+		}
+		return sb.toString();
+	}
+	
+	public static String byteToHex(byte byt) {
+		char[] hexDigits = new char[2];
+		hexDigits[0] = Character.forDigit((byt >> 4) & 0xF, 16);
+		hexDigits[1] = Character.forDigit(byt & 0xF, 16);
+		return new String(hexDigits);
+	}
+	
+	public static String getByteString(byte[] bytes) {
+		StringBuilder sb = new StringBuilder();
+		for (byte byt : bytes) {
+			sb.append(String.format(" %02X", byt & 0xff));
+		}
+		if (sb.length() > 1) {
+			sb.deleteCharAt(0);
+		}
+		
+		return sb.toString();
 	}
 	
 	///////////////////////////////////////////////////////////////////////////

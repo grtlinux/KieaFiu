@@ -99,9 +99,9 @@ public class FiuFile {
 			reqLnsJsonNode = FiuTools.getDefault();
 			reqLnsJsonNode.put("/__head_data", "typeCode", "03000030");
 			
-			reqLnsJsonNode.put("/__body_data", "sequence"  , String.format("%07d", this.fiuInfo.getIdxPage() + 1));
+			reqLnsJsonNode.put("/__body_data", "sequence"  , String.format("%07d" , this.fiuInfo.getIdxPage() + 1));
 			reqLnsJsonNode.put("/__body_data", "sentLength", String.format("%010d", this.fiuInfo.getSentLength()));
-			reqLnsJsonNode.put("/__body_data", "dataLength", String.format("%04d", this.fiuInfo.getLenPage()));
+			reqLnsJsonNode.put("/__body_data", "dataLength", String.format("%04d" , this.fiuInfo.getLenPage()));
 			reqLnsJsonNode.put("/__body_data", "data"      , data);
 			
 			log.info(">>>>> SEND.lnsJsonNode: {}", reqLnsJsonNode.toPrettyString());
@@ -126,6 +126,9 @@ public class FiuFile {
 	///////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////
 	
+	/*
+	 * totLength = sentLength + dataLength;
+	 */
 	public LnsJsonNode getFileCheckReq() throws Exception {
 		log.info("KANG-20201111 >>>>> {} {}", StringTools.getDashLine('='), CurrentInfo.get());
 		

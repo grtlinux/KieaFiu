@@ -22,6 +22,8 @@ public class LnsStream implements Cloneable {
 	//private String typeCode;      // 7 0200300/0210300 <- validate-REQ/RES
 	private String content;
 	
+	private byte[] bData;
+	
 	public LnsStream(String data) {
 		this.data   = data;
 		this.length = data.length();  // data_length
