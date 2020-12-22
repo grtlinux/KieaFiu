@@ -93,7 +93,6 @@ public class FiuClientMain {
 				}
 				
 				if (Flag.flag) {
-					// TODO
 					if (fiuType == FiuType.FILE_SEND_DATA) {
 						this.fiuSocket.sendData(lnsSocketTicket);
 						fiuType = FiuType.FILE_CHECK;
@@ -121,7 +120,7 @@ public class FiuClientMain {
 					} else if ("03100020".equals(typeCode)) {   // FILE_START_RES
 						fiuType = FiuType.FILE_SEND_DATA;
 					} else if ("03100040".equals(typeCode)) {   // FILE_CHECK_RES
-						if (!Flag.flag)
+						if (this.fiuInfo.setNextPage())
 							fiuType = FiuType.FILE_SEND_DATA;
 						else
 							fiuType = FiuType.FILE_FINISH;

@@ -12,6 +12,7 @@ import org.tain.task.MapperReaderJob;
 import org.tain.utils.CurrentInfo;
 import org.tain.utils.Flag;
 import org.tain.utils.JsonPrint;
+import org.tain.utils.StringTools;
 
 import com.fasterxml.jackson.databind.JsonNode;
 
@@ -99,9 +100,9 @@ public class FiuSocket {
 			// header
 			LnsJsonNode lnsJsonNode = FiuTools.getDefault();
 			lnsJsonNode.put("/__head_data", "typeCode", "03000030");
-			lnsJsonNode.put("/__body_data", "sequence"  , String.format("%07d" , this.fiuInfo.getIdxPage() + 1));
-			lnsJsonNode.put("/__body_data", "sentLength", String.format("%010d", this.fiuInfo.getSentLength()));
-			lnsJsonNode.put("/__body_data", "dataLength", String.format("%04d" , this.fiuInfo.getLenPage()));
+			lnsJsonNode.put("/__body_data", "sequence"  , String.format("%07d" , this.fiuInfo.getPageSeq()));
+			lnsJsonNode.put("/__body_data", "sentLength", String.format("%010d", this.fiuInfo.getPageSentLength()));
+			lnsJsonNode.put("/__body_data", "dataLength", String.format("%04d" , this.fiuInfo.getPageLength()));
 			
 			LnsMstInfo lnsMstInfo = this.mapperReaderJob.get(lnsJsonNode.getText("/__head_data", "typeCode"));
 			String strStream = new LnsJsonToStream(lnsMstInfo, lnsJsonNode.get()).get();
@@ -112,7 +113,7 @@ public class FiuSocket {
 		byte[] bBody = null;
 		if (Flag.flag) {
 			// body
-			bBody = "".getBytes();
+			bBody = this.fiuInfo.getPageData();
 		}
 		
 		byte[] bData = null;
@@ -124,14 +125,14 @@ public class FiuSocket {
 			byte[] bLen = String.format("%04d", lenData).getBytes();
 			
 			bData = new byte[lenData];
-			System.arraycopy(bLen, 0, bData, 0, lenData);                // bLen
+			System.arraycopy(bLen, 0, bData, 0, 4);                      // bLen
 			System.arraycopy(bHeader, 0, bData, 4, lenHeader);           // bHeader
 			System.arraycopy(bBody, 0, bData, 4 + lenHeader, lenBody);   // bBody
 		}
 		
 		if (Flag.flag) {
-			lnsSocketTicket.sendBytes(bData);
-			//log.info(">>>>> SEND.lnsStream = {}", JsonPrint.getInstance().toPrettyJson(lnsStream));
+			//lnsSocketTicket.sendBytes(bData);
+			log.info(">>>>> SEND.bData = {}", StringTools.getByteString(bData));
 		}
 		
 		/*

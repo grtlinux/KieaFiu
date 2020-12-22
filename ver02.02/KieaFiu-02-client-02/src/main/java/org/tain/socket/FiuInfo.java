@@ -40,23 +40,31 @@ public class FiuInfo {
 	private String filePath;
 	private String fileName;  // ~.env
 	
-	private final int unitLength = 4000;
-	private String fileData;
-	private int fileLength;  // total length
-	private int sentLength;  // sent length
-	private int totPage;     // 총 패이지 갯수
-	private int idxPage;     // 현재 페이지 인덱스
-	private int lenPage;     // 현재 갯수
+	//private final int unitLength = 4000;
+	//private String fileData;
+	//private int sentLength;  // sent length
+	//private int totPage;     // 총 패이지 갯수
+	//private int idxPage;     // 현재 페이지 인덱스
+	//private int lenPage;     // 현재 갯수
 	
 	private final int unitSize = 400;
 	private String pemData;    // pem file
 	private byte[] bFileData;  // file data by byte
-	private int lenFile;       // length of file
-	private int idxCurr;       // index of current with unitSize
-	private int idxMax;        // index of max with unitSize
+	private int fileLength;    // length of file
+	
+	//private int idxCurr;       // index of current with unitSize
+	//private int idxMax;        // index of max with unitSize
+	//private boolean flgRemain; // flag whether remaining bytes or not
+	
+	private int pageIdx;         // 0, 1
+	private int pageSeq;         // 1, 2
+	private int pageLength;      // data length to send
+	private int pageSentLength;  // data total length sent
+	private int pageCount;       // count of page
+	private byte[] pageData;     // page data
+	
 	private int offBeg;        // offset of begin, size of before send
 	private int offEnd;        // offset of end, size of after send
-	private boolean flgRemain; // flag whether remaining bytes or not
 	
 	//////////////////////////////////////////////////////////////////
 	
@@ -151,24 +159,11 @@ public class FiuInfo {
 					this.fileName = fileEntry.getName();
 					
 					this.bFileData = StringTools.byteFromFile(this.filePath + File.separator + this.fileName);
-					this.lenFile = this.bFileData.length;
-					this.idxCurr = 0;
-					this.idxMax = (this.lenFile + this.unitSize - 1) / this.unitSize;
-					this.offBeg = this.idxCurr * this.unitSize;
-					this.offEnd = Math.min((this.idxCurr + 1) * this.unitSize, this.lenFile);
-					this.flgRemain = true;
+					this.fileLength = this.bFileData.length;
 					
-					log.info("======================= FiuInfo: {} ==========================", fileEntry.getName());
-					log.info(">>>>> filePath   = {}", this.filePath);
-					log.info(">>>>> fileName   = {}", this.fileName);
-					//log.info(">>>>> fileData = {}", this.fileData); unitLength
-					log.info(">>>>> lenFile    = {}", this.lenFile);
-					log.info(">>>>> idxCurr    = {}", this.idxCurr);
-					log.info(">>>>> idxMax     = {}", this.idxMax);
-					log.info(">>>>> offBeg     = {}", this.offBeg);
-					log.info(">>>>> offEnd     = {}", this.offEnd);
-					log.info(">>>>> flgRemain  = {}", this.flgRemain);
-					log.info("--------------------------------------------------------------");
+					setInitPage();
+					
+					printFiuInfo();
 					
 					return true;
 				}
@@ -182,6 +177,84 @@ public class FiuInfo {
 		return false;
 	}
 	
+	public void printFiuInfo() {
+		log.info("======================= FiuInfo =============================");
+		log.info(">>>>> filePath       = {}", this.filePath);
+		log.info(">>>>> fileName       = {}", this.fileName);
+		//log.info(">>>>> fileData = {}", this.fileData); unitLength
+		log.info(">>>>> unitSize       = {}", this.unitSize);
+		log.info(">>>>> fileLength     = {}", this.fileLength);
+		log.info(">>>>> pageIdx        = {}", this.pageIdx);
+		log.info(">>>>> pageSeq        = {}", this.pageSeq);
+		log.info(">>>>> pageLength     = {}", this.pageLength);
+		log.info(">>>>> pageSentLength = {}", this.pageSentLength);
+		log.info(">>>>> pageCount      = {}", this.pageCount);
+		log.info(">>>>> offBeg         = {}", this.offBeg);
+		log.info(">>>>> offEnd         = {}", this.offEnd);
+		log.info("--------------------------------------------------------------");
+	}
+	
+	//////////////////////////////////////////////////////////////////
+	
+	public void setInitPage() {
+		log.info("KANG-20201222 >>>>> {} {}", CurrentInfo.get());
+		
+		if (Flag.flag) {
+			this.pageIdx = 0;
+			this.offBeg = this.pageIdx * this.unitSize;
+			this.offEnd = Math.min((this.pageIdx + 1) * this.unitSize, this.fileLength);
+			this.pageLength = this.offEnd - this.offBeg;
+			this.pageSentLength = this.offBeg;
+			this.pageSeq = this.pageIdx + 1;
+			this.pageCount = (this.fileLength + this.unitSize - 1) / this.unitSize;
+			this.pageData = Arrays.copyOfRange(this.bFileData, this.offBeg, this.offEnd);
+		}
+	}
+	
+	public boolean setNextPage() {
+		log.info("KANG-20201222 >>>>> {} {}", CurrentInfo.get());
+		
+		if (Flag.flag) {
+			if (this.pageIdx >= (this.pageCount - 1))
+				return false;
+			
+			this.pageIdx += 1;
+			this.offBeg = this.pageIdx * this.unitSize;
+			this.offEnd = Math.min((this.pageIdx + 1) * this.unitSize, this.fileLength);
+			this.pageLength = this.offEnd - this.offBeg;
+			this.pageSentLength = this.offBeg;
+			this.pageSeq = this.pageIdx + 1;
+			this.pageData = Arrays.copyOfRange(this.bFileData, this.offBeg, this.offEnd);
+		}
+		
+		return true;
+	}
+	
+	public boolean setPrevPage() {
+		log.info("KANG-20201222 >>>>> {} {}", CurrentInfo.get());
+		
+		if (Flag.flag) {
+			if (this.pageIdx <= 0)
+				return false;
+			
+			this.pageIdx -= 1;
+			this.offBeg = this.pageIdx * this.unitSize;
+			this.offEnd = Math.min((this.pageIdx + 1) * this.unitSize, this.fileLength);
+			this.pageLength = this.offEnd - this.offBeg;
+			this.pageSentLength = this.offBeg;
+			this.pageSeq = this.pageIdx + 1;
+			this.pageData = Arrays.copyOfRange(this.bFileData, this.offBeg, this.offEnd);
+		}
+		
+		return true;
+	}
+	
+	//////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////
+	
+	/*
 	public String getCurrentPage() {
 		log.info("KANG-20201111 >>>>> {} {}", CurrentInfo.get());
 		
@@ -209,6 +282,7 @@ public class FiuInfo {
 		
 		return true;
 	}
+	 */
 	
 	public boolean moveFile() {
 		log.info("KANG-20201111 >>>>> {} {}", CurrentInfo.get());

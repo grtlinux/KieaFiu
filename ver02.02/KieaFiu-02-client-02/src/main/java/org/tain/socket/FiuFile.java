@@ -100,9 +100,9 @@ public class FiuFile {
 			reqLnsJsonNode = FiuTools.getDefault();
 			reqLnsJsonNode.put("/__head_data", "typeCode", "03000030");
 			
-			reqLnsJsonNode.put("/__body_data", "sequence"  , String.format("%07d" , this.fiuInfo.getIdxPage() + 1));
-			reqLnsJsonNode.put("/__body_data", "sentLength", String.format("%010d", this.fiuInfo.getSentLength()));
-			reqLnsJsonNode.put("/__body_data", "dataLength", String.format("%04d" , this.fiuInfo.getLenPage()));
+			reqLnsJsonNode.put("/__body_data", "sequence"  , String.format("%07d" , this.fiuInfo.getPageSeq()));
+			reqLnsJsonNode.put("/__body_data", "sentLength", String.format("%010d", this.fiuInfo.getPageSentLength()));
+			reqLnsJsonNode.put("/__body_data", "dataLength", String.format("%04d" , this.fiuInfo.getPageLength()));
 			reqLnsJsonNode.put("/__body_data", "data"      , data);
 			
 			log.info(">>>>> SEND.lnsJsonNode: {}", reqLnsJsonNode.toPrettyString());
@@ -138,8 +138,8 @@ public class FiuFile {
 			reqLnsJsonNode = FiuTools.getDefault();
 			reqLnsJsonNode.put("/__head_data", "typeCode", "03000040");
 			
-			reqLnsJsonNode.put("/__body_data", "sequence" , String.format("%07d", this.fiuInfo.getIdxPage() + 1));
-			reqLnsJsonNode.put("/__body_data", "totLength", String.format("%010d", this.fiuInfo.getSentLength() + this.fiuInfo.getLenPage()));
+			reqLnsJsonNode.put("/__body_data", "sequence" , String.format("%07d", this.fiuInfo.getPageSeq()));
+			reqLnsJsonNode.put("/__body_data", "totLength", String.format("%010d", this.fiuInfo.getPageSentLength() + this.fiuInfo.getPageLength()));
 			
 			log.info(">>>>> SEND.lnsJsonNode: {}", reqLnsJsonNode.toPrettyString());
 		}
@@ -179,8 +179,8 @@ public class FiuFile {
 			reqLnsJsonNode = FiuTools.getDefault();
 			reqLnsJsonNode.put("/__head_data", "typeCode", "03000050");
 			
-			reqLnsJsonNode.put("/__body_data", "sequence"   , String.format("%07d", this.fiuInfo.getIdxPage() + 1));
-			reqLnsJsonNode.put("/__body_data", "totLength"  , String.format("%010d", this.fiuInfo.getSentLength()));
+			reqLnsJsonNode.put("/__body_data", "sequence"   , String.format("%07d", this.fiuInfo.getPageSeq()));
+			reqLnsJsonNode.put("/__body_data", "totLength"  , String.format("%010d", this.fiuInfo.getPageSentLength() + this.fiuInfo.getPageLength()));
 			reqLnsJsonNode.put("/__body_data", "finDateTime", StringTools.getYYYYMMDDHHMMSS());
 			
 			log.info(">>>>> SEND.lnsJsonNode: {}", reqLnsJsonNode.toPrettyString());
