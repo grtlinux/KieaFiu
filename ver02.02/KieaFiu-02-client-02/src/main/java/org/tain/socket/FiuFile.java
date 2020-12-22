@@ -91,7 +91,8 @@ public class FiuFile {
 		
 		String data = null;
 		if (Flag.flag) {
-			data = this.fiuInfo.getCurrentPage();
+			//data = this.fiuInfo.getCurrentPage();
+			data = "";
 		}
 		
 		LnsJsonNode reqLnsJsonNode = null;

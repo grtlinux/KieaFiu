@@ -26,6 +26,9 @@ public class FiuSocket {
 	@Autowired
 	private MapperReaderJob mapperReaderJob;
 	
+	@Autowired
+	private FiuInfo fiuInfo;
+	
 	private LnsStream lnsStream = null;
 	private String strStream = null;
 	private String typeCode = null;
@@ -89,5 +92,85 @@ public class FiuSocket {
 	}
 	
 	///////////////////////////////////////////////////////////////////////////
+	
+	public void sendData(LnsSocketTicket lnsSocketTicket) throws Exception {
+		byte[] bHeader = null;
+		if (Flag.flag) {
+			// header
+			LnsJsonNode lnsJsonNode = FiuTools.getDefault();
+			lnsJsonNode.put("/__head_data", "typeCode", "03000030");
+			lnsJsonNode.put("/__body_data", "sequence"  , String.format("%07d" , this.fiuInfo.getIdxPage() + 1));
+			lnsJsonNode.put("/__body_data", "sentLength", String.format("%010d", this.fiuInfo.getSentLength()));
+			lnsJsonNode.put("/__body_data", "dataLength", String.format("%04d" , this.fiuInfo.getLenPage()));
+			
+			LnsMstInfo lnsMstInfo = this.mapperReaderJob.get(lnsJsonNode.getText("/__head_data", "typeCode"));
+			String strStream = new LnsJsonToStream(lnsMstInfo, lnsJsonNode.get()).get();
+			
+			bHeader = strStream.substring(4).getBytes("euc-kr");
+		}
+		
+		byte[] bBody = null;
+		if (Flag.flag) {
+			// body
+			bBody = "".getBytes();
+		}
+		
+		byte[] bData = null;
+		if (Flag.flag) {
+			// combination
+			int lenHeader = bHeader.length;
+			int lenBody = bBody.length;
+			int lenData = 4 + lenHeader + lenBody;
+			byte[] bLen = String.format("%04d", lenData).getBytes();
+			
+			bData = new byte[lenData];
+			System.arraycopy(bLen, 0, bData, 0, lenData);                // bLen
+			System.arraycopy(bHeader, 0, bData, 4, lenHeader);           // bHeader
+			System.arraycopy(bBody, 0, bData, 4 + lenHeader, lenBody);   // bBody
+		}
+		
+		if (Flag.flag) {
+			lnsSocketTicket.sendBytes(bData);
+			//log.info(">>>>> SEND.lnsStream = {}", JsonPrint.getInstance().toPrettyJson(lnsStream));
+		}
+		
+		/*
+		LnsJsonNode reqLnsJsonNode = null;
+		if (Flag.flag) {
+			reqLnsJsonNode = FiuTools.getDefault();
+			reqLnsJsonNode.put("/__head_data", "typeCode", "03000030");
+			
+			reqLnsJsonNode.put("/__body_data", "sequence"  , String.format("%07d" , fiuInfo.getIdxPage() + 1));
+			reqLnsJsonNode.put("/__body_data", "sentLength", String.format("%010d", fiuInfo.getSentLength()));
+			reqLnsJsonNode.put("/__body_data", "dataLength", String.format("%04d" , fiuInfo.getLenPage()));
+			reqLnsJsonNode.put("/__body_data", "data"      , data);
+			
+			log.info(">>>>> SEND.lnsJsonNode: {}", reqLnsJsonNode.toPrettyString());
+		}
+		if (Flag.flag) {
+			
+		}
+		
+		
+		String strStream = null;
+		
+		
+		if (Flag.flag) {
+			LnsMstInfo lnsMstInfo = this.mapperReaderJob.get(resLnsJsonNode.getText("/__head_data", "typeCode"));
+			strStream = new LnsJsonToStream(lnsMstInfo, resLnsJsonNode.get()).get();
+			
+			log.info(">>>>> SEND.strStream: [{}]", strStream);
+		}
+		
+		if (Flag.flag) {
+			//LnsStream lnsStream = new LnsStream(strStream);
+			//lnsSocketTicket.sendStream(lnsStream);
+			byte[] bStream = "".getBytes();
+			lnsSocketTicket.sendBytes(bStream);
+			log.info(">>>>> SEND.lnsStream = {}", JsonPrint.getInstance().toPrettyJson(lnsStream));
+		}
+		*/
+	}
+	
 	///////////////////////////////////////////////////////////////////////////
 }

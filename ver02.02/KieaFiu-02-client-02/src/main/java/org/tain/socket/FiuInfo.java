@@ -49,6 +49,7 @@ public class FiuInfo {
 	private int lenPage;     // 현재 갯수
 	
 	private final int unitSize = 400;
+	private String pemData;    // pem file
 	private byte[] bFileData;  // file data by byte
 	private int lenFile;       // length of file
 	private int idxCurr;       // index of current with unitSize
