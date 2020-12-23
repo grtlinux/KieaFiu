@@ -95,7 +95,7 @@ public class FiuSocket {
 	///////////////////////////////////////////////////////////////////////////
 	
 	public void sendData(LnsSocketTicket lnsSocketTicket) throws Exception {
-		byte[] bHeader = null;
+		byte[] bHead = null;
 		if (Flag.flag) {
 			// header
 			LnsJsonNode lnsJsonNode = FiuTools.getDefault();
@@ -107,7 +107,7 @@ public class FiuSocket {
 			LnsMstInfo lnsMstInfo = this.mapperReaderJob.get(lnsJsonNode.getText("/__head_data", "typeCode"));
 			String strStream = new LnsJsonToStream(lnsMstInfo, lnsJsonNode.get()).get();
 			
-			bHeader = strStream.substring(4).getBytes("euc-kr");
+			bHead = strStream.substring(4).getBytes("euc-kr");
 		}
 		
 		byte[] bBody = null;
@@ -119,15 +119,15 @@ public class FiuSocket {
 		byte[] bData = null;
 		if (Flag.flag) {
 			// combination
-			int lenHeader = bHeader.length;
+			int lenHead = bHead.length;
 			int lenBody = bBody.length;
-			int lenData = 4 + lenHeader + lenBody;
+			int lenData = 4 + lenHead + lenBody;
 			byte[] bLen = String.format("%04d", lenData).getBytes();
 			
 			bData = new byte[lenData];
 			System.arraycopy(bLen, 0, bData, 0, 4);                      // bLen
-			System.arraycopy(bHeader, 0, bData, 4, lenHeader);           // bHeader
-			System.arraycopy(bBody, 0, bData, 4 + lenHeader, lenBody);   // bBody
+			System.arraycopy(bHead, 0, bData, 4, lenHead);           // bHeader
+			System.arraycopy(bBody, 0, bData, 4 + lenHead, lenBody);   // bBody
 		}
 		
 		if (Flag.flag) {

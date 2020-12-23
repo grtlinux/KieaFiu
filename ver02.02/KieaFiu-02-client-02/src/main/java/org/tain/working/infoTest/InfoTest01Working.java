@@ -133,5 +133,21 @@ public class InfoTest01Working {
 				System.out.printf("5 >>>>> (%03d) %s%n", iLen, StringTools.getByteString(bSplit));
 			}
 		}
+		
+		if (Flag.flag) {
+			String text = StringTools.stringFromFile("/Users/kangmac/KANG/fiu/20201111/SEND/S_FIU_YYYYMMDD_00000.env");
+			
+			// Base64 인코딩
+			///////////////////////////////////////////////////
+			byte[] encodedBytes = Base64Utils.encode(text.getBytes());
+			
+			// Base64 디코딩
+			///////////////////////////////////////////////////
+			//byte[] decodedBytes = Base64Utils.decode(encodedBytes);
+			
+			//System.out.println("2. 인코딩 전 : " + text);
+			System.out.println("2. 인코딩 text : " + StringTools.splitLine(new String(encodedBytes), 100));
+			//System.out.println("2. 디코딩 text : " + new String(decodedBytes));
+		}
 	}
 }

@@ -208,6 +208,17 @@ public class StringTools {
 	}
 	
 	///////////////////////////////////////////////////////////////////////////
+	
+	public static String splitLine(String string, int size) {
+		StringBuffer sb = new StringBuffer();
+		
+		for (int offset = 0; offset < string.length(); offset += size) {
+			int offsetEnd = Math.min(offset + size, string.length());
+			sb.append(string.substring(offset, offsetEnd));
+			sb.append('\n');
+		}
+		return sb.toString();
+	}
 	///////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////
 	

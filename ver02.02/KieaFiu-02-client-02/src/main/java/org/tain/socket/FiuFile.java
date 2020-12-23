@@ -43,7 +43,7 @@ public class FiuFile {
 			reqLnsJsonNode.put("/__body_data", "recLength", "0001");
 			reqLnsJsonNode.put("/__body_data", "zipYn", "0");
 			reqLnsJsonNode.put("/__body_data", "totLength", "0000000100");
-			reqLnsJsonNode.put("/__body_data", "data", "____GPKI_Hash_DATA______");
+			reqLnsJsonNode.put("/__body_data", "data", this.fiuInfo.getPemData());
 			
 			log.info(">>>>> SEND.lnsJsonNode: {}", reqLnsJsonNode.toPrettyString());
 		}

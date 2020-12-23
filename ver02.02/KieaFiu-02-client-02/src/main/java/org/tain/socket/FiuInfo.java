@@ -47,7 +47,7 @@ public class FiuInfo {
 	//private int idxPage;     // 현재 페이지 인덱스
 	//private int lenPage;     // 현재 갯수
 	
-	private final int unitSize = 400;
+	private final int unitSize = 1000;
 	private String pemData;    // pem file
 	private byte[] bFileData;  // file data by byte
 	private int fileLength;    // length of file
@@ -135,16 +135,6 @@ public class FiuInfo {
 		}
 		
 		if (Flag.flag) {
-			/*
-				private final int unitSize = 4000;
-				private byte[] bFileData;  // file data by byte
-				private int lenFile;       // length of file
-				private int idxCurr;       // index of current with unitSize
-				private int idxMax;        // index of max with unitSize
-				private int offBeg;        // offset of begin
-				private int offEnd;        // offset of end
-				private boolean flgRemain; // flag whether remaining bytes or not
-			*/
 			File path = new File(this.fromPath);
 			File[] files = path.listFiles();
 			Arrays.sort(files);
@@ -160,9 +150,9 @@ public class FiuInfo {
 					
 					this.bFileData = StringTools.byteFromFile(this.filePath + File.separator + this.fileName);
 					this.fileLength = this.bFileData.length;
+					this.pemData = StringTools.stringFromFile(this.filePath + File.separator + this.fileName + ".pem");
 					
 					setInitPage();
-					
 					printFiuInfo();
 					
 					return true;
@@ -201,12 +191,14 @@ public class FiuInfo {
 		
 		if (Flag.flag) {
 			this.pageIdx = 0;
+			
 			this.offBeg = this.pageIdx * this.unitSize;
 			this.offEnd = Math.min((this.pageIdx + 1) * this.unitSize, this.fileLength);
+			this.pageCount = (this.fileLength + this.unitSize - 1) / this.unitSize;
+			
 			this.pageLength = this.offEnd - this.offBeg;
 			this.pageSentLength = this.offBeg;
 			this.pageSeq = this.pageIdx + 1;
-			this.pageCount = (this.fileLength + this.unitSize - 1) / this.unitSize;
 			this.pageData = Arrays.copyOfRange(this.bFileData, this.offBeg, this.offEnd);
 		}
 	}
@@ -219,8 +211,10 @@ public class FiuInfo {
 				return false;
 			
 			this.pageIdx += 1;
+			
 			this.offBeg = this.pageIdx * this.unitSize;
 			this.offEnd = Math.min((this.pageIdx + 1) * this.unitSize, this.fileLength);
+			
 			this.pageLength = this.offEnd - this.offBeg;
 			this.pageSentLength = this.offBeg;
 			this.pageSeq = this.pageIdx + 1;
@@ -238,8 +232,10 @@ public class FiuInfo {
 				return false;
 			
 			this.pageIdx -= 1;
+			
 			this.offBeg = this.pageIdx * this.unitSize;
 			this.offEnd = Math.min((this.pageIdx + 1) * this.unitSize, this.fileLength);
+			
 			this.pageLength = this.offEnd - this.offBeg;
 			this.pageSentLength = this.offBeg;
 			this.pageSeq = this.pageIdx + 1;
@@ -289,8 +285,15 @@ public class FiuInfo {
 		
 		boolean isSuccess = false;
 		if (Flag.flag) {
+			// env file
 			File fromFile = new File(this.fromPath + "/" + this.fileName);
 			File toFile = new File(this.toPath + "/" + this.fileName);
+			isSuccess = fromFile.renameTo(toFile);
+		}
+		if (Flag.flag) {
+			// pem file
+			File fromFile = new File(this.fromPath + "/" + this.fileName + ".pem");
+			File toFile = new File(this.toPath + "/" + this.fileName + ".pem");
 			isSuccess = fromFile.renameTo(toFile);
 		}
 		
