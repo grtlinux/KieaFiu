@@ -16,9 +16,10 @@ public class FiuTools {
 		if (Flag.flag) {
 			lnsJsonNode = new LnsJsonNode("{\"__head_data\": {}, \"__body_data\": {}}");
 			lnsJsonNode.put("/__head_data", "length", "0000");
-			lnsJsonNode.put("/__head_data", "transactionCode", "DFIUXBOGO");
+			//lnsJsonNode.put("/__head_data", "transactionCode", "DFIUXBOGO");
+			lnsJsonNode.put("/__head_data", "transactionCode", "OFIUXBOGO");
 			lnsJsonNode.put("/__head_data", "systemName", "FIU");
-			lnsJsonNode.put("/__head_data", "bogoCode", "295121");
+			lnsJsonNode.put("/__head_data", "bogoCode", "GC0017");
 			lnsJsonNode.put("/__head_data", "userId", "hanwha9");
 			lnsJsonNode.put("/__head_data", "typeCode", "00000000");
 			lnsJsonNode.put("/__head_data", "reqresGubun", "S");

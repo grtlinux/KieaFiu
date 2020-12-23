@@ -131,46 +131,9 @@ public class FiuSocket {
 		}
 		
 		if (Flag.flag) {
-			//lnsSocketTicket.sendBytes(bData);
+			lnsSocketTicket.sendBytes(bData);
 			log.info(">>>>> SEND.bData = {}", StringTools.getByteString(bData));
 		}
-		
-		/*
-		LnsJsonNode reqLnsJsonNode = null;
-		if (Flag.flag) {
-			reqLnsJsonNode = FiuTools.getDefault();
-			reqLnsJsonNode.put("/__head_data", "typeCode", "03000030");
-			
-			reqLnsJsonNode.put("/__body_data", "sequence"  , String.format("%07d" , fiuInfo.getIdxPage() + 1));
-			reqLnsJsonNode.put("/__body_data", "sentLength", String.format("%010d", fiuInfo.getSentLength()));
-			reqLnsJsonNode.put("/__body_data", "dataLength", String.format("%04d" , fiuInfo.getLenPage()));
-			reqLnsJsonNode.put("/__body_data", "data"      , data);
-			
-			log.info(">>>>> SEND.lnsJsonNode: {}", reqLnsJsonNode.toPrettyString());
-		}
-		if (Flag.flag) {
-			
-		}
-		
-		
-		String strStream = null;
-		
-		
-		if (Flag.flag) {
-			LnsMstInfo lnsMstInfo = this.mapperReaderJob.get(resLnsJsonNode.getText("/__head_data", "typeCode"));
-			strStream = new LnsJsonToStream(lnsMstInfo, resLnsJsonNode.get()).get();
-			
-			log.info(">>>>> SEND.strStream: [{}]", strStream);
-		}
-		
-		if (Flag.flag) {
-			//LnsStream lnsStream = new LnsStream(strStream);
-			//lnsSocketTicket.sendStream(lnsStream);
-			byte[] bStream = "".getBytes();
-			lnsSocketTicket.sendBytes(bStream);
-			log.info(">>>>> SEND.lnsStream = {}", JsonPrint.getInstance().toPrettyJson(lnsStream));
-		}
-		*/
 	}
 	
 	///////////////////////////////////////////////////////////////////////////

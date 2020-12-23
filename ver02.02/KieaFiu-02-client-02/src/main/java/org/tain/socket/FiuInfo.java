@@ -47,7 +47,7 @@ public class FiuInfo {
 	//private int idxPage;     // 현재 페이지 인덱스
 	//private int lenPage;     // 현재 갯수
 	
-	private final int unitSize = 1000;
+	private final int unitSize = 5000;
 	private String pemData;    // pem file
 	private byte[] bFileData;  // file data by byte
 	private int fileLength;    // length of file

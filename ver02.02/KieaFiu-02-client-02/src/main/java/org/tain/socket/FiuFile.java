@@ -32,7 +32,7 @@ public class FiuFile {
 			reqLnsJsonNode.put("/__head_data", "typeCode", "03000020");
 			
 			reqLnsJsonNode.put("/__body_data", "docCode", "REP002");
-			reqLnsJsonNode.put("/__body_data", "annMsgCode", "01");
+			reqLnsJsonNode.put("/__body_data", "annMsgCode", "99");
 			reqLnsJsonNode.put("/__body_data", "annDocNo", StringTools.getYYYY() + "-00000001");
 			reqLnsJsonNode.put("/__body_data", "annDate", StringTools.getYYYYMMDD());
 			reqLnsJsonNode.put("/__body_data", "befDocNo", "");
@@ -42,7 +42,7 @@ public class FiuFile {
 			reqLnsJsonNode.put("/__body_data", "midOrgCode", "GA0002");
 			reqLnsJsonNode.put("/__body_data", "recLength", "0001");
 			reqLnsJsonNode.put("/__body_data", "zipYn", "0");
-			reqLnsJsonNode.put("/__body_data", "totLength", "0000000100");
+			reqLnsJsonNode.put("/__body_data", "totLength", String.format("%010d", this.fiuInfo.getFileLength()));
 			reqLnsJsonNode.put("/__body_data", "data", this.fiuInfo.getPemData());
 			
 			log.info(">>>>> SEND.lnsJsonNode: {}", reqLnsJsonNode.toPrettyString());
