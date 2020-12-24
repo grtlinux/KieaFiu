@@ -73,6 +73,18 @@ public class FiuSocket {
 		return new LnsJsonNode(this.jsonNode);
 	}
 	
+	public LnsJsonNode recvData(LnsSocketTicket lnsSocketTicket) throws Exception {
+		log.info("KANG-20201111 >>>>> {} {}", CurrentInfo.get());
+		
+		if (Flag.flag) {
+			
+		}
+		
+		return null;
+	}
+	
+	///////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////
 	
 	public void send(LnsSocketTicket lnsSocketTicket, LnsJsonNode resLnsJsonNode) throws Exception {
