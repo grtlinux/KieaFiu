@@ -12,6 +12,7 @@ import org.tain.task.MapperReaderJob;
 import org.tain.utils.CurrentInfo;
 import org.tain.utils.Flag;
 import org.tain.utils.JsonPrint;
+import org.tain.utils.StringTools;
 
 import com.fasterxml.jackson.databind.JsonNode;
 
@@ -37,7 +38,7 @@ public class FiuSocket {
 	///////////////////////////////////////////////////////////////////////////
 	
 	public LnsJsonNode recv(LnsSocketTicket lnsSocketTicket) throws Exception {
-		log.info("KANG-20201111 >>>>> {} {}", CurrentInfo.get());
+		log.info("KANG-20201111 >>>>> {} {}", StringTools.getDashLine('='), CurrentInfo.get());
 		
 		if (Flag.flag) {
 			if (Flag.flag) {
@@ -57,7 +58,7 @@ public class FiuSocket {
 			
 			if (Flag.flag) {
 				this.lnsMstInfo = this.mapperReaderJob.get(this.typeCode);
-				log.info(">>>>> 4-RECV.lnsMstInfo = {}", JsonPrint.getInstance().toPrettyJson(this.lnsMstInfo));
+				//log.info(">>>>> 4-RECV.lnsMstInfo = {}", JsonPrint.getInstance().toPrettyJson(this.lnsMstInfo));
 			}
 			
 			if (Flag.flag) {

@@ -135,7 +135,7 @@ public class FiuClientMain {
 		
 		if (Flag.flag) {
 			// move send_file to sent_file
-			this.fiuInfo.moveFile();
+			//this.fiuInfo.moveFile();
 		}
 	}
 }
