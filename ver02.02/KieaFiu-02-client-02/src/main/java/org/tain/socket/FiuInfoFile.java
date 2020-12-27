@@ -190,7 +190,6 @@ public class FiuInfoFile {
 		log.info("KANG-20201111 >>>>> {} {}", CurrentInfo.get());
 		
 		boolean isSuccess = false;
-		/*
 		if (Flag.flag) {
 			// SND file
 			File fromFile = new File(this.fromPath + "/" + this.fileName);
@@ -209,7 +208,6 @@ public class FiuInfoFile {
 			File toFile = new File(this.toPath + "/" + this.filePemName);
 			isSuccess = fromFile.renameTo(toFile);
 		}
-		*/
 		
 		return isSuccess;
 	}

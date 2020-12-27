@@ -1,5 +1,10 @@
 package org.tain.socket;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.tain.mapper.LnsJsonNode;
@@ -16,13 +21,24 @@ public class FiuFile {
 	@Autowired
 	private FiuInfo fiuInfo;
 	
+	@Autowired
+	private FiuSocket fiuSocket;
+	
+	FileOutputStream fos = null;
+	OutputStreamWriter osw = null;
+	BufferedWriter bw = null;
+	
 	//@Autowired
 	//private MapperReaderJob mapperReaderJob;
 	
 	///////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////
 	
+	/*
 	public LnsJsonNode getFileStartReq() throws Exception {
 		log.info("KANG-20201111 >>>>> {} {}", StringTools.getDashLine('='), CurrentInfo.get());
 		
@@ -50,11 +66,22 @@ public class FiuFile {
 		
 		return reqLnsJsonNode;
 	}
+	*/
 	
 	///////////////////////////////////////////////////////////////////////////
 	
 	public LnsJsonNode getFileStartRes(LnsJsonNode reqLnsJsonNode) throws Exception {
 		log.info("KANG-20201111 >>>>> {} {}", StringTools.getDashLine('='), CurrentInfo.get());
+		
+		if (Flag.flag) {
+			// file open
+			log.info(">>>>> reqlnsJsonNode: {}", reqLnsJsonNode.toPrettyString());
+			
+			String filePathName = this.fiuInfo.getRecvPath() + File.separator + reqLnsJsonNode.getText("/__body_data", "fileName");
+			this.fos = new FileOutputStream(filePathName);
+			this.osw = new OutputStreamWriter(this.fos, "EUC-KR");
+			this.bw = new BufferedWriter(this.osw);
+		}
 		
 		LnsJsonNode resLnsJsonNode = null;
 		if (Flag.flag) {
@@ -85,7 +112,11 @@ public class FiuFile {
 	///////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////
 	
+	/*
 	public LnsJsonNode getFileSendData() throws Exception {
 		log.info("KANG-20201111 >>>>> {} {}", StringTools.getDashLine('='), CurrentInfo.get());
 		
@@ -109,6 +140,7 @@ public class FiuFile {
 		
 		return reqLnsJsonNode;
 	}
+	*/
 	
 	///////////////////////////////////////////////////////////////////////////
 	
@@ -116,7 +148,17 @@ public class FiuFile {
 		log.info("KANG-20201111 >>>>> {} {}", StringTools.getDashLine('='), CurrentInfo.get());
 		
 		if (Flag.flag) {
+			// file write with byte
+			String strStream = this.fiuSocket.getStrStream();
+			String strData = strStream.substring(77);
+			log.info(">>>>> reqlnsJsonNode: {}", reqLnsJsonNode.toPrettyString());
+			log.info(">>>>> strStream: {}", strStream);
+			log.info(">>>>> strData: \n{}", strData);
 			
+			this.bw.write(strData);
+			this.bw.flush();
+			
+			this.fiuInfo.addTotLen(Long.parseLong(reqLnsJsonNode.getText("/__body_data", "dataLength")));
 		}
 		
 		return reqLnsJsonNode;
@@ -125,7 +167,11 @@ public class FiuFile {
 	///////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////
 	
+	/*
 	public LnsJsonNode getFileCheckReq() throws Exception {
 		log.info("KANG-20201111 >>>>> {} {}", StringTools.getDashLine('='), CurrentInfo.get());
 		
@@ -142,11 +188,17 @@ public class FiuFile {
 		
 		return reqLnsJsonNode;
 	}
+	*/
 	
 	///////////////////////////////////////////////////////////////////////////
 	
 	public LnsJsonNode getFileCheckRes(LnsJsonNode reqLnsJsonNode) throws Exception {
 		log.info("KANG-20201111 >>>>> {} {}", StringTools.getDashLine('='), CurrentInfo.get());
+		
+		if (Flag.flag) {
+			// check file
+			log.info(">>>>> reqlnsJsonNode: {}", reqLnsJsonNode.toPrettyString());
+		}
 		
 		LnsJsonNode resLnsJsonNode = null;
 		if (Flag.flag) {
@@ -160,13 +212,23 @@ public class FiuFile {
 			log.info(">>>>> SEND.lnsJsonNode: {}", resLnsJsonNode.toPrettyString());
 		}
 		
+		if (Flag.flag) {
+			int reqTotLength = Integer.parseInt(reqLnsJsonNode.getText("/__body_data", "totLength"));
+			long lTotLen = this.fiuInfo.getLTotLen();
+			
+			log.info(">>>>> FileCheck: reqTotLength = {}, lTotLen = {}", reqTotLength, lTotLen);
+		}
 		return resLnsJsonNode;
 	}
 	
 	///////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////
 	
+	/*
 	public LnsJsonNode getFileFinishReq() throws Exception {
 		log.info("KANG-20201111 >>>>> {} {}", StringTools.getDashLine('='), CurrentInfo.get());
 		
@@ -184,10 +246,21 @@ public class FiuFile {
 		
 		return reqLnsJsonNode;
 	}
+	*/
+	
 	///////////////////////////////////////////////////////////////////////////
 	
 	public LnsJsonNode getFileFinishRes(LnsJsonNode reqLnsJsonNode) throws Exception {
 		log.info("KANG-20201111 >>>>> {} {}", StringTools.getDashLine('='), CurrentInfo.get());
+		
+		if (Flag.flag) {
+			// file close
+			log.info(">>>>> reqlnsJsonNode: {}", reqLnsJsonNode.toPrettyString());
+			
+			this.fos.close();
+			this.osw.close();
+			this.bw.close();
+		}
 		
 		LnsJsonNode resLnsJsonNode = null;
 		if (Flag.flag) {

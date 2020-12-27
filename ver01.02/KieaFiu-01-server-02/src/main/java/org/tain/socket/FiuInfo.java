@@ -1,14 +1,10 @@
 package org.tain.socket;
 
-import java.io.File;
-import java.util.Arrays;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.tain.properties.ProjEnvParamProperties;
 import org.tain.utils.CurrentInfo;
 import org.tain.utils.Flag;
-import org.tain.utils.StringTools;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -37,6 +33,9 @@ public class FiuInfo {
 	private String fromPath;
 	private String toPath;
 	
+	private long lTotLen = 0;
+	
+	/*
 	private String filePath;
 	private String fileName;  // ~.env
 	
@@ -47,6 +46,7 @@ public class FiuInfo {
 	private int totPage;     // 총 패이지 갯수
 	private int idxPage;     // 현재 페이지 인덱스
 	private int lenPage;     // 현재 갯수
+	*/
 	
 	//////////////////////////////////////////////////////////////////
 	
@@ -76,6 +76,12 @@ public class FiuInfo {
 		}
 	}
 	
+	public void addTotLen(long len) {
+		log.info("KANG-20201111 >>>>> {} <- {} + {}", this.lTotLen + len, this.lTotLen, len);
+		this.lTotLen += len;
+	}
+	
+	/*
 	public boolean getFile() {
 		log.info("KANG-20201111 >>>>> {} {}", CurrentInfo.get());
 		
@@ -120,7 +126,9 @@ public class FiuInfo {
 		
 		return false;
 	}
+	*/
 	
+	/*
 	public String getCurrentPage() {
 		if (this.idxPage >= this.totPage)
 			return null;
@@ -136,7 +144,9 @@ public class FiuInfo {
 		
 		return strReturn;
 	}
+	*/
 	
+	/*
 	public boolean writeFile(String strData) {
 		log.info("KANG-20201111 >>>>> {} {}", CurrentInfo.get());
 		
@@ -146,4 +156,5 @@ public class FiuInfo {
 		
 		return true;
 	}
+	*/
 }
