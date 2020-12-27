@@ -30,6 +30,8 @@ public class FiuSocket {
 	@Autowired
 	private FiuInfo fiuInfo;
 	
+	private FiuInfoFile fiuInfoFile;
+	
 	private LnsStream lnsStream = null;
 	private String strStream = null;
 	private String typeCode = null;
@@ -108,13 +110,18 @@ public class FiuSocket {
 	
 	public void sendData(LnsSocketTicket lnsSocketTicket) throws Exception {
 		byte[] bHead = null;
+		
+		if (Flag.flag) {
+			this.fiuInfoFile = this.fiuInfo.getFiuInfoFile();
+		}
+		
 		if (Flag.flag) {
 			// header
 			LnsJsonNode lnsJsonNode = FiuTools.getDefault();
 			lnsJsonNode.put("/__head_data", "typeCode", "03000030");
-			lnsJsonNode.put("/__body_data", "sequence"  , String.format("%07d" , this.fiuInfo.getPageSeq()));
-			lnsJsonNode.put("/__body_data", "sentLength", String.format("%010d", this.fiuInfo.getPageSentLength()));
-			lnsJsonNode.put("/__body_data", "dataLength", String.format("%04d" , this.fiuInfo.getPageLength()));
+			lnsJsonNode.put("/__body_data", "sequence"  , String.format("%07d" , this.fiuInfoFile.getPageSeq()));
+			lnsJsonNode.put("/__body_data", "sentLength", String.format("%010d", this.fiuInfoFile.getPageSentLength()));
+			lnsJsonNode.put("/__body_data", "dataLength", String.format("%04d" , this.fiuInfoFile.getPageLength()));
 			
 			LnsMstInfo lnsMstInfo = this.mapperReaderJob.get(lnsJsonNode.getText("/__head_data", "typeCode"));
 			String strStream = new LnsJsonToStream(lnsMstInfo, lnsJsonNode.get()).get();
@@ -125,7 +132,7 @@ public class FiuSocket {
 		byte[] bBody = null;
 		if (Flag.flag) {
 			// body
-			bBody = this.fiuInfo.getPageData();
+			bBody = this.fiuInfoFile.getPageData();
 		}
 		
 		byte[] bData = null;

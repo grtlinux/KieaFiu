@@ -33,6 +33,8 @@ public class FiuClientMain {
 	@Autowired
 	private FiuInfo fiuInfo;
 	
+	private FiuInfoFile fiuInfoFile;
+	
 	///////////////////////////////////////////////////////////////////////////
 	
 	public void process() throws Exception {
@@ -40,10 +42,13 @@ public class FiuClientMain {
 		
 		if (Flag.flag) {
 			// file to send
-			boolean isSuccessOfGetFile = this.fiuInfo.getFile();
+			boolean isSuccessOfGetFile = this.fiuInfo.setFiuInfoFiles();
 			if (!isSuccessOfGetFile) {
 				return;
 			}
+			
+			if (!this.fiuInfo.setFiuInfoFileNext())
+				return;
 		}
 		
 		LnsSocketTicket lnsSocketTicket = null;
@@ -78,7 +83,8 @@ public class FiuClientMain {
 					if (fiuType == FiuType.BIZ_OPEN) {
 						reqLnsJsonNode = this.fiuBiz.getBizOpenReq();
 					} else if (fiuType == FiuType.FILE_START) {
-						reqLnsJsonNode = this.fiuFile.getFileStartReq();
+						this.fiuInfoFile = this.fiuInfo.getFiuInfoFile();
+						reqLnsJsonNode = this.fiuFile.getFileStartReq(this.fiuInfoFile);
 					} else if (fiuType == FiuType.FILE_SEND_DATA) {
 						reqLnsJsonNode = this.fiuFile.getFileSendData();
 					} else if (fiuType == FiuType.FILE_CHECK) {
@@ -120,12 +126,17 @@ public class FiuClientMain {
 					} else if ("03100020".equals(typeCode)) {   // FILE_START_RES
 						fiuType = FiuType.FILE_SEND_DATA;
 					} else if ("03100040".equals(typeCode)) {   // FILE_CHECK_RES
-						if (this.fiuInfo.setNextPage())
+						if (this.fiuInfoFile.setNextPage())
 							fiuType = FiuType.FILE_SEND_DATA;
 						else
 							fiuType = FiuType.FILE_FINISH;
 					} else if ("03100050".equals(typeCode)) {   // FILE_FINISH_RES
-						fiuType = FiuType.BIZ_CLOSE;
+						if (this.fiuInfo.setFiuInfoFileNext()) {
+							this.fiuInfoFile.moveFile();
+							fiuType = FiuType.FILE_START;
+						} else {
+							fiuType = FiuType.BIZ_CLOSE;
+						}
 					} else if ("06100040".equals(typeCode)) {   // BIZ_CLOSE_RES
 						fiuType = FiuType.FIU_END;
 					}
@@ -134,8 +145,6 @@ public class FiuClientMain {
 		}
 		
 		if (Flag.flag) {
-			// move send_file to sent_file
-			//this.fiuInfo.moveFile();
 		}
 	}
 }

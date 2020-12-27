@@ -1,6 +1,5 @@
 package org.tain.working.infoTest;
 
-import java.util.Arrays;
 import java.util.Base64;
 import java.util.Base64.Decoder;
 import java.util.Base64.Encoder;
@@ -10,7 +9,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.Base64Utils;
 import org.tain.mapper.LnsJsonNode;
 import org.tain.mapper.LnsMstInfo;
-import org.tain.socket.FiuInfo;
 import org.tain.task.MapperReaderJob;
 import org.tain.utils.CurrentInfo;
 import org.tain.utils.Flag;
@@ -26,8 +24,8 @@ public class InfoTest01Working {
 	@Autowired
 	private MapperReaderJob mapperReaderJob;
 	
-	@Autowired
-	private FiuInfo fiuInfo;
+	//@Autowired
+	//private FiuInfo fiuInfo;
 	
 	public void test01() throws Exception {
 		log.info("KANG-20200721 >>>>> {} {}", CurrentInfo.get());
@@ -119,6 +117,7 @@ public class InfoTest01Working {
 		}
 		
 		if (Flag.flag) {
+			/*
 			// dst.dat.env
 			this.fiuInfo.set();
 			this.fiuInfo.getFile();
@@ -132,6 +131,7 @@ public class InfoTest01Working {
 				byte[] bSplit = Arrays.copyOfRange(bFileData, iBeg, iEnd);
 				System.out.printf("5 >>>>> (%03d) %s%n", iLen, StringTools.getByteString(bSplit));
 			}
+			*/
 		}
 		
 		if (Flag.flag) {

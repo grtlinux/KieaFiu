@@ -1,6 +1,5 @@
 package org.tain.socket;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.tain.mapper.LnsJsonNode;
 import org.tain.utils.CurrentInfo;
@@ -13,8 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class FiuFile {
 
-	@Autowired
-	private FiuInfo fiuInfo;
+	private FiuInfoFile fiuInfoFile;
 	
 	//@Autowired
 	//private MapperReaderJob mapperReaderJob;
@@ -23,8 +21,11 @@ public class FiuFile {
 	///////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////
 	
-	public LnsJsonNode getFileStartReq() throws Exception {
+	public LnsJsonNode getFileStartReq(FiuInfoFile fiuInfoFile) throws Exception {
 		log.info("KANG-20201111 >>>>> {} {}", StringTools.getDashLine('='), CurrentInfo.get());
+		
+		this.fiuInfoFile = fiuInfoFile;
+		this.fiuInfoFile.setInitPage();
 		
 		LnsJsonNode reqLnsJsonNode = null;
 		if (Flag.flag) {
@@ -36,14 +37,14 @@ public class FiuFile {
 			reqLnsJsonNode.put("/__body_data", "annDocNo", StringTools.getYYYY() + "-00000001");
 			reqLnsJsonNode.put("/__body_data", "annDate", StringTools.getYYYYMMDD());
 			reqLnsJsonNode.put("/__body_data", "befDocNo", "");
-			reqLnsJsonNode.put("/__body_data", "fileName", this.fiuInfo.getFileName());
+			reqLnsJsonNode.put("/__body_data", "fileName", this.fiuInfoFile.getFileEnvName());
 			reqLnsJsonNode.put("/__body_data", "transNo", "0000001/0000001");
 			reqLnsJsonNode.put("/__body_data", "baseDocNo", StringTools.getYYYYMMDD() + "-00000001");
 			reqLnsJsonNode.put("/__body_data", "midOrgCode", "GA0002");
 			reqLnsJsonNode.put("/__body_data", "recLength", "0001");
 			reqLnsJsonNode.put("/__body_data", "zipYn", "0");
-			reqLnsJsonNode.put("/__body_data", "totLength", String.format("%010d", this.fiuInfo.getFileLength()));
-			reqLnsJsonNode.put("/__body_data", "data", this.fiuInfo.getPemData());
+			reqLnsJsonNode.put("/__body_data", "totLength", String.format("%010d", this.fiuInfoFile.getIEnvLen()));
+			reqLnsJsonNode.put("/__body_data", "data", this.fiuInfoFile.getStrPemData());
 			
 			log.info(">>>>> SEND.lnsJsonNode: {}", reqLnsJsonNode.toPrettyString());
 		}
@@ -100,9 +101,9 @@ public class FiuFile {
 			reqLnsJsonNode = FiuTools.getDefault();
 			reqLnsJsonNode.put("/__head_data", "typeCode", "03000030");
 			
-			reqLnsJsonNode.put("/__body_data", "sequence"  , String.format("%07d" , this.fiuInfo.getPageSeq()));
-			reqLnsJsonNode.put("/__body_data", "sentLength", String.format("%010d", this.fiuInfo.getPageSentLength()));
-			reqLnsJsonNode.put("/__body_data", "dataLength", String.format("%04d" , this.fiuInfo.getPageLength()));
+			reqLnsJsonNode.put("/__body_data", "sequence"  , String.format("%07d" , this.fiuInfoFile.getPageSeq()));
+			reqLnsJsonNode.put("/__body_data", "sentLength", String.format("%010d", this.fiuInfoFile.getPageSentLength()));
+			reqLnsJsonNode.put("/__body_data", "dataLength", String.format("%04d" , this.fiuInfoFile.getPageLength()));
 			reqLnsJsonNode.put("/__body_data", "data"      , data);
 			
 			log.info(">>>>> SEND.lnsJsonNode: {}", reqLnsJsonNode.toPrettyString());
@@ -138,8 +139,8 @@ public class FiuFile {
 			reqLnsJsonNode = FiuTools.getDefault();
 			reqLnsJsonNode.put("/__head_data", "typeCode", "03000040");
 			
-			reqLnsJsonNode.put("/__body_data", "sequence" , String.format("%07d", this.fiuInfo.getPageSeq()));
-			reqLnsJsonNode.put("/__body_data", "totLength", String.format("%010d", this.fiuInfo.getPageSentLength() + this.fiuInfo.getPageLength()));
+			reqLnsJsonNode.put("/__body_data", "sequence" , String.format("%07d", this.fiuInfoFile.getPageSeq()));
+			reqLnsJsonNode.put("/__body_data", "totLength", String.format("%010d", this.fiuInfoFile.getPageSentLength() + this.fiuInfoFile.getPageLength()));
 			
 			log.info(">>>>> SEND.lnsJsonNode: {}", reqLnsJsonNode.toPrettyString());
 		}
@@ -179,8 +180,8 @@ public class FiuFile {
 			reqLnsJsonNode = FiuTools.getDefault();
 			reqLnsJsonNode.put("/__head_data", "typeCode", "03000050");
 			
-			reqLnsJsonNode.put("/__body_data", "sequence"   , String.format("%07d", this.fiuInfo.getPageSeq()));
-			reqLnsJsonNode.put("/__body_data", "totLength"  , String.format("%010d", this.fiuInfo.getPageSentLength() + this.fiuInfo.getPageLength()));
+			reqLnsJsonNode.put("/__body_data", "sequence"   , String.format("%07d", this.fiuInfoFile.getPageSeq()));
+			reqLnsJsonNode.put("/__body_data", "totLength"  , String.format("%010d", this.fiuInfoFile.getPageSentLength() + this.fiuInfoFile.getPageLength()));
 			reqLnsJsonNode.put("/__body_data", "finDateTime", StringTools.getYYYYMMDDHHMMSS());
 			
 			log.info(">>>>> SEND.lnsJsonNode: {}", reqLnsJsonNode.toPrettyString());
