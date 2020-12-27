@@ -131,8 +131,8 @@ public class FiuClientMain {
 						else
 							fiuType = FiuType.FILE_FINISH;
 					} else if ("03100050".equals(typeCode)) {   // FILE_FINISH_RES
+						this.fiuInfoFile.moveFile();
 						if (this.fiuInfo.setFiuInfoFileNext()) {
-							this.fiuInfoFile.moveFile();
 							fiuType = FiuType.FILE_START;
 						} else {
 							fiuType = FiuType.BIZ_CLOSE;
