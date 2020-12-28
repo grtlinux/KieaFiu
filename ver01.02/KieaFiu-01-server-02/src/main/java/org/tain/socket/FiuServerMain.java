@@ -42,7 +42,7 @@ public class FiuServerMain {
 		ServerSocket serverSocket = new ServerSocket();
 		if (Flag.flag) {
 			int port = this.projEnvUrlProperties.getListenPort();
-			InetSocketAddress inetSocketAddress = new InetSocketAddress("localhost", port);
+			InetSocketAddress inetSocketAddress = new InetSocketAddress(port);
 			serverSocket.bind(inetSocketAddress);
 			log.info(">>>>> SERVER.inetSocketAddress = {}.", inetSocketAddress);
 			

@@ -30,6 +30,7 @@ public class FiuInfo {
 	private String sendPath;
 	
 	private int lstIndex = -1;
+	private int lstSize = 0;
 	private List<FiuInfoFile> lstFiuInfoFile = new ArrayList<>();
 	
 	//////////////////////////////////////////////////////////////////
@@ -39,6 +40,7 @@ public class FiuInfo {
 		
 		if (Flag.flag) {
 			this.lstIndex = -1;
+			this.lstSize = 0;
 			this.lstFiuInfoFile.clear();
 		}
 		
@@ -69,6 +71,7 @@ public class FiuInfo {
 		}
 		
 		if (this.lstFiuInfoFile.size() != 0) {
+			this.lstSize = this.lstFiuInfoFile.size();
 			log.info(">>>>> FIU lstIndex = {}, lstFiuInfoFiles.size() = {}", this.lstIndex, this.lstFiuInfoFile.size());
 			return true;
 		} else {

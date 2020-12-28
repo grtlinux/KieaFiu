@@ -39,12 +39,12 @@ public class FiuFile {
 			
 			reqLnsJsonNode.put("/__body_data", "docCode", this.projEnvParamProperties.getDocCode());
 			reqLnsJsonNode.put("/__body_data", "annMsgCode", this.projEnvParamProperties.getAnnMsgCode());
-			reqLnsJsonNode.put("/__body_data", "annDocNo", StringTools.getYYYY() + "-00000001");
+			reqLnsJsonNode.put("/__body_data", "annDocNo", StringTools.getYYYY() + "-" + String.format("%08d", this.fiuInfoFile.getFileSeq()));
 			reqLnsJsonNode.put("/__body_data", "annDate", StringTools.getYYYYMMDD());
 			reqLnsJsonNode.put("/__body_data", "befDocNo", "");
 			reqLnsJsonNode.put("/__body_data", "fileName", this.fiuInfoFile.getFileEnvName());
 			reqLnsJsonNode.put("/__body_data", "transNo", "0000001/0000001");
-			reqLnsJsonNode.put("/__body_data", "baseDocNo", StringTools.getYYYYMMDD() + "-00000001");
+			reqLnsJsonNode.put("/__body_data", "baseDocNo", StringTools.getYYYYMMDD() + "-" + String.format("%08d", this.fiuInfoFile.getFileSeq()));
 			reqLnsJsonNode.put("/__body_data", "midOrgCode", this.projEnvParamProperties.getMidOrgCode());
 			reqLnsJsonNode.put("/__body_data", "recLength", "0001");
 			reqLnsJsonNode.put("/__body_data", "zipYn", "0");
@@ -59,6 +59,7 @@ public class FiuFile {
 	
 	///////////////////////////////////////////////////////////////////////////
 	
+	/*
 	public LnsJsonNode getFileStartRes(LnsJsonNode reqLnsJsonNode) throws Exception {
 		log.info("KANG-20201111 >>>>> {} {}", StringTools.getDashLine('='), CurrentInfo.get());
 		
@@ -87,6 +88,7 @@ public class FiuFile {
 		
 		return resLnsJsonNode;
 	}
+	*/
 	
 	///////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////
@@ -119,6 +121,7 @@ public class FiuFile {
 	
 	///////////////////////////////////////////////////////////////////////////
 	
+	/*
 	public LnsJsonNode getFileRecvData(LnsJsonNode reqLnsJsonNode) throws Exception {
 		log.info("KANG-20201111 >>>>> {} {}", StringTools.getDashLine('='), CurrentInfo.get());
 		
@@ -128,6 +131,7 @@ public class FiuFile {
 		
 		return reqLnsJsonNode;
 	}
+	*/
 	
 	///////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////
@@ -155,6 +159,7 @@ public class FiuFile {
 	
 	///////////////////////////////////////////////////////////////////////////
 	
+	/*
 	public LnsJsonNode getFileCheckRes(LnsJsonNode reqLnsJsonNode) throws Exception {
 		log.info("KANG-20201111 >>>>> {} {}", StringTools.getDashLine('='), CurrentInfo.get());
 		
@@ -172,6 +177,7 @@ public class FiuFile {
 		
 		return resLnsJsonNode;
 	}
+	*/
 	
 	///////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////
@@ -196,6 +202,7 @@ public class FiuFile {
 	}
 	///////////////////////////////////////////////////////////////////////////
 	
+	/*
 	public LnsJsonNode getFileFinishRes(LnsJsonNode reqLnsJsonNode) throws Exception {
 		log.info("KANG-20201111 >>>>> {} {}", StringTools.getDashLine('='), CurrentInfo.get());
 		
@@ -214,4 +221,5 @@ public class FiuFile {
 		
 		return resLnsJsonNode;
 	}
+	*/
 }

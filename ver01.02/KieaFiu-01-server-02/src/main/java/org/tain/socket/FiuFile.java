@@ -98,13 +98,15 @@ public class FiuFile {
 			resLnsJsonNode.put("/__body_data", "annDate"    , reqLnsJsonNode.getText("/__body_data", "annDate"));
 			resLnsJsonNode.put("/__body_data", "befDocNo"   , "");
 			resLnsJsonNode.put("/__body_data", "fileName"   , reqLnsJsonNode.getText("/__body_data", "fileName"));
-			resLnsJsonNode.put("/__body_data", "transNo"    , reqLnsJsonNode.getText("/__body_data", "transNo"));
-			resLnsJsonNode.put("/__body_data", "baseDocNo"  , reqLnsJsonNode.getText("/__body_data", "baseDocNo"));
+			//resLnsJsonNode.put("/__body_data", "transNo"    , reqLnsJsonNode.getText("/__body_data", "transNo"));
+			//resLnsJsonNode.put("/__body_data", "baseDocNo"  , reqLnsJsonNode.getText("/__body_data", "baseDocNo"));
+			resLnsJsonNode.put("/__body_data", "transNo"    , "");
+			resLnsJsonNode.put("/__body_data", "baseDocNo"  , "");
 			resLnsJsonNode.put("/__body_data", "midOrgCode" , reqLnsJsonNode.getText("/__body_data", "midOrgCode"));
 			resLnsJsonNode.put("/__body_data", "recLength"  , reqLnsJsonNode.getText("/__body_data", "recLength"));
 			resLnsJsonNode.put("/__body_data", "zipYn"      , reqLnsJsonNode.getText("/__body_data", "zipYn"));
 			resLnsJsonNode.put("/__body_data", "totLength"  , reqLnsJsonNode.getText("/__body_data", "totLength"));
-			resLnsJsonNode.put("/__body_data", "linkYn"     , "Y");
+			resLnsJsonNode.put("/__body_data", "linkYn"     , "N");
 			resLnsJsonNode.put("/__body_data", "recvLength" , "0000000000");
 			
 			log.info(">>>>> reslnsJsonNode: {}", resLnsJsonNode.toPrettyString());

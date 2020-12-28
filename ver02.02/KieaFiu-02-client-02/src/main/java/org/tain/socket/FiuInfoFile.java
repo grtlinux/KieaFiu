@@ -35,6 +35,7 @@ public class FiuInfoFile {
 	private String fileName;     // ~.SND
 	private String fileEnvName;  // ~.env
 	private String filePemName;  // ~.pem
+	private int    fileSeq;      // CTR_GC0017_yyyymmdd_[9999999].SND
 	
 	private final int unitSize = 5000;
 	private byte[] bEnvData;      // file data by byte
@@ -71,6 +72,14 @@ public class FiuInfoFile {
 			log.info(">>>>> fileName     = {}", fileName);
 			log.info(">>>>> fileEnvName  = {}", fileEnvName);
 			log.info(">>>>> filePemName  = {}", filePemName);
+		}
+		
+		if (Flag.flag) {
+			int idxBeg = this.fileName.lastIndexOf('_') + 1;
+			int idxEnd = this.fileName.lastIndexOf('.');
+			String seq = this.fileName.substring(idxBeg, idxEnd);
+			this.fileSeq = Integer.parseInt(seq);
+			log.info(">>>>> fileSeq      = {}", this.fileSeq);
 		}
 		
 		if (Flag.flag) {
