@@ -8,6 +8,7 @@ import org.tain.mapper.LnsMstInfo;
 import org.tain.mapper.LnsStreamToJson;
 import org.tain.object.lns.LnsStream;
 import org.tain.object.ticket.LnsSocketTicket;
+import org.tain.properties.ProjEnvParamProperties;
 import org.tain.task.MapperReaderJob;
 import org.tain.utils.CurrentInfo;
 import org.tain.utils.Flag;
@@ -23,6 +24,9 @@ import lombok.extern.slf4j.Slf4j;
 @Getter
 @Slf4j
 public class FiuSocket {
+
+	@Autowired
+	private ProjEnvParamProperties projEnvParamProperties;
 
 	@Autowired
 	private MapperReaderJob mapperReaderJob;
@@ -117,7 +121,7 @@ public class FiuSocket {
 		
 		if (Flag.flag) {
 			// header
-			LnsJsonNode lnsJsonNode = FiuTools.getDefault();
+			LnsJsonNode lnsJsonNode = FiuTools.getDefault(this.projEnvParamProperties);
 			lnsJsonNode.put("/__head_data", "typeCode", "03000030");
 			lnsJsonNode.put("/__body_data", "sequence"  , String.format("%07d" , this.fiuInfoFile.getPageSeq()));
 			lnsJsonNode.put("/__body_data", "sentLength", String.format("%010d", this.fiuInfoFile.getPageSentLength()));

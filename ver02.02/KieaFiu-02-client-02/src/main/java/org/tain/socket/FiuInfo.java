@@ -58,7 +58,7 @@ public class FiuInfo {
 			Arrays.sort(files);
 			for (final File fileEntry : files) {
 				if (fileEntry.isFile()) {
-					if (!StringTools.isExtension(fileEntry.getName(), "SND"))
+					if (!StringTools.isExtension(fileEntry.getName(), this.projEnvParamProperties.getFileExt()))
 						continue;
 					
 					if (Flag.flag) log.info(">>>>> [{}] [{}]", fileEntry.getParent(), fileEntry.getName());

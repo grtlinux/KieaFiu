@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import org.tain.mapper.LnsJsonNode;
 import org.tain.mapper.LnsJsonToStream;
 import org.tain.mapper.LnsMstInfo;
+import org.tain.properties.ProjEnvParamProperties;
 import org.tain.socket.FiuTools;
 import org.tain.task.MapperReaderJob;
 import org.tain.utils.CurrentInfo;
@@ -16,6 +17,9 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 @Slf4j
 public class LnsJsonNodeWorking {
+
+	@Autowired
+	private ProjEnvParamProperties projEnvParamProperties;
 
 	public void test01() throws Exception {
 		log.info("KANG-20201113 >>>>> {} {}", CurrentInfo.get());
@@ -99,7 +103,7 @@ public class LnsJsonNodeWorking {
 		if (Flag.flag) {
 			LnsJsonNode lnsJsonNode = null;
 			if (Flag.flag) {
-				lnsJsonNode = FiuTools.getDefault();
+				lnsJsonNode = FiuTools.getDefault(this.projEnvParamProperties);
 				lnsJsonNode.put("/__head_data", "typeCode", "03000020");
 				
 				lnsJsonNode.put("/__body_data", "docCode", "REP002");

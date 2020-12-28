@@ -120,7 +120,15 @@ proj-env:
     send-path: /SEND
     sent-path: /SENT
     recv-path: /RECV
-    file-ext: env
+    file-ext: SND
+    
+    transaction-code: DFIUXBOGO
+    system-name: FIU
+    bogo-code: GC0017
+    user-id: hanwha9
+    doc-code: REP002
+    ann-msg-code: 99
+    mid-org-code: GA0002
 
   job:
     name: JOB (air)
@@ -150,7 +158,15 @@ proj-env:
     send-path: /SEND
     sent-path: /SENT
     recv-path: /RECV
-    file-ext: env
+    file-ext: SND
+    
+    transaction-code: DFIUXBOGO
+    system-name: FIU
+    bogo-code: GC0017
+    user-id: hanwha9
+    doc-code: REP002
+    ann-msg-code: 99
+    mid-org-code: GA0002
 
   job:
     name: JOB (pro)
@@ -195,7 +211,15 @@ proj-env:
     send-path: /SEND
     sent-path: /SENT
     recv-path: /RECV
-    file-ext: env
+    file-ext: SND
+    
+    transaction-code: DFIUXBOGO
+    system-name: FIU
+    bogo-code: GC0017
+    user-id: hanwha9
+    doc-code: REP002
+    ann-msg-code: 99
+    mid-org-code: GA0002
 
   job:
     name: JOB (dfep)
@@ -224,7 +248,15 @@ proj-env:
     send-path: /SEND
     sent-path: /SENT
     recv-path: /RECV
-    file-ext: env
+    file-ext: SND
+    
+    transaction-code: OFIUXBOGO
+    system-name: FIU
+    bogo-code: GC0017
+    user-id: hanwha9
+    doc-code: REP002
+    ann-msg-code: 99
+    mid-org-code: GA0002
 
   job:
     name: JOB (real)

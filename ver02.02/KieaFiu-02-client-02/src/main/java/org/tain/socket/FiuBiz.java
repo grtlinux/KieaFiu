@@ -1,7 +1,9 @@
 package org.tain.socket;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.tain.mapper.LnsJsonNode;
+import org.tain.properties.ProjEnvParamProperties;
 import org.tain.utils.CurrentInfo;
 import org.tain.utils.Flag;
 import org.tain.utils.StringTools;
@@ -12,6 +14,9 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class FiuBiz {
 
+	@Autowired
+	private ProjEnvParamProperties projEnvParamProperties;
+
 	///////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////
@@ -21,7 +26,7 @@ public class FiuBiz {
 		
 		LnsJsonNode reqLnsJsonNode = null;
 		if (Flag.flag) {
-			reqLnsJsonNode = FiuTools.getDefault();
+			reqLnsJsonNode = FiuTools.getDefault(this.projEnvParamProperties);
 			reqLnsJsonNode.put("/__head_data", "typeCode", "06000010");
 			
 			reqLnsJsonNode.put("/__body_data", "openDataTime", StringTools.getYYYYMMDDHHMMSS());
@@ -43,7 +48,7 @@ public class FiuBiz {
 		
 		LnsJsonNode resLnsJsonNode = null;
 		if (Flag.flag) {
-			resLnsJsonNode = FiuTools.getDefault();
+			resLnsJsonNode = FiuTools.getDefault(this.projEnvParamProperties);
 			resLnsJsonNode.put("/__head_data", "typeCode", "06100010");
 			
 			resLnsJsonNode.put("/__body_data", "openDataTime", StringTools.getYYYYMMDDHHMMSS());
@@ -67,7 +72,7 @@ public class FiuBiz {
 		
 		LnsJsonNode resLnsJsonNode = null;
 		if (Flag.flag) {
-			resLnsJsonNode = FiuTools.getDefault();
+			resLnsJsonNode = FiuTools.getDefault(this.projEnvParamProperties);
 			resLnsJsonNode.put("/__head_data", "typeCode", "06000040");
 			
 			resLnsJsonNode.put("/__body_data", "closeDateTime", StringTools.getYYYYMMDDHHMMSS());
@@ -85,7 +90,7 @@ public class FiuBiz {
 		
 		LnsJsonNode resLnsJsonNode = null;
 		if (Flag.flag) {
-			resLnsJsonNode = FiuTools.getDefault();
+			resLnsJsonNode = FiuTools.getDefault(this.projEnvParamProperties);
 			resLnsJsonNode.put("/__head_data", "typeCode", "06100040");
 			
 			resLnsJsonNode.put("/__body_data", "closeDateTime", StringTools.getYYYYMMDDHHMMSS());
@@ -103,7 +108,7 @@ public class FiuBiz {
 		
 		LnsJsonNode resLnsJsonNode = null;
 		if (Flag.flag) {
-			resLnsJsonNode = FiuTools.getDefault();
+			resLnsJsonNode = FiuTools.getDefault(this.projEnvParamProperties);
 			resLnsJsonNode.put("/__head_data", "typeCode", "06100040");
 			resLnsJsonNode.put("/__head_data", "resCode", "999");
 			

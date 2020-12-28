@@ -1,7 +1,9 @@
 package org.tain.socket;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.tain.mapper.LnsJsonNode;
+import org.tain.properties.ProjEnvParamProperties;
 import org.tain.utils.CurrentInfo;
 import org.tain.utils.Flag;
 import org.tain.utils.StringTools;
@@ -11,6 +13,9 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 @Slf4j
 public class FiuFile {
+
+	@Autowired
+	private ProjEnvParamProperties projEnvParamProperties;
 
 	private FiuInfoFile fiuInfoFile;
 	
@@ -29,18 +34,18 @@ public class FiuFile {
 		
 		LnsJsonNode reqLnsJsonNode = null;
 		if (Flag.flag) {
-			reqLnsJsonNode = FiuTools.getDefault();
+			reqLnsJsonNode = FiuTools.getDefault(this.projEnvParamProperties);
 			reqLnsJsonNode.put("/__head_data", "typeCode", "03000020");
 			
-			reqLnsJsonNode.put("/__body_data", "docCode", "REP002");
-			reqLnsJsonNode.put("/__body_data", "annMsgCode", "99");
+			reqLnsJsonNode.put("/__body_data", "docCode", this.projEnvParamProperties.getDocCode());
+			reqLnsJsonNode.put("/__body_data", "annMsgCode", this.projEnvParamProperties.getAnnMsgCode());
 			reqLnsJsonNode.put("/__body_data", "annDocNo", StringTools.getYYYY() + "-00000001");
 			reqLnsJsonNode.put("/__body_data", "annDate", StringTools.getYYYYMMDD());
 			reqLnsJsonNode.put("/__body_data", "befDocNo", "");
 			reqLnsJsonNode.put("/__body_data", "fileName", this.fiuInfoFile.getFileEnvName());
 			reqLnsJsonNode.put("/__body_data", "transNo", "0000001/0000001");
 			reqLnsJsonNode.put("/__body_data", "baseDocNo", StringTools.getYYYYMMDD() + "-00000001");
-			reqLnsJsonNode.put("/__body_data", "midOrgCode", "GA0002");
+			reqLnsJsonNode.put("/__body_data", "midOrgCode", this.projEnvParamProperties.getMidOrgCode());
 			reqLnsJsonNode.put("/__body_data", "recLength", "0001");
 			reqLnsJsonNode.put("/__body_data", "zipYn", "0");
 			reqLnsJsonNode.put("/__body_data", "totLength", String.format("%010d", this.fiuInfoFile.getIEnvLen()));
@@ -59,7 +64,7 @@ public class FiuFile {
 		
 		LnsJsonNode resLnsJsonNode = null;
 		if (Flag.flag) {
-			resLnsJsonNode = FiuTools.getDefault();
+			resLnsJsonNode = FiuTools.getDefault(this.projEnvParamProperties);
 			resLnsJsonNode.put("/__head_data", "typeCode", "03100020");
 			
 			resLnsJsonNode.put("/__body_data", "docCode"    , reqLnsJsonNode.getText("/__body_data", "docCode"));
@@ -98,7 +103,7 @@ public class FiuFile {
 		
 		LnsJsonNode reqLnsJsonNode = null;
 		if (Flag.flag) {
-			reqLnsJsonNode = FiuTools.getDefault();
+			reqLnsJsonNode = FiuTools.getDefault(this.projEnvParamProperties);
 			reqLnsJsonNode.put("/__head_data", "typeCode", "03000030");
 			
 			reqLnsJsonNode.put("/__body_data", "sequence"  , String.format("%07d" , this.fiuInfoFile.getPageSeq()));
@@ -136,7 +141,7 @@ public class FiuFile {
 		
 		LnsJsonNode reqLnsJsonNode = null;
 		if (Flag.flag) {
-			reqLnsJsonNode = FiuTools.getDefault();
+			reqLnsJsonNode = FiuTools.getDefault(this.projEnvParamProperties);
 			reqLnsJsonNode.put("/__head_data", "typeCode", "03000040");
 			
 			reqLnsJsonNode.put("/__body_data", "sequence" , String.format("%07d", this.fiuInfoFile.getPageSeq()));
@@ -155,7 +160,7 @@ public class FiuFile {
 		
 		LnsJsonNode resLnsJsonNode = null;
 		if (Flag.flag) {
-			resLnsJsonNode = FiuTools.getDefault();
+			resLnsJsonNode = FiuTools.getDefault(this.projEnvParamProperties);
 			resLnsJsonNode.put("/__head_data", "typeCode", "03100040");
 			
 			resLnsJsonNode.put("/__body_data", "result"   , "00");
@@ -177,7 +182,7 @@ public class FiuFile {
 		
 		LnsJsonNode reqLnsJsonNode = null;
 		if (Flag.flag) {
-			reqLnsJsonNode = FiuTools.getDefault();
+			reqLnsJsonNode = FiuTools.getDefault(this.projEnvParamProperties);
 			reqLnsJsonNode.put("/__head_data", "typeCode", "03000050");
 			
 			reqLnsJsonNode.put("/__body_data", "sequence"   , String.format("%07d", this.fiuInfoFile.getPageSeq()));
@@ -196,7 +201,7 @@ public class FiuFile {
 		
 		LnsJsonNode resLnsJsonNode = null;
 		if (Flag.flag) {
-			resLnsJsonNode = FiuTools.getDefault();
+			resLnsJsonNode = FiuTools.getDefault(this.projEnvParamProperties);
 			resLnsJsonNode.put("/__head_data", "typeCode", "03100050");
 			
 			resLnsJsonNode.put("/__body_data", "result"     , "00");

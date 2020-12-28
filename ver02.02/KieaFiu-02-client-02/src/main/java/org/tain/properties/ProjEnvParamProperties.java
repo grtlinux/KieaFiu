@@ -22,5 +22,13 @@ public class ProjEnvParamProperties {
 	private String recvPath;
 	private String fileExt;
 	
+	private String transactionCode;
+	private String systemName;
+	private String bogoCode;
+	private String userId;
+	private String docCode;
+	private String annMsgCode;
+	private String midOrgCode;
+	
 	private String dummy;  // null
 }
