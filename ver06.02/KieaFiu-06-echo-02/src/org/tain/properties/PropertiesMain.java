@@ -1,5 +1,6 @@
 package org.tain.properties;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.util.Enumeration;
 import java.util.Properties;
@@ -16,8 +17,9 @@ public class PropertiesMain {
 		System.out.println(">>>>> user.dir      = " + String.valueOf(System.getProperty("user.dir")));
 		System.out.println(">>>>> user.name     = " + String.valueOf(System.getProperty("user.name")));
 		
+		String fileProperties = String.valueOf(System.getProperty("user.dir")) + File.separator + "echo.properties";
 		Properties properties = new Properties();
-		properties.load(new FileInputStream("./echo.properties"));
+		properties.load(new FileInputStream(fileProperties));
 		System.out.println(">>>>> name          = " + String.valueOf(properties.getProperty("name")));
 		System.out.println(">>>>> server.prompt = " + String.valueOf(properties.getProperty("server.prompt")));
 		System.out.println(">>>>> client.prompt = " + String.valueOf(properties.getProperty("client.prompt")));
