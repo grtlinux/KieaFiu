@@ -44,7 +44,8 @@ public class FiuFile {
 			reqLnsJsonNode.put("/__body_data", "befDocNo", "");
 			reqLnsJsonNode.put("/__body_data", "fileName", this.fiuInfoFile.getFileEnvName());
 			reqLnsJsonNode.put("/__body_data", "transNo", "0000001/0000001");
-			reqLnsJsonNode.put("/__body_data", "baseDocNo", StringTools.getYYYYMMDD() + "-" + String.format("%08d", this.fiuInfoFile.getFileSeq()));
+			//reqLnsJsonNode.put("/__body_data", "baseDocNo", StringTools.getYYYYMMDD() + "-" + String.format("%08d", this.fiuInfoFile.getFileSeq()));
+			reqLnsJsonNode.put("/__body_data", "baseDocNo", "");
 			reqLnsJsonNode.put("/__body_data", "midOrgCode", this.projEnvParamProperties.getMidOrgCode());
 			reqLnsJsonNode.put("/__body_data", "recLength", "0001");
 			reqLnsJsonNode.put("/__body_data", "zipYn", "0");
