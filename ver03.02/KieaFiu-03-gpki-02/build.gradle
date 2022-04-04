@@ -16,6 +16,10 @@ configurations {
 
 repositories {
 	mavenCentral()
+	// local libs
+	flatDir {
+		dirs 'libs'
+	}
 }
 
 dependencies {
@@ -43,9 +47,11 @@ dependencies {
 	
 	//compile fileTree(dir: 'libs', include: ['*.jar'])
 	//implementation files('libs/sggpki.jar')
-	implementation fileTree(dir: 'libs', include: ['*.jar'])
+	implementation fileTree(dir: 'gpki_libs', include: ['*.jar'])
 }
 
 test {
+	// skip test
+	exclude '**/*'
 	useJUnitPlatform()
 }
